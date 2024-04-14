@@ -1,0 +1,455 @@
+.w-100 {
+  width: 100% !important;
+}
+.text-split {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+}
+/* head */
+.banner img {
+  max-height: 200px;
+  object-fit: cover;
+}
+.wrap-content {
+  max-width: 1200px;
+  width: calc(100% - 30px);
+  margin: 0 auto;
+}
+
+.taikhoan i {
+  font-size: 30px;
+  color: #000;
+}
+.giohang i {
+  font-size: 30px;
+  color: #000;
+}
+
+.header-index {
+  padding: 10px 0;
+}
+
+.search-header {
+  width: 500px;
+  display: flex;
+  overflow: hidden;
+}
+
+.search-header input[type="search"] {
+  width: calc(100% - 60px);
+  height: 40px;
+  border: none;
+  padding-left: 15px;
+  border-radius: 20px 0px 0px 20px;
+  border: 1px solid #000000a8;
+}
+
+.search-header input[type="button"] {
+  width: 60px;
+  background: #058054;
+  border: 1px solid #058054;
+  border-radius: 0px 20px 20px 0px;
+  color: #fff;
+}
+
+.logo {
+  zoom: 0.6;
+}
+
+.giohang {
+  padding-right: 10px;
+}
+
+/* slide */
+.slideshow {
+  overflow: hidden;
+}
+
+/* san pham */
+.title-product_list {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.title-product_list span {
+  font-size: 40px;
+  text-transform: capitalize;
+}
+
+.product_list-index {
+  padding: 60px 0;
+}
+
+.info-product_list a {
+  font-size: 16px;
+  text-align: center;
+  text-transform: capitalize;
+  color: #000;
+}
+
+.box-product_list {
+  text-align: center;
+}
+.slider {
+  width: 100%;
+  margin: 0 auto;
+}
+.slider img {
+  width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng của container */
+  height: auto; /* Đảm bảo tỷ lệ khung hình tự động được duy trì aewraerger */
+}
+.title-bangxephang {
+  text-align: center;
+  font-size: 40px;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+/* san pham phan trang */
+.pic-product img {
+  width: 384px;
+  height: 384px;
+  object-fit: cover;
+}
+.pic-product {
+  margin-bottom: 0.5rem;
+}
+.box-product {
+  border: 1px solid #0000005c;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.info-product a {
+  font-size: 20px;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tablinks {
+  font-size: 20px;
+  text-transform: capitalize;
+  color: #000;
+  border-color: #058054;
+  background: no-repeat;
+  margin: 0 5px 10px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.tablinks:hover {
+  transition: 0.5s;
+  background: #058054;
+  border-color: #058054;
+  color: #fff;
+}
+
+.text-split.name-product {
+  -webkit-line-clamp: 2;
+}
+
+.info-product {
+  min-height: 45px;
+}
+.vanphongpham-outside .box-product {
+  margin: 10px;
+}
+
+.product-index {
+  margin: 0 -10px;
+}
+/* sanh muc cap 1 */
+.wrap-product {
+  padding: 0px 0 60px;
+}
+
+.title-main {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.info-product a:hover {
+  color: #058054;
+}
+.title-main span {
+  text-transform: uppercase;
+  font-size: 40px;
+  color: #058054;
+}
+.wrap-bangxephang {
+  margin-bottom: 60px;
+}
+/* doi tac */
+.partner-box img {
+  width: 165px;
+  margin: auto;
+}
+
+/* footer */
+.wrap-footer {
+  background: #0580547d;
+  padding: 60px 0;
+}
+
+.footer-news:nth-child(1) {
+  width: 22%;
+}
+
+.footer-index {
+  display: flex;
+  justify-content: space-between;
+}
+.footer-news:nth-child(2) {
+  width: 22%;
+}
+
+.footer-news:nth-child(3) {
+  width: 25%;
+}
+
+.logo.logo-footer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer-info {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.title-footer {
+  font-size: 18px;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+.footer-ul {
+  list-style: none;
+}
+
+.footer-ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.footer-ul li a:hover {
+  color: #ff0;
+}
+
+.footer-ul li {
+  margin-bottom: 7px;
+}
+
+/* menu */
+.menu i {
+  font-size: 20px;
+  color: #fff;
+}
+.btn-menu:hover {
+  background: #000;
+}
+.offcanvas-backdrop.show {
+  opacity: 0;
+  display: none;
+}
+.btn-menu {
+  background: #058054;
+}
+.modal-backdrop.show {
+  opacity: 0;
+  display: none;
+}
+.menu-ul {
+  list-style: none;
+}
+
+.menu-ul a {
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.menu-ul li {
+  padding: 5px 0;
+}
+
+/* product-detail */
+.product_detail-left {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.pic-product_detail {
+  width: 35%;
+}
+
+.product_detail-right {
+  width: calc(100% - 35%);
+}
+
+.name-profuct_detail {
+  font-size: 25px;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+.price-product_detail {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.price-product_detail span {
+  font-size: 23px;
+  color: #058054;
+  font-weight: 500;
+}
+
+.price_sale-product_detail {
+  font-size: 15px;
+}
+
+.price_sale-product_detail p {
+  margin-bottom: 5px;
+}
+
+.price_sale-product_detail span {
+  color: #058054;
+}
+
+.price_sale-product_detail p:nth-child(1) span {
+  font-weight: 700;
+}
+
+.quantity-pro-detail input {
+  height: 100%;
+  border: none;
+  width: calc(100% - 90px);
+  text-align: center;
+  font-size: 15px;
+}
+
+.quantity-pro-detail {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  height: 45px;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid #dfdfdf;
+  margin-left: 20px;
+}
+
+.quantity-pro-detail span {
+  line-height: 25px;
+  padding: 0px;
+  width: 45px;
+  height: 100%;
+  color: #000;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+.attr-content-pro-detail {
+  display: inline-block;
+  margin-bottom: 0px;
+}
+
+.add_cart-product_detail p {
+  font-size: 16px;
+  text-transform: capitalize;
+  border: 1px solid #058054;
+  color: #058054;
+  width: 170px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.add_cart-product_detail p:hover {
+  transition: 0.5s;
+  background: #058054;
+  color: #fff;
+}
+.cart-product_detail {
+  margin-bottom: 1rem;
+}
+
+.title-khuyenmai {
+  font-size: 18px;
+  font-weight: 600;
+  color: #058054;
+  margin-bottom: 10px;
+}
+
+.khuyenmai-product_detail {
+  margin-top: 20px;
+}
+
+.info_khuyenmai-product_detail p {
+  margin-bottom: 7px;
+}
+.name_info-pro_detail {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.info-pro_detail {
+  border: 1px solid #058054;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.info-pro_detail p:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-pro_detail p {
+  border-bottom: 1px solid #058054;
+  padding: 8px 0;
+  margin-bottom: 0;
+}
+
+.tacgia-product_detail {
+  font-size: 15px;
+}
+
+.tacgia-product_detail span {
+  font-size: 18px;
+  font-weight: 500;
+}
+.gioithieu-product_detail .name_info-pro_detail {
+  margin-bottom: 1rem;
+}
+
+.goiysanpham {
+  padding-top: 1rem;
+}
+
+.wrap-product_detail {
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+}
