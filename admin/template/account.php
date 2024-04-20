@@ -3,10 +3,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">slider</li>
+            <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
         </ol>
     </nav>
-    <div class="btn-group">
+    <div class="btn-group mb-3">
         <a href="index.php?cmd=account&act=manager" class="btn btn-secondary">Quản lý</a>
         <a href="index.php?cmd=account&act=add" class="btn btn-success">Thêm mới</a>
     </div>
@@ -42,13 +42,16 @@
     {
         global $f;
         if (isset($_POST['sbm'])) {
+            $username=$_POST['username'];
             $name = $_POST['name'];
             $password = $_POST['password'];
             $phone = $_POST['phone'];
             $email = $_POST['email'];
-            $image = $f->upload('image');
-            $sql = "INSERT INTO `account`(`name`, `email`, `password`, `phone`, `image`) 
-            VALUES ('{$name}','{$email}','{$password}','{$phone}','{$image}')";
+            // $image = $f->upload('image');
+            $image = '1.png';
+            $date=date("Y-m-d H:i:s");;
+            $sql = "INSERT INTO `admin`(`username`,`fullname`, `email`, `password`, `phone_number`, `image`,`date`) 
+                VALUES ('{$username}','{$name}','{$email}','{$password}','{$phone}','{$image}','{$date}')";
             if (mysqli_query($f->conn, $sql)) {
                 $f->messager('Thành công');
             } else {
@@ -56,30 +59,34 @@
             }
         }
         echo '
-          <form action="" method="POST" enctype="multipart/form-data"> 
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="name">
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="email" class="form-control" name="email" id="email">
-          </div>
-          <div class="mb-3">
-          <label for="password" class="form-label">password</label>
-          <input type="text" class="form-control" name="password" id="password">
-          </div>
-          <div class="mb-3">
-            <label for="phone" class="form-label">phone</label>
-            <input type="number" class="form-control" name="phone" id="phone">
-          </div>
-          <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" name="image" id="image">
-          </div>
-          <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
-        </form>
-          ';
+              <form action="" method="POST" enctype="multipart/form-data"> 
+              <div class="mb-3">
+                <label for="username" class="form-label">Tên đăng nhập</label>
+                <input type="text" class="form-control" name="username" id="username">
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Họ tên</label>
+                <input type="text" class="form-control" name="name" id="name">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email">
+              </div>
+              <div class="mb-3">
+              <label for="password" class="form-label">Mật khẩu</label>
+              <input type="text" class="form-control" name="password" id="password">
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Số điện thoại</label>
+                <input type="number" class="form-control" name="phone" id="phone">
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Hình ảnh</label>
+                <input type="file" class="form-control" name="image" id="image">
+              </div>
+              <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
+            </form>
+              ';
     }
     function edit()
     {
@@ -94,56 +101,57 @@
             $password = $_POST['password'];
             $phone = $_POST['phone'];
             $email = $_POST['email'];
-            $image = $f->upload('image');
-            $sql = "UPDATE `account` SET 
-            `name`='{$name}', 
-            `email`='{$email}', 
-            `password`='{$password}', 
-            `phone`= '{$phone}',
-            `image`='{$image}'
-             where id=$id";
+            // $image = $f->upload('image');
+            $image = '1.png';
+            $sql = "UPDATE `admin` SET 
+                `fullname`='{$name}', 
+                `email`='{$email}', 
+                `password`='{$password}', 
+                `phone_number`= '{$phone}',
+                `image`='{$image}'
+                 where id=$id";
             if (mysqli_query($f->conn, $sql)) {
-                $f->messager('Thành công công');
+                $f->messager('Thành công');
             } else {
                 $f->messager('Có lỗi');
             }
         }
-        $sql = "select * from account where id=$id";
+        $sql = "select * from admin where id=$id";
         $result = mysqli_query($f->conn, $sql);
         $row = mysqli_fetch_assoc($result);
         echo '
-          <form action="" method="POST" enctype="multipart/form-data"> 
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="name" value="' .
-            $row['name'] .
+              <form action="" method="POST" enctype="multipart/form-data"> 
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" id="name" value="' .
+            $row['fullname'] .
             '">
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="email" class="form-control" name="email" id="email"  value="' .
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">email</label>
+                <input type="email" class="form-control" name="email" id="email"  value="' .
             $row['email'] .
             '">
-          </div>
-          <div class="mb-3">
-          <label for="password" class="form-label">password</label>
-          <input type="text" class="form-control" name="password" id="password"  value="' .
+              </div>
+              <div class="mb-3">
+              <label for="password" class="form-label">password</label>
+              <input type="text" class="form-control" name="password" id="password"  value="' .
             $row['password'] .
             '">
-          </div>
-          <div class="mb-3">
-            <label for="phone" class="form-label">phone</label>
-            <input type="number" class="form-control" name="phone" id="phone"  value="' .
-            $row['phone'] .
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">phone</label>
+                <input type="number" class="form-control" name="phone" id="phone"  value="' .
+            $row['phone_number'] .
             '">
-          </div>
-          <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" name="image" id="image">
-          </div>
-          <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
-        </form>
-          ';
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" class="form-control" name="image" id="image">
+              </div>
+              <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
+            </form>
+              ';
     }
     function del()
     {
@@ -153,7 +161,7 @@
         } else {
             $id = 0;
         }
-        $sql = "DELETE FROM account WHERE `id` = $id";
+        $sql = "DELETE FROM admin WHERE `id` = $id";
         if (mysqli_query($f->conn, $sql)) {
             $f->messager('Thành công');
         } else {
@@ -164,50 +172,46 @@
     {
         global $f;
         echo '<table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Image</th>
-            <th scope="col">Name</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Email</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody>';
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Họ tên</th>
+                <th scope="col">SĐT</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>';
         $count = 1;
-        $sql = 'select * from account';
+        $sql = 'select * from admin';
         $result = mysqli_query($f->conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
             echo '
-        <tr>
-          <th scope="row">' .
+            <tr>
+              <td scope="row">' .
                 $count++ .
-                '</th>
-          <td><img src="upload/' .
-                $row['image'] .
-                '" width="50" /></td>
-          <td>' .
-                $row['name'] .
+                '</td>' .
+                '<td>' .
+                $row['fullname'] .
                 '</td>
-          <td>' .
-                $row['phone'] .
+              <td>' .
+                $row['phone_number'] .
                 '</td>
-          <td>' .
+              <td>' .
                 $row['email'] .
                 '</td>
-          <td><a href="index.php?cmd=account&act=edit&id=' .
+              <td><a href="index.php?cmd=account&act=edit&id=' .
                 $row['id'] .
                 '" class="btn btn-primary">Sửa</a></td>
-          <td><a href="index.php?cmd=account&act=del&id=' .
+              <td><a href="index.php?cmd=account&act=del&id=' .
                 $row['id'] .
                 '" class="btn btn-danger">Xóa</a></td>
-        </tr>
-        ';
+            </tr>
+            ';
         }
         echo '</tbody>
-        </table>';
+            </table>';
     }
     ?>
 </main>

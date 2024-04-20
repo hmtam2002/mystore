@@ -8,7 +8,8 @@ $_SESSION['loginstatus'] = false;
 if (isset($_POST['sbm']) == true) {
     $email = $_POST['txtusername'];
     $pwd = $_POST['txtpassword'];
-    if ($f->login($email, $pwd)) {  //login($email,$pwd)==true
+    if ($f->login($email, $pwd)) {
+        //login($email,$pwd)==true
         $_SESSION['email'] = $email;
         header('location: ../index.php');
     } else {
@@ -19,7 +20,10 @@ if (isset($_POST['sbm']) == true) {
 }
 ?>
 <!-- <link rel="stylesheet" href="../../public/assets/fontawesome/all.css"> -->
-<link rel="stylesheet" href="https://fontawesome.com/icons/eye?f=classic&s=solid">
+<title>Administrator - Muasach.vn</title>
+<link rel="icon" href="../assets/icon.png" type="image/x-icon">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/fontawesome611/all.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -29,7 +33,12 @@ if (isset($_POST['sbm']) == true) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
 </script>
-<div style="margin:10% auto; width:50%; border:1px solid #ddd;padding:15px">
+<div class="login-view-website text-sm text-none">
+    <a href="../../" target="_blank" title="Xem website">Xem website</a>
+</div>
+
+<div style="margin:10% auto; width:30%; border:1px solid #ddd;padding:15px">
+    <div style=" text-align: center; padding: 20px 0;  font-size: 24px; font-weight: bold">Đăng nhập</div>
     <form action="login.php" method="POST">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Tài khoản</label>
@@ -37,12 +46,8 @@ if (isset($_POST['sbm']) == true) {
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
-            <input type="password" name="txtpassword" class="form-control" id="exampleInputPassword1"
-                aria-describedby="passwordHelpBlock">
-            <small id="passwordHelpBlock" class="form-text text-muted">
-                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces,
-                special characters, or emoji.
-            </small>
+            <input type="password" name="txtpassword" class="form-control" id="exampleInputPassword1">
+
         </div>
         <button type="submit" name="sbm"class="btn btn-primary">Đăng nhập</button>
         <p style='color:red '><?php echo $msg; ?></p>
