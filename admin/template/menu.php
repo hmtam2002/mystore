@@ -8,18 +8,23 @@
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="index.php?cmd=product">  
-                            <span class="ml-2">Sản phẩm</span>
+                          <a class="nav-link active" aria-current="page" href="index.php?cmd=book">  
+                            <span class="ml-2">Sách</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="index.php?cmd=news">  
-                            <span class="ml-2">Tin tức</span>
+                          <a class="nav-link active" aria-current="page" href="index.php?cmd=vanphongpham">  
+                            <span class="ml-2">Văn phòng phẩm</span>
                           </a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="index.php?cmd=account">  
                             <span class="ml-2">Tài khoản</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="index.php?cmd=news">  
+                            <span class="ml-2">Tin tức</span>
                           </a>
                         </li>
                         <li class="nav-item">
