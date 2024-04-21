@@ -122,31 +122,37 @@
         echo '
               <form action="" method="POST" enctype="multipart/form-data"> 
               <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">Tên đăng nhập</label>
+                <input type="text" class="form-control" name="name" id="name" value="' .
+            $row['username'] .
+            '">
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Họ tên</label>
                 <input type="text" class="form-control" name="name" id="name" value="' .
             $row['fullname'] .
             '">
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label">email</label>
+                <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email"  value="' .
             $row['email'] .
             '">
               </div>
               <div class="mb-3">
-              <label for="password" class="form-label">password</label>
+              <label for="password" class="form-label">Mật khẩu</label>
               <input type="text" class="form-control" name="password" id="password"  value="' .
             $row['password'] .
             '">
               </div>
               <div class="mb-3">
-                <label for="phone" class="form-label">phone</label>
+                <label for="phone" class="form-label">Số điện thoại</label>
                 <input type="number" class="form-control" name="phone" id="phone"  value="' .
             $row['phone_number'] .
             '">
               </div>
               <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
+                <label for="image" class="form-label">Ảnh đại diện</label>
                 <input type="file" class="form-control" name="image" id="image">
               </div>
               <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
