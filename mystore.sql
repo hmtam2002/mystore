@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th4 20, 2024 lúc 04:35 PM
+-- Thời gian đã tạo: Th4 21, 2024 lúc 07:27 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -43,8 +43,73 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `fullname`, `email`, `phone_number`, `image`, `date`) VALUES
-(1, 'tam', '123', 'Tâm', 'huynhminhtamm2002@gmail.com', '0878100084', '1.png', '2024-04-20 14:06:21'),
-(4, 'vyvy', '123', 'Nguyễn Thị Tường Vy', '0306201285@caothang.edu.vn', '0967201370', '1.png', '2024-04-20 14:06:25');
+(1, 'tam', '123', 'Huỳnh Minh Tâm', 'huynhminhtamm2002@gmail.com', '0878100084', '1.png', '2024-04-21 05:35:00'),
+(4, 'vyvy', '123', 'Nguyễn Thị Tường Vy', '0306201285@caothang.edu.vn', '0967201370', '1.png', '2024-04-20 14:06:25'),
+(10, 'admin', '123', 'Nguyễn Văn Admin', 'admin@gmail.com', '2232423423423', '1.png', '2024-04-21 12:14:02');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `authors`
+--
+
+CREATE TABLE `authors` (
+  `id` int(11) NOT NULL,
+  `author_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `authors`
+--
+
+INSERT INTO `authors` (`id`, `author_name`) VALUES
+(1, 'Vũ'),
+(2, 'Hoàng Dũng');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `books`
+--
+
+CREATE TABLE `books` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `author` int(11) NOT NULL,
+  `publisher` int(11) NOT NULL,
+  `genre` int(11) NOT NULL,
+  `price` double DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `books`
+--
+
+INSERT INTO `books` (`id`, `title`, `author`, `publisher`, `genre`, `price`, `description`, `status`) VALUES
+(1, 'Dành hết xuân thì để chờ nhau', 1, 1, 1, 50000, '<p>bài này hay lắm hê hê</p>', 1),
+(2, 'Đông Kiếm emm', 1, 1, 1, 20000, '<p>bài này hay lắm luôn</p>', 1),
+(3, 'Lạ Lùng', 1, 1, 1, 50000, '<p>bài này hay lắm</p>', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `genres`
+--
+
+CREATE TABLE `genres` (
+  `id` int(11) NOT NULL,
+  `genre_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `genres`
+--
+
+INSERT INTO `genres` (`id`, `genre_name`) VALUES
+(1, 'indie'),
+(2, 'ballad');
 
 -- --------------------------------------------------------
 
@@ -114,6 +179,25 @@ CREATE TABLE `product_tags` (
   `product_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `publishers`
+--
+
+CREATE TABLE `publishers` (
+  `id` int(11) NOT NULL,
+  `publisher_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `publishers`
+--
+
+INSERT INTO `publishers` (`id`, `publisher_name`) VALUES
+(1, 'Vũ sáng tác'),
+(2, 'Hoàng Dũng sáng tác');
 
 -- --------------------------------------------------------
 
@@ -209,6 +293,27 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `authors`
+--
+ALTER TABLE `authors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_author_id` (`author`),
+  ADD KEY `fk_publisher_id` (`publisher`),
+  ADD KEY `fk_genre_id` (`genre`);
+
+--
+-- Chỉ mục cho bảng `genres`
+--
+ALTER TABLE `genres`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
@@ -236,6 +341,12 @@ ALTER TABLE `product_images`
 -- Chỉ mục cho bảng `product_tags`
 --
 ALTER TABLE `product_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `publishers`
+--
+ALTER TABLE `publishers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -282,7 +393,43 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT cho bảng `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `authors`
+--
+ALTER TABLE `authors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT cho bảng `genres`
+--
+ALTER TABLE `genres`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `publishers`
+--
+ALTER TABLE `publishers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `books`
+--
+ALTER TABLE `books`
+  ADD CONSTRAINT `fk_author_id` FOREIGN KEY (`author`) REFERENCES `authors` (`id`),
+  ADD CONSTRAINT `fk_genre_id` FOREIGN KEY (`genre`) REFERENCES `genres` (`id`),
+  ADD CONSTRAINT `fk_publisher_id` FOREIGN KEY (`publisher`) REFERENCES `publishers` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
