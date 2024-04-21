@@ -72,12 +72,13 @@
             $title = $_POST['title'];
             $author = $_POST['author'];
             $publisher = $_POST['publisher'];
-            $genre=$_POST['genre'];
+            $genre = $_POST['genre'];
             $description = $_POST['description'];
             $price = $_POST['price'];
             // $image = $f->upload('image');
-            $sql = "INSERT INTO `books`(`title`, `author`, `publisher`,`genre`, `description`, `price`) 
+            $sql = "INSERT INTO `books`(`title`, `author`, `publisher`,`genre`, `description`, `price`)
                 VALUES ('{$title}','{$author}','{$publisher}','{$genre}','{$description}','{$price}')";
+            // $sql = "INSERT INTO `books`(`title`,`author`, `publisher`,`genre`)values('Bước qua mùa cô đơn',1,1,1)";
             if (mysqli_query($f->conn, $sql)) {
                 $f->messager('Thành công');
             } else {
@@ -85,34 +86,34 @@
             }
         }
         echo '
-        <form action="" method="POST" enctype="multipart/form-data"> 
-        <div class="mb-3">
-          <label for="title" class="form-label">title</label>
-          <input type="text" class="form-control" name="title" id="title" >
-        </div>
-        <div class="mb-3">
-          <label for="author" class="form-label">author</label>
-          <input type="author" class="form-control" name="author" id="author">
-        </div>
-        <div class="mb-3">
-        <label for="publisher" class="form-label">publisher</label>
-        <textarea class="form-control" name="publisher" id="publisher" ></textarea>
-        </div>
-        <div class="mb-3">
-        <label for="description" class="form-label">genre</label>
-        <textarea class="form-control" name="genre" id="genre" ></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">price</label>
-          <input type="number" class="form-control" name="price" id="price">
-        </div>
-        <div class="mb-3">
-        <label for="description" class="form-label">description</label>
-        <textarea class="form-control" name="description" id="content_editor"></textarea>
-        </div>
-        <button type="submit" name="sbm" class="btn btn-primary">Thực hiện</button>
-      </form>
-        ';
+            <form action="" method="POST" enctype="multipart/form-data"> 
+            <div class="mb-3">
+              <label for="title" class="form-label">title</label>
+              <input type="text" class="form-control" name="title" id="title" >
+            </div>
+            <div class="mb-3">
+              <label for="author" class="form-label">author</label>
+              <input type="author" class="form-control" name="author" id="author">
+            </div>
+            <div class="mb-3">
+            <label for="publisher" class="form-label">publisher</label>
+            <textarea class="form-control" name="publisher" id="publisher" ></textarea>
+            </div>
+            <div class="mb-3">
+            <label for="description" class="form-label">genre</label>
+            <textarea class="form-control" name="genre" id="genre" ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">price</label>
+              <input type="number" class="form-control" name="price" id="price">
+            </div>
+            <div class="mb-3">
+            <label for="description" class="form-label">description</label>
+            <textarea class="form-control" name="description" id="content_editor"></textarea>
+            </div>
+            <button type="submit" name="sbm" class="btn btn-primary">Thực hiện</button>
+          </form>
+            ';
     }
     function edit()
     {
@@ -126,18 +127,18 @@
             $title = $_POST['name'];
             $author = $_POST['author'];
             $publisher = $_POST['publisher'];
-            $genre=$_POST['genre'];
+            $genre = $_POST['genre'];
             $description = $_POST['description'];
             $price = $_POST['price'];
             // $image = $f->upload('image');
             $sql = "UPDATE `books` SET 
-        `title`='{$title}',
-        `author`='{$author}',
-        `publisher`='{$publisher}', 
-        `genre`='{$genre}',
-        `description`='{$description}', 
-        `price`= '{$price}'
-         where id=$id";
+            `title`='{$title}',
+            `author`='{$author}',
+            `publisher`='{$publisher}', 
+            `genre`='{$genre}',
+            `description`='{$description}', 
+            `price`= '{$price}'
+             where id=$id";
             if (mysqli_query($f->conn, $sql)) {
                 $f->messager('Thành công nhân');
             } else {
@@ -148,49 +149,51 @@
         $result = mysqli_query($f->conn, $sql);
         $row = mysqli_fetch_assoc($result);
         echo '
-      <form action="" method="POST" enctype="multipart/form-data"> 
-      <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" name="name" id="name" value="' .
+          <form action="" method="POST" enctype="multipart/form-data"> 
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name" value="' .
             $row['title'] .
             '">
-      </div>
-      <div class="mb-3">
-        <label for="author" class="form-label">author</label>
-        <input type="author" class="form-control" name="author" id="author"  value="' .
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">author</label>
+            <input type="author" class="form-control" name="author" id="author"  value="' .
             $row['author'] .
             '">
-      </div>
-      <div class="mb-3">
-      <label for="publisher" class="form-label">publisher</label>
-      <textarea class="form-control" name="publisher" id="publisher" >' .
+          </div>
+          <div class="mb-3">
+          <label for="publisher" class="form-label">publisher</label>
+          <textarea class="form-control" name="publisher" id="publisher" >' .
             $row['publisher'] .
             '</textarea>
-      </div>
-      <div class="mb-3">
-      <label for="description" class="form-label">genre</label>
-      <textarea class="form-control" name="genre" id="genre" >
-      '.$row['genre'] .'</textarea>
-      </div>
-      <div class="mb-3">
-        <label for="price" class="form-label">price</label>
-        <input type="number" class="form-control" name="price" id="price"  value="' .
+          </div>
+          <div class="mb-3">
+          <label for="description" class="form-label">genre</label>
+          <textarea class="form-control" name="genre" id="genre" >
+          ' .
+            $row['genre'] .
+            '</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">price</label>
+            <input type="number" class="form-control" name="price" id="price"  value="' .
             $row['price'] .
             '">
-      </div>
-      <div class="mb-3">
-        <label for="image" class="form-label">Image</label>
-        <input type="file" class="form-control" name="image" id="image">
-      </div>
-      <div class="mb-3">
-      <label for="description" class="form-label">description</label>
-      <textarea class="form-control" name="description" id="content_editor">' .
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" name="image" id="image">
+          </div>
+          <div class="mb-3">
+          <label for="description" class="form-label">description</label>
+          <textarea class="form-control" name="description" id="content_editor">' .
             $row['description'] .
             '</textarea>
-      </div>
-      <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
-    </form>
-      ';
+          </div>
+          <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
+        </form>
+          ';
     }
     function del()
     {
@@ -211,18 +214,18 @@
     {
         global $f;
         echo '<table class="table">
-            <thead>
-              <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Tiêu đề</th>
-                <th scope="col">Tác giả</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Sửa</th>
-                <th scope="col">Xoá</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>';
+                <thead>
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col">Tác giả</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Sửa</th>
+                    <th scope="col">Xoá</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>';
         $count = 1;
         $sql = 'select * from books';
         $result = mysqli_query($f->conn, $sql);
@@ -233,33 +236,33 @@
                 $status = ' <td><a href="index.php?cmd=book&act=status&id=' . $row['id'] . '&status=' . $row['status'] . '" class="btn btn-warning">Đóng</a></td>';
             }
             echo '
-            <tr>
-              <td scope="row">' .
+                <tr>
+                  <td scope="row">' .
                 $count++ .
                 '</td>
-              <td>' .
+                  <td>' .
                 $row['title'] .
                 '</td>
-              <td>' .
+                  <td>' .
                 $row['author'] .
                 '</td>
-              <td>' .
+                  <td>' .
                 $row['price'] .
                 '</td>
-              <td><a href="index.php?cmd=book&act=edit&id=' .
+                  <td><a href="index.php?cmd=book&act=edit&id=' .
                 $row['id'] .
                 '" class="btn btn-primary">Sửa</a></td>
-              <td><a href="index.php?cmd=book&act=del&id=' .
+                  <td><a href="index.php?cmd=book&act=del&id=' .
                 $row['id'] .
                 '" class="btn btn-danger">Xóa</a></td>
-              ' .
+                  ' .
                 $status .
                 '
-            </tr>
-            ';
+                </tr>
+                ';
         }
         echo '</tbody>
-            </table>';
+                </table>';
     }
     ?>
 </main>
