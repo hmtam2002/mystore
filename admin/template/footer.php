@@ -12,30 +12,30 @@
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script>
-    new Chartist.Line('#traffic-chart', {
-        labels: ['January', 'Februrary', 'March', 'April', 'May', 'June'],
-        series: [
-            [23000, 25000, 19000, 34000, 56000, 64000]
-        ]
-    }, {
-        low: 0,
-        showArea: true
-    });
+new Chartist.Line('#traffic-chart', {
+    labels: ['January', 'Februrary', 'March', 'April', 'May', 'June'],
+    series: [
+        [23000, 25000, 19000, 34000, 56000, 64000]
+    ]
+}, {
+    low: 0,
+    showArea: true
+});
 </script>
 
 <script src="api/ckeditor/ckeditor.js"></script>
 
 <script>
-    ClassicEditor
-        .create(document.querySelector('#content'), {
-            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
-        })
-        .then(editor => {
-            window.editor = editor;
-        })
-        .catch(err => {
-            console.error(err.stack);
-        });
+ClassicEditor
+    .create(document.querySelector('#content_editor'), {
+        // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+    })
+    .then(editor => {
+        window.editor = editor;
+    })
+    .catch(err => {
+        console.error(err.stack);
+    });
 </script>
 </body>
 

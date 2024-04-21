@@ -69,14 +69,15 @@
     {
         global $f;
         if (isset($_POST['sbm'])) {
-            $name = $_POST['name'];
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            $publisher = $_POST['publisher'];
+            $genre=$_POST['genre'];
             $description = $_POST['description'];
-            $content = $_POST['content'];
             $price = $_POST['price'];
-            $discount = $_POST['discount'];
-            $image = $f->upload('image');
-            $sql = "INSERT INTO `books`(`name`, `discount`, `description`,`content`, `price`, `image`) 
-                VALUES ('{$name}','{$discount}','{$description}','{$content}','{$price}','{$image}')";
+            // $image = $f->upload('image');
+            $sql = "INSERT INTO `books`(`title`, `author`, `publisher`,`genre`, `description`, `price`) 
+                VALUES ('{$title}','{$author}','{$publisher}','{$genre}','{$description}','{$price}')";
             if (mysqli_query($f->conn, $sql)) {
                 $f->messager('Thành công');
             } else {
@@ -84,34 +85,34 @@
             }
         }
         echo '
-              <form action="" method="POST" enctype="multipart/form-data"> 
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" id="name">
-              </div>
-              <div class="mb-3">
-                <label for="discount" class="form-label">discount</label>
-                <input type="" class="form-control" name="discount" id="discount">
-              </div>
-              <div class="mb-3">
-              <label for="description" class="form-label">description</label>
-              <textarea class="form-control" name="description" id="description"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="price" class="form-label">price</label>
-                <input type="number" class="form-control" name="price" id="price">
-              </div>
-              <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="file" class="form-control" name="image" id="image">
-              </div>
-              <div class="mb-3">
-              <label for="content" class="form-label">content</label>
-              <textarea class="form-control" name="content" id="content"></textarea>
-              </div>
-              <button type="submit" name="sbm"class="btn btn-primary">Thực hiện</button>
-            </form>
-              ';
+        <form action="" method="POST" enctype="multipart/form-data"> 
+        <div class="mb-3">
+          <label for="title" class="form-label">title</label>
+          <input type="text" class="form-control" name="title" id="title" >
+        </div>
+        <div class="mb-3">
+          <label for="author" class="form-label">author</label>
+          <input type="author" class="form-control" name="author" id="author">
+        </div>
+        <div class="mb-3">
+        <label for="publisher" class="form-label">publisher</label>
+        <textarea class="form-control" name="publisher" id="publisher" ></textarea>
+        </div>
+        <div class="mb-3">
+        <label for="description" class="form-label">genre</label>
+        <textarea class="form-control" name="genre" id="genre" ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">price</label>
+          <input type="number" class="form-control" name="price" id="price">
+        </div>
+        <div class="mb-3">
+        <label for="description" class="form-label">description</label>
+        <textarea class="form-control" name="description" id="content_editor"></textarea>
+        </div>
+        <button type="submit" name="sbm" class="btn btn-primary">Thực hiện</button>
+      </form>
+        ';
     }
     function edit()
     {
@@ -123,10 +124,10 @@
         }
         if (isset($_POST['sbm'])) {
             $title = $_POST['name'];
-            $author = $_POST['discount'];
+            $author = $_POST['author'];
+            $publisher = $_POST['publisher'];
             $genre=$_POST['genre'];
-            $publisher = $_POST['description'];
-            $description = $_POST['content'];
+            $description = $_POST['description'];
             $price = $_POST['price'];
             // $image = $f->upload('image');
             $sql = "UPDATE `books` SET 
@@ -155,22 +156,21 @@
             '">
       </div>
       <div class="mb-3">
-        <label for="discount" class="form-label">author</label>
-        <input type="discount" class="form-control" name="discount" id="discount"  value="' .
+        <label for="author" class="form-label">author</label>
+        <input type="author" class="form-control" name="author" id="author"  value="' .
             $row['author'] .
             '">
       </div>
       <div class="mb-3">
-      <label for="description" class="form-label">publisher</label>
-      <textarea class="form-control" name="description" id="description" >' .
+      <label for="publisher" class="form-label">publisher</label>
+      <textarea class="form-control" name="publisher" id="publisher" >' .
             $row['publisher'] .
             '</textarea>
       </div>
       <div class="mb-3">
       <label for="description" class="form-label">genre</label>
-      <textarea class="form-control" name="genre" id="genre" >' .
-            $row['genre'] .
-            '</textarea>
+      <textarea class="form-control" name="genre" id="genre" >
+      '.$row['genre'] .'</textarea>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">price</label>
@@ -183,8 +183,8 @@
         <input type="file" class="form-control" name="image" id="image">
       </div>
       <div class="mb-3">
-      <label for="content" class="form-label">description</label>
-      <textarea class="form-control" name="content" id="content">' .
+      <label for="description" class="form-label">description</label>
+      <textarea class="form-control" name="description" id="content_editor">' .
             $row['description'] .
             '</textarea>
       </div>

@@ -49,6 +49,6 @@ if (isset($_POST['sbm']) == true) {
             <input type="password" name="txtpassword" class="form-control" id="exampleInputPassword1">
 
         </div>
-        <button type="submit" name="sbm"class="btn btn-primary">Đăng nhập</button>
+        <button type="submit" name="sbm" class="btn btn-primary">Đăng nhập</button>
         <p style='color:red '><?php echo $msg; ?></p>
     </form>
