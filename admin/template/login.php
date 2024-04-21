@@ -38,7 +38,7 @@ if (isset($_POST['sbm']) == true) {
 </div>
 
 <div style="margin:10% auto; width:30%; border:1px solid #ddd;padding:15px">
-    <div style=" text-align: center; padding: 20px 0;  font-size: 24px; font-weight: bold">Đăng nhập</div>
+    <div style=" text-align: center; padding: 20px 0;  font-size: 20px; font-weight: bold">Đăng nhập hệ thống</div>
     <form action="login.php" method="POST">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Tài khoản</label>
