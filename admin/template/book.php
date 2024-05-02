@@ -140,7 +140,7 @@
             `price`= '{$price}'
              where id=$id";
             if (mysqli_query($f->conn, $sql)) {
-                $f->messager('Thành công nhân');
+                $f->messager('Thành công');
             } else {
                 $f->messager('Có lỗi');
             }
