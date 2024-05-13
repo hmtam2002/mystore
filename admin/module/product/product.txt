@@ -1,0 +1,18 @@
+- products
+
++ authors(tác giả)
++ genres(thể loại)
++ publishers(nhà xuất bản)
++ publication_date(ngày xuất bản)
++ price(giá)
++ description(mô tả)(html)
++ ISBN(mã số sách quốc tế)
++ create_at
++ update_at
+
+- admin
++
++
+- adminToken
++
++
