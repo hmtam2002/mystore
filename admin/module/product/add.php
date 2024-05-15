@@ -1,0 +1,1 @@
+<?php echo $f->createSlug('Huỳnh Minh Tâm');
