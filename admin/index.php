@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("../config.php");
+require_once ("../config.php");
 require_once ('./config.php');
 require_once './include/connect.php';
 
@@ -34,11 +34,6 @@ if (!empty($_GET['act']))
         $action = trim($_GET['act']);
     }
 }
-
-
-
-
-
 
 $path = 'module/' . $module . '/' . $action . '.php';
 if (file_exists($path))
