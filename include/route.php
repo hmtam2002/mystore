@@ -1,14 +1,14 @@
 <?php
+
 // Lấy URL từ yêu cầu
 $url = isset($_SERVER['REQUEST_URI']) ? rtrim($_SERVER['REQUEST_URI'], '/') : '/';
-$base_path = '/mystore'; // Đặt đường dẫn cơ sở của dự án tại đây
+$base_path = '/' . _PROJECT_NAME; // Đặt đường dẫn cơ sở của dự án tại đây
 
 // Loại bỏ đường dẫn cơ sở khỏi URL
 if (strpos($url, $base_path) === 0)
 {
     $url = substr($url, strlen($base_path));
 }
-
 
 // Xử lý định tuyến
 switch ($url)
@@ -19,9 +19,8 @@ switch ($url)
         break;
     case '/san-pham':
         // Trang sản phẩm
-// echo $url;
-// die();
-        include 'product.php';
+
+        include './module/product/detail.php';
         break;
     case '/kiem-tra':
         // Trang sản phẩm
