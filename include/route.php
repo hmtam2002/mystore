@@ -22,10 +22,12 @@ switch ($url)
 
         include './module/product/detail.php';
         break;
+    case '/master':
+        // Trang master
+        include './module/master/master.php';
+        break;
     case '/kiem-tra':
-        // Trang sản phẩm
-// echo $url;
-// die();
+        // Trang kiểm tra
         include './module/kiemtra/kiemtra.php';
         break;
     default:
