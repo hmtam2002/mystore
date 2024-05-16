@@ -4,7 +4,7 @@
         <div class="footer-index">
             <div class="footer-news">
                 <div class="logo logo-footer">
-                    <img src="public/assets/images/logo.png" alt="" />
+                    <img src="<?= _HOST_ASSETS ?>/images/logo.png" alt="" />
                 </div>
 
                 <div class="footer-info">

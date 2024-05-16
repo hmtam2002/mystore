@@ -11,7 +11,7 @@ require_once './include/phpmailer/PHPMailer.php';
 require_once './include/phpmailer/SMTP.php';
 
 
-require_once './include/function.php';
+require_once '../include/function.php';
 require_once '../include/database.php';
 require_once '../include/sesstion.php';
 
