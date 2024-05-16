@@ -60,52 +60,51 @@ if (!empty($productStatus))
             {
                 $dem += 1;
                 ?>
-            <tr>
-                <td>
-                    <?= $dem ?>
-                </td>
-                <td>
-                    <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                        <?= $item['title'] ?>
-                    </a>
-                </td>
-                <td>
-                    <?= $item['genre_name'] ?>
-                </td>
-                <td>
-                    <?= $item['author_name'] ?>
-                </td>
-                <td>
-                    <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=product&act=copy&id=<?= $item['id'] ?>" class="btn btn-success btn-sm">
-                        <i class="fa-regular fa-copy"></i>
-                    </a>
-                </td>
-                <!-- nút sửa -->
-                <td>
-                    <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </td>
-                <!-- nút xoá -->
-                <td>
-                    <a href="?cmd=product&act=delete&id=<?= $item['id'] ?>"
-                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
+                <tr>
+                    <td>
+                        <?= $dem ?>
+                    </td>
+                    <td>
+                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
+                            <?= $item['title'] ?>
+                        </a>
+                    </td>
+                    <td>
+                        <?= $item['genre_name'] ?>
+                    </td>
+                    <td>
+                        <?= $item['author_name'] ?>
+                    </td>
+                    <td>
+                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=product&act=copy&id=<?= $item['id'] ?>" class="btn btn-success btn-sm">
+                            <i class="fa-regular fa-copy"></i>
+                        </a>
+                    </td>
+                    <!-- nút sửa -->
+                    <td>
+                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                    <!-- nút xoá -->
+                    <td>
+                        <a href="?cmd=product&act=delete&id=<?= $item['id'] ?>"
+                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
 
-            </tr>
-            <?php
+                </tr>
+                <?php
             }
             ?>
         </tbody>
     </table>
-
 </main>
 
 <?php

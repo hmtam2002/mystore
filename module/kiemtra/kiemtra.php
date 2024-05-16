@@ -1,12 +1,11 @@
 <?php
 require_once _PATH_TEMPLATE . '/layout/head.php';
 require_once _PATH_TEMPLATE . '/layout/header.php';
-
-
-
+$f->testgame();
 ?>
 
-kiểm tra tưng bừng nè
+
+
 <?php
 require_once _PATH_TEMPLATE . '/layout/footer.php';
 ?>

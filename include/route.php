@@ -28,7 +28,7 @@ switch ($url)
         break;
     case '/kiem-tra':
         // Trang kiểm tra
-        include './module/kiemtra/kiemtra.php';
+        require_once './module/kiemtra/kiemtra.php';
         break;
     default:
         // Nếu không tìm thấy, giả định rằng đó là slug của sản phẩm

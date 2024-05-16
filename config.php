@@ -1,4 +1,9 @@
 <?php
+//kiểm tra và bắt đầu session
+if (session_status() == PHP_SESSION_NONE)
+{
+    session_start();
+}
 
 //tên project
 define('_PROJECT_NAME', 'mystore');

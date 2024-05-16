@@ -2,6 +2,20 @@
 </div>
 
 <script>
+    // Lấy thẻ input và thẻ label bằng ID
+    const inputElement = document.getElementById('slugInput');
+    const labelElement = document.getElementById('slugLabel');
+
+    // Thêm sự kiện lắng nghe khi có sự thay đổi trong thẻ input
+    inputElement.addEventListener('input', function () {
+        // Lấy giá trị hiện tại của thẻ input
+        const inputValue = inputElement.value;
+
+        // Cập nhật nội dung của thẻ label
+        labelElement.textContent = 'Đường dẫn mẫu: localhost/mystore/' + inputValue;
+    });
+</script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         var selectElement = document.getElementById("mySelect");
 

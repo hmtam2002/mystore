@@ -1,8 +1,8 @@
 <?php
-if (!defined("_CODE"))
-{
-    exit("Access denied...");
-}
+// if (!defined("_CODE"))
+// {
+//     exit("Access denied...");
+// }
 
 //Hàm gán sessioin
 function setSession($key, $value)

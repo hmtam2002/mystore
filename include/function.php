@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class func
 {
+
     function isLogin()
     {
         $checkLogin = false;
@@ -201,5 +202,9 @@ class func
         $slug = preg_replace('/[^a-z0-9-]/', '-', $slug); // Loại bỏ các ký tự không phải chữ cái, số hoặc dấu gạch ngang
         $slug = preg_replace('/-+/', "-", $slug); // Loại bỏ các dấu gạch ngang liên tiếp
         return $slug;
+    }
+    public function testgame()
+    {
+        echo 'testgame func';
     }
 }
