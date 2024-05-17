@@ -36,7 +36,28 @@ if ($f->isPOST())
             $errors['title']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
         }
     }
-
+    //validate price
+    if (empty($filterAll['price']))
+    {
+        $errors['price']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    } else
+    {
+        if (strlen($filterAll['title']) < 5)
+        {
+            $errors['price']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+        }
+    }
+    //validate discount
+    if (empty($filterAll['discount']))
+    {
+        $errors['discount']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    } else
+    {
+        if (strlen($filterAll['discount']) < 5)
+        {
+            $errors['discount']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+        }
+    }
 
     if (empty($errors))
     {
@@ -51,13 +72,13 @@ if ($f->isPOST())
             'author_id' => $filterAll['author_id'],
             'genre_id' => $filterAll['genre_id'],
             'status' => $filterAll['status'],
-            'image' => _PATH_ASSETS . "/images/product",
+            'image' => $f->upload('imageUpload'),
             'create_at' => date('Y-m-d H:i:s')
         ];
-        echo '<pre>';
-        print_r($dataInsert);
-        echo '</pre>';
-        die();
+        // echo '<pre>';
+        // print_r($dataInsert);
+        // echo '</pre>';
+        // die();
         $insertStatus = $db->insert('products', $dataInsert);
         if ($insertStatus)
         {
@@ -109,7 +130,7 @@ $old = getFlashData('old');
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group mg-form">
@@ -196,7 +217,7 @@ $old = getFlashData('old');
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Trạng thái</label>
+                            <label>Trạng thái</label>
                             <select name="status" id="mySelect" class="form-control" style="width: 50% display=block;">
                                 <option value="1" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>Đã kích hoạt
                                 </option>
@@ -204,9 +225,14 @@ $old = getFlashData('old');
                                 </option>
                             </select>
                         </div>
-                        <div class="form-group mg-form">
-                            <label for="image">Hình ảnh</label>
-                            <input type="file" class="form-control" name="image" id="image">
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="file" class="form-control" name="imageUpload" id="imageUpload"
+                                accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <img id="previewImage" src="#" alt="Ảnh xem trước"
+                                style="max-width: 100%; max-height: 100%; display: none; margin-top: 20px;">
                         </div>
                     </div>
                 </div>

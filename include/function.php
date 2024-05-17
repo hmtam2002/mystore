@@ -174,22 +174,59 @@ class func
     public function upload($filenameupload)
     {
         $check = true;
-        $target_dir = _PATH_ASSETS . "/images/product";
-        $target_file = $target_dir . basename($_FILES[$filenameupload]["name"]);//"upload/1.jpg"
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));//jpg
-        $new_filename = time() . '.' . $imageFileType;//4534534523.jpg
-        $allow_file_upload = array("jpg", "png", "gif", "jfif");
-        if (!in_array($imageFileType, $allow_file_upload))
-            $check = false;
-        if ($check == true)
+        $target_dir = _PATH_ASSETS . '/images/product/';
+        $target_file = $target_dir . basename($_FILES[$filenameupload]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $new_filename = time() . '.' . $imageFileType;
+        $allow_file_upload = array("jpg", "jpeg", "png", "gif", "jfif");
+
+        // Kiểm tra nếu file có phải là hình ảnh thật hay không
+        $checkImage = getimagesize($_FILES[$filenameupload]["tmp_name"]);
+        if ($checkImage === false)
         {
-            if (move_uploaded_file($_FILES[$filenameupload]["tmp_name"], $target_dir . $new_filename))
-                return $new_filename;
-            else
-                return "noimage.jpg";
+            $this->getSmg('File upload không phải là hình ảnh!', 'danger');
+            return "noimage.jpg";
+        }
+
+        // Kiểm tra định dạng file
+        if (!in_array($imageFileType, $allow_file_upload))
+        {
+            $this->getSmg('Định dạng file không hợp lệ! Chỉ chấp nhận JPG, JPEG, PNG, GIF, JFIF.', 'danger');
+            return "noimage.jpg";
+        }
+
+        // Kiểm tra kích thước file (ví dụ: giới hạn 5MB)
+        if ($_FILES[$filenameupload]["size"] > 5000000)
+        {
+            $this->getSmg('File upload quá lớn! Giới hạn 5MB.', 'danger');
+            return "noimage.jpg";
+        }
+
+        // Kiểm tra nếu file đã tồn tại (tránh ghi đè file)
+        if (file_exists($target_dir . $new_filename))
+        {
+            $this->getSmg('File đã tồn tại.', 'danger');
+            return "noimage.jpg";
+        }
+
+        // In ra đường dẫn và tên file để kiểm tra
+        echo "Đường dẫn file tạm: " . $_FILES[$filenameupload]["tmp_name"] . "<br>";
+        echo "Đường dẫn đích: " . $target_dir . $new_filename . "<br>";
+
+        // Thực hiện upload file
+        if (move_uploaded_file($_FILES[$filenameupload]["tmp_name"], $target_dir . $new_filename))
+        {
+            return $new_filename;
         } else
-            $this->messager('File upload không hợp lệ!');
+        {
+            // In ra lỗi cụ thể nếu có
+            $error = error_get_last();
+            echo "Error: " . $error['message'] . "<br>";
+            $this->getSmg('Có lỗi xảy ra khi upload file của bạn.', 'danger');
+            return "noimage.jpg";
+        }
     }
+
     public function messager($text = '')
     {
         global $cmd;
