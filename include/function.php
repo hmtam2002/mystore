@@ -174,7 +174,7 @@ class func
     public function upload($filenameupload)
     {
         $check = true;
-        $target_dir = "upload/";
+        $target_dir = _PATH_ASSETS . "/images/product";
         $target_file = $target_dir . basename($_FILES[$filenameupload]["name"]);//"upload/1.jpg"
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));//jpg
         $new_filename = time() . '.' . $imageFileType;//4534534523.jpg
@@ -207,4 +207,5 @@ class func
     {
         echo 'testgame func';
     }
+
 }

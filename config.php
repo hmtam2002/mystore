@@ -18,7 +18,7 @@ define('_HOST_ASSETS', _HOST . '/assets');
 //thiết lập path
 define('_PATH', __DIR__);
 define('_PATH_TEMPLATE', _PATH . '/template');
-define('_PATH_TEMPLATE_ASSETS', _PATH . 'assets/template');
+define('_PATH_ASSETS', _PATH . '/assets');
 
 
 //thông tin kết nối

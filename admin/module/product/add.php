@@ -14,82 +14,36 @@ if ($f->isPOST())
 {
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
-    // //validate username
-    // if (empty($filterAll['username']))
-    // {
-    //     $errors['username']['required'] = 'Tên người dùng bắt buộc phải nhập';
-    // } else
-    // {
-    //     if (strlen($filterAll['username']) < 5)
-    //     {
-    //         $errors['username']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
-    //     }
-    // }
-    // //validate fullname
-    // if (empty($filterAll['fullname']))
-    // {
-    //     $errors['fullname']['required'] = 'Họ tên bắt buộc phải nhập';
-    // } else
-    // {
-    //     if (strlen($filterAll['fullname']) < 5)
-    //     {
-    //         $errors['fullname']['min'] = 'Họ tên phải có ít nhất 5 ký tự';
-    //     }
-    // }
-    // //validate email
-    // if (empty($filterAll['email']))
-    // {
-    //     $errors['email']['required'] = 'Email bắt buộc phải nhập';
-    // } else
-    // {
-    //     $email = $filterAll['email'];
-    //     $sql = "SELECT id FROM admin WHERE email = '$email' ";
-    //     if ($db->getRows($sql) > 0)
-    //     {
-    //         $errors['email']['unique'] = 'Email đã tồn tại';
-    //     }
-    // }
-    // //validate số điện thoại
-    // if (empty($filterAll['phone']))
-    // {
-    //     $errors['phone']['required'] = 'Số điện thoại bắt buộc phải nhập';
-    // } else
-    // {
-    //     if (!$f->isPhone($filterAll['phone']))
-    //     {
-    //         $errors['phone']['isPhone'] = 'Số điện thoại không hợp lệ';
-    //     }
-    // }
+    //validate slug
+    if (empty($filterAll['slug']))
+    {
+        $errors['slug']['required'] = 'Đường dẫn bắt buộc phải nhập';
+    } else
+    {
+        if (strlen($filterAll['slug']) < 5)
+        {
+            $errors['slug']['min'] = 'Đường dẫn phải có ít nhất 5 ký tự';
+        }
+    }
+    //validate title
+    if (empty($filterAll['title']))
+    {
+        $errors['title']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    } else
+    {
+        if (strlen($filterAll['title']) < 5)
+        {
+            $errors['title']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+        }
+    }
 
-    // //validate password
-    // if (empty($filterAll['password']))
-    // {
-    //     $errors['password']['required'] = 'Mật khẩu bắt buộc phải nhập';
-    // } else
-    // {
-    //     if (strlen($filterAll['password']) < 8)
-    //     {
-    //         $errors['password']['min'] = 'Mật khẩu phải lớn hơn hoặc bằng 8';
-    //     }
-    // }
-
-    // //validate password confirm
-    // if (empty($filterAll['password_confirm']))
-    // {
-    //     $errors['password_confirm']['required'] = 'Bạn phải nhập lại mật khẩu';
-    // } else
-    // {
-    //     if ($filterAll['password'] != $filterAll['password_confirm'])
-    //     {
-    //         $errors['password_confirm']['match'] = 'Mật khẩu bạn nhập lại không đúng';
-    //     }
-    // }
 
     if (empty($errors))
     {
         //xử lý insert
         $dataInsert = [
             'title' => $filterAll['title'],
+            'product_type_id' => '1',
             'slug' => $filterAll['slug'],
             'description' => $filterAll['description'],
             'price' => $filterAll['price'],
@@ -97,12 +51,13 @@ if ($f->isPOST())
             'author_id' => $filterAll['author_id'],
             'genre_id' => $filterAll['genre_id'],
             'status' => $filterAll['status'],
+            'image' => _PATH_ASSETS . "/images/product",
             'create_at' => date('Y-m-d H:i:s')
         ];
-        // echo '<pre>';
-        // print_r($dataInsert);
-        // echo '</pre>';
-        // die();
+        echo '<pre>';
+        print_r($dataInsert);
+        echo '</pre>';
+        die();
         $insertStatus = $db->insert('products', $dataInsert);
         if ($insertStatus)
         {
@@ -115,7 +70,7 @@ if ($f->isPOST())
             setFlashData('smg_type', 'danger');
             setFlashData('old', $filterAll);
         }
-        $f->redirect('?cmd=product&act=add');
+        $f->redirect('?cmd=product&act=list');
     } else
     {
         setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu');
@@ -144,8 +99,8 @@ $old = getFlashData('old');
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=user&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=user&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=product&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=product&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -168,7 +123,7 @@ $old = getFlashData('old');
                         </div>
                         <div class="form-group mg-form">
                             <label for="">Tiêu đề</label>
-                            <input name="title" class="form-control" placeholder="Tiêu đề" value="<?php
+                            <input id="title" name="title" class="form-control" placeholder="Tiêu đề" value="<?php
                             echo $f->old('title', $old);
                             ?>">
                             <?php
@@ -177,9 +132,11 @@ $old = getFlashData('old');
                         </div>
                         <div class="form-group mg-form">
                             <label for="">Mô tả</label>
-                            <input name="description" class="form-control" placeholder="Mô tả" value="<?php
-                            echo $f->old('description', $old);
-                            ?>">
+                            <textarea name="description" id="description" class="form-control" placeholder="Mô tả">
+                                <?php
+                                echo $f->old('description', $old);
+                                ?>
+                                </textarea>
                             <?php
                             echo $f->formError('description', '<span class="error">', '</span>', $errors);
                             ?>
@@ -212,10 +169,11 @@ $old = getFlashData('old');
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                        <?= $item['author_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                    <?= $item['author_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
@@ -228,10 +186,11 @@ $old = getFlashData('old');
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                        <?= $item['genre_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                    <?= $item['genre_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>

@@ -71,8 +71,9 @@
 
 <script>
     ClassicEditor
-        .create(document.querySelector('#content_editor'), {
+        .create(document.querySelector('#description'), {
             // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            // height: 500 // Chiều cao tính bằng pixel
         })
         .then(editor => {
             window.editor = editor;
@@ -102,6 +103,44 @@
         console.log(this.checked);
         var passwordField = document.getElementById('passwordconfirmField');
         passwordField.type = this.checked ? "text" : "password";
+    });
+</script>
+<script>
+    function createSlug(text) {
+        const from =
+            "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ";
+        const to =
+            "AAAAAAAAAAAAAAAAAEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYaaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooooouuuuuuuuuuuyyyyydD";
+
+        const convertVietnamese = (str) => {
+            let newStr = '';
+            for (let i = 0; i < str.length; i++) {
+                const index = from.indexOf(str[i]);
+                if (index !== -1) {
+                    newStr += to[index];
+                } else {
+                    newStr += str[i];
+                }
+            }
+            return newStr;
+        };
+
+        let slug = convertVietnamese(text);
+        slug = slug.toLowerCase();
+        slug = slug.replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+        return slug;
+    }
+    const labelElement2 = document.getElementById('slugLabel');
+
+    document.getElementById('title').addEventListener('input', function () {
+        const title = this.value;
+        const slug = createSlug(title);
+        document.getElementById('slugInput').value = slug;
+        labelElement2.textContent = 'Đường dẫn mẫu: localhost/mystore/' + slug;
     });
 </script>
 </body>
