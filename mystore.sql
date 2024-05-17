@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th5 17, 2024 lúc 02:52 PM
+-- Thời gian đã tạo: Th5 17, 2024 lúc 04:57 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -174,6 +174,7 @@ CREATE TABLE `products` (
   `ISBN` varchar(50) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `discount` double DEFAULT NULL,
   `stock_quantity` int(11) DEFAULT NULL,
@@ -187,15 +188,16 @@ CREATE TABLE `products` (
 -- Đang đổ dữ liệu cho bảng `products`
 --
 
-INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `author_id`, `publisher_id`, `ISBN`, `name`, `description`, `price`, `discount`, `stock_quantity`, `category_id`, `status`, `create_at`, `update_at`) VALUES
-(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(6, 'dat-rung-phuong-nam', 'Đất rừng phương nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(7, 'so-do', 'Số đỏ', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(8, 'vo-de', 'Vỡ Đê', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(9, 'de-men-phieu-luu-ky', 'Dế mèn phiêu lưu ký', 1, 9, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(58, 'buoc-qua-moa-co-yon', 'Bước qua mùa cô đơn', 1, 11, 12, NULL, NULL, NULL, '&#60;p&#62;Bước qua mùa cô đơn&#60;/p&#62;', 90000, 90000, NULL, NULL, 1, '2024-05-17 01:28:46', NULL);
+INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `author_id`, `publisher_id`, `ISBN`, `name`, `description`, `image`, `price`, `discount`, `stock_quantity`, `category_id`, `status`, `create_at`, `update_at`) VALUES
+(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(6, 'dat-rung-phuong-nam', 'Đất rừng phương nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(7, 'so-do', 'Số đỏ', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(8, 'vo-de', 'Vỡ Đê', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(9, 'de-men-phieu-luu-ky', 'Dế mèn phiêu lưu ký', 1, 9, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(58, 'buoc-qua-moa-co-yon', 'Bước qua mùa cô đơn', 1, 11, 12, NULL, NULL, NULL, '&#60;p&#62;Bước qua mùa cô đơn&#60;/p&#62;', NULL, 90000, 90000, NULL, NULL, 1, '2024-05-17 01:28:46', NULL),
+(59, 'cau-troc-du-lieu-va-giai-thuat', 'Cấu trúc dữ liệu và giải thuật', 1, 3, 3, NULL, NULL, NULL, '&#60;p&#62;Cấu trúc dữ liệu và giải thuật&#60;/p&#62;', '1715957742.jpeg', 90000, 90000, NULL, NULL, 1, '2024-05-17 09:55:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -495,7 +497,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT cho bảng `product_types`
