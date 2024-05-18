@@ -268,4 +268,21 @@ class func
             return $defaultImage;
         }
     }
+    public function slider_exists($filename)
+    {
+        $defaultImage = _HOST_ASSETS . '/images/noimage/noimage.png'; // Đường dẫn tới ảnh mặc định
+        if (empty($filename))
+        {
+            return $defaultImage;
+        }
+        $imagePath = _PATH_ASSETS . '/images/slider/' . $filename; // Đường dẫn tới ảnh cần kiểm tra
+
+        if (file_exists($imagePath))
+        {
+            return _HOST_ASSETS . '/images/slider/' . $filename;
+        } else
+        {
+            return $defaultImage;
+        }
+    }
 }

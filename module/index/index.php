@@ -12,12 +12,17 @@ require_once _PATH_TEMPLATE . '/layout/header.php';
 <div class="slideshow">
 
     <div class="slider">
-        <div>
-            <img src="<?= _HOST ?>/assets/images/slider/gioi-thieu-quyen-sach.png" alt="Image 4" />
-        </div>
-        <div><img src="<?= _HOST ?>/assets/images/slider/1.jpg" alt="Image 4" /></div>
-        <div><img src="<?= _HOST ?>/assets/images/slider/2.jpg" alt="Image 4" /></div>
-        <div><img src="<?= _HOST ?>/assets/images/slider/3.jpg" alt="Image 4" /></div>
+        <?php
+        $sliderList = $db->getRaw('SELECT * FROM images WHERE status = "1"');
+        foreach ($sliderList as $item)
+        {
+            ?>
+            <div>
+                <img src="<?= _HOST . '/assets/images/slider/' . $item['image'] ?>" alt="Image 4" />
+            </div>
+            <?php
+        }
+        ?>
     </div>
 
 </div>
@@ -110,24 +115,24 @@ require_once _PATH_TEMPLATE . '/layout/header.php';
                     foreach ($listProduct as $item)
                     {
                         ?>
-                    <div class="col-sm-4">
-                        <a href="<?= _HOST . '/' . $item['slug'] ?>">
-                            <div class="box-product">
-                                <div class="pic-product">
-                                    <img class="w-100" src="<?= _HOST . '/assets/images/product/' . $item['image'] ?>"
-                                        alt="" />
+                        <div class="col-sm-4">
+                            <a href="<?= _HOST . '/' . $item['slug'] ?>">
+                                <div class="box-product">
+                                    <div class="pic-product">
+                                        <img class="w-100" src="<?= _HOST . '/assets/images/product/' . $item['image'] ?>"
+                                            alt="" />
+                                    </div>
+                                    <div class="info-product">
+                                        <h3 class="mb-0">
+                                            <a class="text-decoration-none" href="">
+                                                <?= $item['title'] ?>
+                                            </a>
+                                        </h3>
+                                    </div>
                                 </div>
-                                <div class="info-product">
-                                    <h3 class="mb-0">
-                                        <a class="text-decoration-none" href="">
-                                            <?= $item['title'] ?>
-                                        </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <?php
+                            </a>
+                        </div>
+                        <?php
                     }
                     ?>
                 </div>
@@ -191,24 +196,24 @@ require_once _PATH_TEMPLATE . '/layout/header.php';
                     foreach ($listProduct as $item)
                     {
                         ?>
-                    <div class="col-sm-4">
-                        <a href="<?= _HOST . '/' . $item['slug'] ?>">
-                            <div class="box-product">
-                                <div class="pic-product">
-                                    <img class="w-100" src="<?= _HOST . '/assets/images/product/' . $item['image'] ?>"
-                                        alt="" />
+                        <div class="col-sm-4">
+                            <a href="<?= _HOST . '/' . $item['slug'] ?>">
+                                <div class="box-product">
+                                    <div class="pic-product">
+                                        <img class="w-100" src="<?= _HOST . '/assets/images/product/' . $item['image'] ?>"
+                                            alt="" />
+                                    </div>
+                                    <div class="info-product">
+                                        <h3 class="mb-0">
+                                            <a class="text-decoration-none" href="">
+                                                <?= $item['title'] ?>
+                                            </a>
+                                        </h3>
+                                    </div>
                                 </div>
-                                <div class="info-product">
-                                    <h3 class="mb-0">
-                                        <a class="text-decoration-none" href="">
-                                            <?= $item['title'] ?>
-                                        </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <?php
+                            </a>
+                        </div>
+                        <?php
                     }
                     ?>
                 </div>
@@ -478,53 +483,53 @@ require_once _PATH_TEMPLATE . '/layout/js.php';
 ?>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $(".slider").slick({
-        autoplay: true,
-        autoplaySpeed: 2000, // Tự động chuyển slide sau mỗi 2 giây
-        dots: true, // Hiển thị chấm chỉ mục
-        arrows: true, // Hiển thị mũi tên điều hướng
+    $(document).ready(function () {
+        $(".slider").slick({
+            autoplay: true,
+            autoplaySpeed: 2000, // Tự động chuyển slide sau mỗi 2 giây
+            dots: true, // Hiển thị chấm chỉ mục
+            arrows: true, // Hiển thị mũi tên điều hướng
+        });
     });
-});
 
-$(document).ready(function() {
-    $(".vanphongpham").slick({
-        autoplay: true,
-        autoplaySpeed: 2000, // Tự động chuyển slide sau mỗi 2 giây
-        dots: false, // Hiển thị chấm chỉ mục
-        arrows: true, // Hiển thị mũi tên điều hướng
-        slidesToShow: 4, // Hiển thị số lượng item
-        slidesToScroll: 1 // Hiển thị số lượng item chạy qua
+    $(document).ready(function () {
+        $(".vanphongpham").slick({
+            autoplay: true,
+            autoplaySpeed: 2000, // Tự động chuyển slide sau mỗi 2 giây
+            dots: false, // Hiển thị chấm chỉ mục
+            arrows: true, // Hiển thị mũi tên điều hướng
+            slidesToShow: 4, // Hiển thị số lượng item
+            slidesToScroll: 1 // Hiển thị số lượng item chạy qua
+        });
     });
-});
-$(document).ready(function() {
-    $(".slick-partner").slick({
-        autoplay: true,
-        autoplaySpeed: 2000, // Tự động chuyển slide sau mỗi 2 giây
-        dots: false, // Hiển thị chấm chỉ mục
-        arrows: true, // Hiển thị mũi tên điều hướng
-        slidesToShow: 5, // Hiển thị số lượng item
-        slidesToScroll: 1 // Hiển thị số lượng item chạy qua
+    $(document).ready(function () {
+        $(".slick-partner").slick({
+            autoplay: true,
+            autoplaySpeed: 2000, // Tự động chuyển slide sau mỗi 2 giây
+            dots: false, // Hiển thị chấm chỉ mục
+            arrows: true, // Hiển thị mũi tên điều hướng
+            slidesToShow: 5, // Hiển thị số lượng item
+            slidesToScroll: 1 // Hiển thị số lượng item chạy qua
+        });
     });
-});
 </script>
 <script>
-function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
 </script>
 
 <!-- Đóng html -->
