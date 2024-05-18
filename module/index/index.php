@@ -101,48 +101,35 @@ require_once _PATH_TEMPLATE . '/layout/header.php';
 
             <div id="vanhoc" class="tabcontent">
                 <div class="row row-tab">
-                    <div class="col-4">
-                        <div class="box-product">
-                            <div class="pic-product">
-                                <img class="w-100" src="<?= _HOST ?>/assets/images/cp.jpg" alt="" />
+                    <?php
+                    $sql = 'SELECT slug,title,image FROM products
+                            WHERE genre_id = "14"
+                            ORDER BY RAND()
+                            LIMIT 3;';
+                    $listProduct = $db->getRaw($sql);
+                    foreach ($listProduct as $item)
+                    {
+                        ?>
+                    <div class="col-sm-4">
+                        <a href="<?= _HOST . '/' . $item['slug'] ?>">
+                            <div class="box-product">
+                                <div class="pic-product">
+                                    <img class="w-100" src="<?= _HOST . '/assets/images/product/' . $item['image'] ?>"
+                                        alt="" />
+                                </div>
+                                <div class="info-product">
+                                    <h3 class="mb-0">
+                                        <a class="text-decoration-none" href="">
+                                            <?= $item['title'] ?>
+                                        </a>
+                                    </h3>
+                                </div>
                             </div>
-                            <div class="info-product">
-                                <h3 class="mb-0">
-                                    <a class="text-decoration-none" href="">
-                                        Chí Phèo
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-4">
-                        <div class="box-product">
-                            <div class="pic-product">
-                                <img class="w-100" src="<?= _HOST ?>/assets/images/sd.jpg" alt="" />
-                            </div>
-                            <div class="info-product">
-                                <h3 class="mb-0">
-                                    <a class="text-decoration-none" href="">
-                                        Số Đỏ
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="box-product">
-                            <div class="pic-product">
-                                <img class="w-100" src="<?= _HOST ?>/assets/images/ngk.jpg" alt="" />
-                            </div>
-                            <div class="info-product">
-                                <h3 class="mb-0">
-                                    <a class="text-decoration-none" href="">
-                                        Nhà Giả Kim
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
 
@@ -195,48 +182,35 @@ require_once _PATH_TEMPLATE . '/layout/header.php';
 
             <div id="thieunhi" class="tabcontent">
                 <div class="row row-tab">
-                    <div class="col-4">
-                        <div class="box-product">
-                            <div class="pic-product">
-                                <img class="w-100" src="<?= _HOST ?>/assets/images/sod.jpg" alt="" />
+                    <?php
+                    $sql = 'SELECT slug,title,image FROM products
+                            WHERE genre_id = "3"
+                            ORDER BY RAND()
+                            LIMIT 3;';
+                    $listProduct = $db->getRaw($sql);
+                    foreach ($listProduct as $item)
+                    {
+                        ?>
+                    <div class="col-sm-4">
+                        <a href="<?= _HOST . '/' . $item['slug'] ?>">
+                            <div class="box-product">
+                                <div class="pic-product">
+                                    <img class="w-100" src="<?= _HOST . '/assets/images/product/' . $item['image'] ?>"
+                                        alt="" />
+                                </div>
+                                <div class="info-product">
+                                    <h3 class="mb-0">
+                                        <a class="text-decoration-none" href="">
+                                            <?= $item['title'] ?>
+                                        </a>
+                                    </h3>
+                                </div>
                             </div>
-                            <div class="info-product">
-                                <h3 class="mb-0">
-                                    <a class="text-decoration-none" href="">
-                                        sọ dừa
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-4">
-                        <div class="box-product">
-                            <div class="pic-product">
-                                <img class="w-100" src="<?= _HOST ?>/assets/images/htb.jpg" alt="" />
-                            </div>
-                            <div class="info-product">
-                                <h3 class="mb-0">
-                                    <a class="text-decoration-none" href="">
-                                        hoàng tử bé
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="box-product">
-                            <div class="pic-product">
-                                <img class="w-100" src="<?= _HOST ?>/assets/images/ngmx.jpg" alt="" />
-                            </div>
-                            <div class="info-product">
-                                <h3 class="mb-0">
-                                    <a class="text-decoration-none" href="">
-                                        những giấc mơ xanh
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div id="theloaikhac" class="tabcontent">

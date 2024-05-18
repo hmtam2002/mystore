@@ -66,7 +66,7 @@ if ($f->isPOST())
             'title' => $filterAll['title'],
             'product_type_id' => '1',
             'slug' => $filterAll['slug'],
-            'description' => $filterAll['description'],
+            'description' => $_POST['description'],
             'price' => $filterAll['price'],
             'discount' => $filterAll['discount'],
             'author_id' => $filterAll['author_id'],
@@ -224,8 +224,8 @@ $old = getFlashData('old');
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="#" alt="Ảnh xem trước"
-                                style="max-width: 100%; max-height: 100%; margin-top: 20px;">
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old)) ?>"
+                                alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
                         </div>
                     </div>
                 </div>

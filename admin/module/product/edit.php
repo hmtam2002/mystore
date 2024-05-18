@@ -129,7 +129,7 @@ if ($f->isPOST())
         $dataUpdate = [
             'title' => $filterAll['title'],
             'slug' => $filterAll['slug'],
-            'description' => $filterAll['description'],
+            'description' => $_POST['description'],
             'price' => $filterAll['price'],
             'discount' => $filterAll['discount'],
             'author_id' => $filterAll['author_id'],

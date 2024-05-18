@@ -34,6 +34,6 @@ switch ($url)
         // Nếu không tìm thấy, giả định rằng đó là slug của sản phẩm
 // và chuyển hướng đến trang sản phẩm
         $slug = ltrim($url, '/');
-        include 'product.php'; // Hoặc chuyển hướng đến trang sản phẩm khác
+        require_once './module/product/detail.php';
         break;
 }

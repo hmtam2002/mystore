@@ -1,4 +1,15 @@
 <?php
+// echo "SELECT * FROM products WHERE slug = $slug";
+// echo $slug;
+$product_detail = $db->oneRaw("SELECT * FROM products WHERE slug = '$slug'");
+if (empty($product_detail))
+{
+    header("location:" . _HOST);
+}
+$author_id = $product_detail['author_id'];
+$author = $db->oneRaw("SELECT author_name FROM authors WHERE id = '$author_id'");
+
+
 require_once _PATH_TEMPLATE . '/layout/head.php';
 ?>
 <div class="wrap-home">
@@ -13,21 +24,23 @@ require_once _PATH_TEMPLATE . '/layout/head.php';
         <div class="wrap-content">
             <div class="product_detail-left">
                 <div class="pic-product_detail">
-                    <img class="w-100" src="<?= _HOST_ASSETS ?>/images/nd.jpg" alt="" />
+                    <img class="w-75" src="<?= _HOST_ASSETS . '/images/product/' . $product_detail['image'] ?>"
+                        alt="Ảnh sách" />
                 </div>
                 <div class="product_detail-right">
                     <div class="name-profuct_detail">
-                        bảy năm vẫn ngoảnh về phương bắc
+                        <?= $product_detail['title'] ?>
                     </div>
                     <div class="tacgia-product_detail">
-                        Tác giả: <span>Âm Tần</span>
+                        Tác giả: <span><?= $author['author_name'] ?></span>
                     </div>
                     <div class="price-product_detail">
-                        Giá: <span>200,000 đ</span>
+                        Giá: <span><?= $product_detail['discount'] ?></span>
                     </div>
                     <div class="price_sale-product_detail">
-                        <p> Tiết kiệm: <span>20,000 đ (10%)</span></p>
-                        <p>Giá thị trường: <span>220,000 đ</span></p>
+                        <!-- <p> Tiết kiệm: <span>20,000 đ (10%)</span></p> -->
+                        <p> Tiết kiệm: <span><?= $product_detail['price'] - $product_detail['discount'] ?></span></p>
+                        <p>Giá thị trường: <span><?= $product_detail['price'] ?></span></p>
                         <p>Tồn kho: <span>20</span></p>
                     </div>
                     <div class="d-flex flex-wrap align-items-center mt-3 mb-3">
@@ -69,7 +82,7 @@ require_once _PATH_TEMPLATE . '/layout/head.php';
                 </div>
             </div>
             <div class="info-pro_detail">
-                <div class="name_info-pro_detail">
+                <!-- <div class="name_info-pro_detail">
                     Thông tin chi tiết
                 </div>
                 <p> Nhà xuất bản: <a href="">NXB Thanh Niên</a></p>
@@ -77,7 +90,8 @@ require_once _PATH_TEMPLATE . '/layout/head.php';
                 <p> Nhà phát hành: AZ Việt Nam</p>
                 <p> Kích thước: 12.0 x 19.0 x 1.0 cm</p>
                 <p> Số trang: 120 trang</p>
-                <p>Trọng lượng: 300 gram</p>
+                <p>Trọng lượng: 300 gram</p> -->
+                <?= $product_detail['description'] ?>
             </div>
             <div class="gioithieu-product_detail">
                 <div class="name_info-pro_detail">
