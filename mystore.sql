@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th5 17, 2024 lúc 04:57 PM
+-- Thời gian đã tạo: Th5 18, 2024 lúc 04:57 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -67,10 +67,7 @@ CREATE TABLE `adminToken` (
 --
 
 INSERT INTO `adminToken` (`id`, `admin_id`, `token`, `create_at`) VALUES
-(35, 1, 'c2b1846b0e95bb5228c7bf3904a08797c0535853', '2024-05-16 14:14:26'),
-(36, 1, 'dfe89967e89a2a5eba0d4cd904e25dd9b163ce20', '2024-05-17 08:06:24'),
-(37, 1, 'e6dcde15539001da0d5f498a2cb050314998db26', '2024-05-17 13:00:43'),
-(38, 1, '07e62241b8ef97653cfba6a71372baa74a708595', '2024-05-17 13:01:01');
+(44, 1, '0c703eea710da0468a1c759e5b16e3bc28b5d943', '2024-05-18 14:39:25');
 
 -- --------------------------------------------------------
 
@@ -100,7 +97,12 @@ INSERT INTO `authors` (`id`, `author_name`, `status`, `create_at`, `update_at`) 
 (9, 'Nguyên Hồng', 1, '2024-05-13 16:54:16', '2024-05-13 16:54:16'),
 (10, 'Đoàn giỏi', 1, '2024-05-13 16:54:16', '2024-05-13 16:54:16'),
 (11, 'Nguyễn Công Hoan', 1, '2024-05-13 16:54:16', '2024-05-13 16:54:16'),
-(12, 'Tô Hoài', 1, '2024-05-13 16:54:16', '2024-05-13 16:54:16');
+(12, 'Tô Hoài', 1, '2024-05-13 16:54:16', '2024-05-13 16:54:16'),
+(23, 'Khoa CNTT', 1, '2024-05-18 10:23:04', NULL),
+(24, 'Paulo Coelho', 1, '2024-05-18 13:36:23', NULL),
+(25, 'Antoine de Saint-Exupéry', 1, '2024-05-18 15:01:29', NULL),
+(26, 'Dân gian', 1, '2024-05-18 15:02:48', NULL),
+(27, 'Nguyễn Công Kiệt', 1, '2024-05-18 15:05:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -128,7 +130,33 @@ INSERT INTO `genres` (`id`, `genre_name`, `status`, `create_at`, `update_at`) VA
 (7, 'Sách tiểu sử', 1, '2024-05-13 16:58:28', '2024-05-13 16:58:09'),
 (8, 'Sách kinh dị', 1, '2024-05-13 16:58:29', '2024-05-13 16:58:09'),
 (9, 'Sách tiểu thuyết', 1, '2024-05-13 16:58:31', '2024-05-14 13:12:21'),
-(11, 'Truyện linh ta linh tinh', 1, '2024-05-14 06:12:44', '2024-05-14 12:11:20');
+(11, 'Truyện linh ta linh tinh', 1, '2024-05-14 06:12:44', '2024-05-14 12:11:20'),
+(13, 'Giáo trình công nghệ thông tin', 1, '2024-05-18 10:22:48', NULL),
+(14, 'Sách văn học', 1, '2024-05-18 11:28:01', '2024-05-18 15:06:33'),
+(15, 'Kinh tế', 1, '2024-05-18 11:28:10', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `images`
+--
+
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `status` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `images`
+--
+
+INSERT INTO `images` (`id`, `image`, `type`, `status`) VALUES
+(1, '1.jpg', 'slider', 1),
+(2, '2.jpg', 'slider', 1),
+(3, '3.jpg', 'slider', 1),
+(4, '4.png', 'slider', 1);
 
 -- --------------------------------------------------------
 
@@ -173,7 +201,7 @@ CREATE TABLE `products` (
   `publisher_id` int(11) DEFAULT NULL,
   `ISBN` varchar(50) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` mediumtext DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `discount` double DEFAULT NULL,
@@ -189,15 +217,18 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `author_id`, `publisher_id`, `ISBN`, `name`, `description`, `image`, `price`, `discount`, `stock_quantity`, `category_id`, `status`, `create_at`, `update_at`) VALUES
-(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, '&#60;p&#62;Tắt đèn&#60;/p&#62;', NULL, 90000, 90000, NULL, NULL, 1, NULL, '2024-05-18 04:19:02'),
+(4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, '&#60;p&#62;Lều Chõng&#60;/p&#62;', NULL, 90000, 90000, NULL, NULL, 1, NULL, '2024-05-18 04:19:54'),
+(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, '&#60;p&#62;Sống Mòn&#60;/p&#62;', '', 90000, 90000, NULL, NULL, 1, NULL, '2024-05-18 04:20:08'),
 (6, 'dat-rung-phuong-nam', 'Đất rừng phương nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(7, 'so-do', 'Số đỏ', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+(7, 'so-do', 'Số đỏ', 1, 14, 7, NULL, NULL, NULL, '<p>Số đỏ</p>', '1716025212.jpg', 10000, 10000, NULL, NULL, 1, NULL, '2024-05-18 06:01:57'),
 (8, 'vo-de', 'Vỡ Đê', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
 (9, 'de-men-phieu-luu-ky', 'Dế mèn phiêu lưu ký', 1, 9, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(58, 'buoc-qua-moa-co-yon', 'Bước qua mùa cô đơn', 1, 11, 12, NULL, NULL, NULL, '&#60;p&#62;Bước qua mùa cô đơn&#60;/p&#62;', NULL, 90000, 90000, NULL, NULL, 1, '2024-05-17 01:28:46', NULL),
-(59, 'cau-troc-du-lieu-va-giai-thuat', 'Cấu trúc dữ liệu và giải thuật', 1, 3, 3, NULL, NULL, NULL, '&#60;p&#62;Cấu trúc dữ liệu và giải thuật&#60;/p&#62;', '1715957742.jpeg', 90000, 90000, NULL, NULL, 1, '2024-05-17 09:55:42', NULL);
+(65, 'chi-pheo', 'Chí phèo', 1, 14, 3, NULL, NULL, NULL, '<p><strong>THÔNG TIN CHI TIẾT</strong></p><p>Nhà xuất bản: NXB Thanh Niên</p><p>Ngày xuất bản: 16/04/2024</p><p>Nhà phát hành: AZ Việt Nam</p><p>Kích thước: 12.0 x 19.0 x 1.0 cm</p><p>Số trang: 120 trang</p><p>Trọng lượng: 300 gram</p>', '1716025075.jpg', 900000, 900000, NULL, NULL, 1, '2024-05-18 04:37:55', '2024-05-18 05:45:08'),
+(66, 'nha-gia-kim', 'Nhà giả kim', 1, 14, 24, NULL, NULL, NULL, '<p>Nhà giả kim</p>', '1716032236.jpg', 90000, 80000, NULL, NULL, 1, '2024-05-18 06:37:16', '2024-05-18 09:07:03'),
+(67, 'hoang-tu-be', 'Hoàng tử bé', 1, 3, 25, NULL, NULL, NULL, '<p>Hoàng tử bé</p>', '1716037282.jpg', 900000, 900000, NULL, NULL, 1, '2024-05-18 08:01:22', '2024-05-18 08:01:41'),
+(68, 'so-dua', 'Sọ dừa', 1, 3, 26, NULL, NULL, NULL, '<p>Sọ dừa</p>', '1716037465.jpeg', 80000, 80000, NULL, NULL, 1, '2024-05-18 08:04:25', '2024-05-18 09:06:33'),
+(69, 'nhung-giac-mo-xanh', 'Những giấc mơ xanh', 1, 3, 27, NULL, NULL, NULL, '<p>Những giấc mơ xanh</p>', '1716037564.jpg', 900000, 900000, NULL, NULL, 1, '2024-05-18 08:06:04', '2024-05-18 08:07:16');
 
 -- --------------------------------------------------------
 
@@ -385,6 +416,12 @@ ALTER TABLE `genres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
@@ -479,25 +516,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `adminToken`
 --
 ALTER TABLE `adminToken`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT cho bảng `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `genres`
 --
 ALTER TABLE `genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT cho bảng `images`
+--
+ALTER TABLE `images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT cho bảng `product_types`
