@@ -51,32 +51,32 @@ if (!empty($slideStatus))
             foreach ($listSlider as $item)
             {
                 ?>
-            <tr>
-                <td><?= $count += 1 ?></td>
-                <td>
-                    <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>">
-                        <img style="max-width: 300px;" src="<?= $f->slider_exists($item['image']) ?>"
-                            alt="Ảnh xem trước">
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
-                    </a>
-                </td>
-                <td>
-                    <a href="" class="btn btn-warning btn-sm">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="" onclick="return confirm('Bạn có chắc chắc muốn xoá không')"
-                        class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-            <?php
+                <tr>
+                    <td><?= $count += 1 ?></td>
+                    <td>
+                        <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>">
+                            <img style="max-width: 300px;" src="<?= $f->slider_exists($item['image']) ?>"
+                                alt="Ảnh xem trước">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=slider&act=delete&id=<?= $item['id'] ?>"
+                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php
             }
             ?>
         </tbody>
