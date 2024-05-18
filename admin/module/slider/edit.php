@@ -63,7 +63,7 @@ if ($f->isPOST())
     {
         //xử lý insert
         $dataUpdate = [
-            'image' => $f->upload('imageUpload'),
+            'image' => $f->upload('imageUpload', 'images/slider'),
             'status' => $filterAll['status'],
         ];
         if ($dataUpdate['image'] === 'noimage.jpg')
@@ -78,10 +78,10 @@ if ($f->isPOST())
                 unset($dataUpdate[$key]);
             }
         }
-        echo '<pre>';
-        print_r($dataUpdate);
-        echo '</pre>';
-        die();
+        // echo '<pre>';
+        // print_r($dataUpdate);
+        // echo '</pre>';
+        // die();
         $condition = "id=$sliderId";
         $updateStatus = $db->update('images', $dataUpdate, $condition);
         if ($updateStatus)
@@ -136,7 +136,7 @@ if (!empty($slider_data))
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col">
                         <div class="form-group">

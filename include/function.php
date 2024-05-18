@@ -171,10 +171,29 @@ class func
             return true;
         return false;
     }
-    public function upload($filenameupload)
+    public function upload($filenameupload, $path = '')
     {
         $check = true;
-        $target_dir = _PATH_ASSETS . '/images/product/';
+        if ($path === '')
+        {
+            $target_dir = _PATH_ASSETS . '/images/product/';
+        } else
+        {
+            // Đảm bảo đường dẫn tùy chỉnh bắt đầu bằng dấu gạch chéo và kết thúc bằng dấu gạch chéo
+            $target_dir = rtrim(_PATH_ASSETS, '/') . '/' . trim($path, '/') . '/';
+        }
+
+        // Kiểm tra và thay đổi quyền nếu cần thiết
+        if (!is_writable($target_dir))
+        {
+            // Cố gắng thay đổi quyền thư mục thành writable (0775)
+            if (!chmod($target_dir, 0775))
+            {
+                $this->getSmg('Không thể thay đổi quyền thư mục. Vui lòng kiểm tra lại.', 'danger');
+                return "noimage.jpg";
+            }
+        }
+
         $target_file = $target_dir . basename($_FILES[$filenameupload]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $new_filename = time() . '.' . $imageFileType;
