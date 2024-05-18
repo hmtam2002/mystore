@@ -44,7 +44,8 @@ if (!empty($productStatus))
     } ?>
     <table class="table">
         <thead>
-            <th>STT</th>
+            <th width="4%">STT</th>
+            <th>Hình ảnh</th>
             <th>Tiêu đề</th>
             <th>Thể loại</th>
             <th>Tác giả</th>
@@ -63,6 +64,12 @@ if (!empty($productStatus))
                 <tr>
                     <td>
                         <?= $dem ?>
+                    </td>
+                    <td>
+                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>">
+                            <img style="max-width: 90px;" src="<?= $f->image_exists($item['image']) ?>" alt="Ảnh xem trước">
+                        </a>
+
                     </td>
                     <td>
                         <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">

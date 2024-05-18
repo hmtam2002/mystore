@@ -16,11 +16,11 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
 {
     if (!empty($filterAll['id']))
     {
-        $userId = $filterAll['id'];
-        $user_detail = $db->oneRaw("SELECT * FROM admin WHERE id=$userId");
-        if (!empty($user_detail))
+        $productId = $filterAll['id'];
+        $product_detail = $db->oneRaw("SELECT * FROM products WHERE id=$productId");
+        if (!empty($product_detail))
         {
-            setFlashData('user_detail', $user_detail);
+            setFlashData('product_detail', $product_detail);
         } else
         {
             $f->redirect("?cmd=product&act=list");
@@ -168,10 +168,10 @@ $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$user_data = getFlashData('user_detail');
-if (!empty($user_data))
+$product_data = getFlashData('product_detail');
+if (!empty($product_data))
 {
-    $old = $user_data;
+    $old = $product_data;
 }
 ?>
 
@@ -193,72 +193,92 @@ if (!empty($user_data))
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm-8">
                         <div class="form-group mg-form">
-                            <label for="">Tên người dùng</label>
-                            <input name="username" type="fullname" class="form-control" placeholder="Tên người dùng"
-                                value="<?php
-                                echo $f->old('username', $old);
-                                ?>">
-                            <?php
-                            echo $f->formError('username', '<span class="error">', '</span>', $errors);
-                            ?>
-                        </div>
-                        <div class="form-group mg-form">
-                            <label for="">Họ và tên</label>
-                            <input name="fullname" type="fullname" class="form-control" placeholder="Họ và tên" value="<?php
-                            echo $f->old('fullname', $old);
+                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: localhost/mystore/ </label>
+                            <input name="slug" id="slugInput" class="form-control" placeholder="Đường dẫn" value="<?php
+                            echo $f->old('slug', $old);
                             ?>">
                             <?php
-                            echo $f->formError('fullname', '<span class="error">', '</span>', $errors);
+                            echo $f->formError('slug', '<span class="error">', '</span>', $errors);
                             ?>
                         </div>
                         <div class="form-group mg-form">
-                            <label for="">Email</label>
-                            <input name="email" type="email" class="form-control" placeholder="Địa chỉ email" value="<?php
-                            echo $f->old('email', $old);
+                            <label for="">Tiêu đề</label>
+                            <input id="title" name="title" class="form-control" placeholder="Tiêu đề" value="<?php
+                            echo $f->old('title', $old);
                             ?>">
                             <?php
-                            echo $f->formError('email', '<span class="error">', '</span>', $errors);
+                            echo $f->formError('title', '<span class="error">', '</span>', $errors);
                             ?>
                         </div>
                         <div class="form-group mg-form">
-                            <label for="">Số điện thoại</label>
-                            <input name="phone" type="number" class="form-control" placeholder="Số điện thoại" value="<?php
-                            echo $f->old('phone_number', $old);
+                            <label for="">Mô tả</label>
+                            <textarea name="description" id="description" class="form-control" placeholder="Mô tả">
+                                <?php
+                                echo $f->old('description', $old);
+                                ?>
+                                </textarea>
+                            <?php
+                            echo $f->formError('description', '<span class="error">', '</span>', $errors);
+                            ?>
+                        </div>
+                        <div class="form-group mg-form">
+                            <label for="">Giá bán</label>
+                            <input name="price" class="form-control" placeholder="Giá bán" value="<?php
+                            echo $f->old('price', $old);
                             ?>">
                             <?php
-                            echo $f->formError('phone', '<span class="error">', '</span>', $errors);
+                            echo $f->formError('price', '<span class="error">', '</span>', $errors);
                             ?>
                         </div>
                         <div class="form-group mg-form">
-                            <label for="image">Hình ảnh</label>
-                            <input type="file" class="form-control" name="image" id="image">
+                            <label for="">Giá giảm</label>
+                            <input name="discount" class="form-control" placeholder="Giá giảm" value="<?php
+                            echo $f->old('discount', $old);
+                            ?>">
+                            <?php
+                            echo $f->formError('discount', '<span class="error">', '</span>', $errors);
+                            ?>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-group mg-form">
-                            <label for="">Mật khẩu</label>
-                            <input name="password" type="password" class="form-control"
-                                placeholder="Không nhập nếu không thay đổi">
-                            <?php
-                            echo $f->formError('password', '<span class="error">', '</span>', $errors);
-                            ?>
-                        </div>
-                        <div class="form-group mg-form">
-                            <label for="">Nhập lại mật khẩu</label>
-                            <input name="password_confirm" type="password" class="form-control"
-                                placeholder="Không nhập nếu không thay đổi" value="<?php
-                                echo $f->old('password_confirm', $old);
-                                ?>">
-                            <?php
-                            echo $f->formError('password_confirm', '<span class="error">', '</span>', $errors);
-                            ?>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="">Tác giả</label>
+                            <select name="author_id" class="form-control">
+                                <?php
+                                $authorList = $db->getRaw('SELECT * FROM authors');
+                                foreach ($authorList as $item)
+                                {
+                                    ?>
+                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                        <?= $item['author_name'] ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Trạng thái</label>
+                            <label for="">Thể loại</label>
+                            <select name="genre_id" class="form-control">
+                                <?php
+                                $genreList = $db->getRaw('SELECT * FROM genres');
+                                foreach ($genreList as $item)
+                                {
+                                    ?>
+                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                        <?= $item['genre_name'] ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái</label>
                             <select name="status" id="mySelect" class="form-control" style="width: 50% display=block;">
                                 <option value="1" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>Đã kích hoạt
                                 </option>
@@ -266,12 +286,19 @@ if (!empty($user_data))
                                 </option>
                             </select>
                         </div>
-
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="file" class="form-control" name="imageUpload" id="imageUpload"
+                                accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <img id="previewImage" src="#" alt="Ảnh xem trước"
+                                style="max-width: 100%; max-height: 100%; display: none; margin-top: 20px;">
+                        </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $userId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
-                    Cập nhật
+                    Thêm
                 </button>
             </form>
         </div>

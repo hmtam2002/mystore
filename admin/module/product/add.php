@@ -75,16 +75,11 @@ if ($f->isPOST())
             'image' => $f->upload('imageUpload'),
             'create_at' => date('Y-m-d H:i:s')
         ];
-        // echo '<pre>';
-        // print_r($dataInsert);
-        // echo '</pre>';
-        // die();
         $insertStatus = $db->insert('products', $dataInsert);
         if ($insertStatus)
         {
             setFlashData('smg', 'Thêm sách thành công');
             setFlashData('smg_type', 'success');
-            // $f->redirect('?cmd=product&act=list');
         } else
         {
             setFlashData('smg', 'Thêm không thành công');
@@ -116,7 +111,7 @@ $old = getFlashData('old');
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
+            <li class="breadcrumb-item active" aria-current="page">Sách</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">

@@ -244,5 +244,21 @@ class func
     {
         echo 'testgame func';
     }
+    public function image_exists($filename)
+    {
+        $defaultImage = _HOST_ASSETS . '/images/noimage/noimage.png'; // Đường dẫn tới ảnh mặc định
+        if (empty($filename))
+        {
+            return $defaultImage;
+        }
+        $imagePath = _PATH_ASSETS . '/images/product/' . $filename; // Đường dẫn tới ảnh cần kiểm tra
 
+        if (file_exists($imagePath))
+        {
+            return _HOST_ASSETS . '/images/product/' . $filename;
+        } else
+        {
+            return $defaultImage;
+        }
+    }
 }
