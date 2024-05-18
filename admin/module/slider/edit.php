@@ -63,9 +63,25 @@ if ($f->isPOST())
     {
         //xử lý insert
         $dataUpdate = [
-            // 'author_name' => $filterAll['author_name'],
+            'image' => $f->upload('imageUpload'),
             'status' => $filterAll['status'],
         ];
+        if ($dataUpdate['image'] === 'noimage.jpg')
+        {
+            unset($dataUpdate['image']);
+        }
+        foreach ($dataUpdate as $key => $value)
+        {
+            // Nếu giá trị của phần tử là null hoặc rỗng, xóa phần tử đó
+            if (is_null($value) || $value === "")
+            {
+                unset($dataUpdate[$key]);
+            }
+        }
+        echo '<pre>';
+        print_r($dataUpdate);
+        echo '</pre>';
+        die();
         $condition = "id=$sliderId";
         $updateStatus = $db->update('images', $dataUpdate, $condition);
         if ($updateStatus)
@@ -84,7 +100,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=author&act=edit&id=" . $sliderId);
+    $f->redirect("?cmd=slider&act=edit&id=" . $sliderId);
 }
 
 $f->layout('header_page');
@@ -102,7 +118,7 @@ if (!empty($slider_data))
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
@@ -145,7 +161,7 @@ if (!empty($slider_data))
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $authorId ?>">
+                <input type="hidden" name="id" value="<?php echo $sliderId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
                     Cập nhật
                 </button>
