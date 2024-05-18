@@ -103,9 +103,9 @@ $old = getFlashData('old');
                         <div class="form-group">
                             <label for="">Trạng thái</label>
                             <select name="status" id="mySelect" class="form-control" style="width: 50% display=block;">
-                                <option value="1" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>Đã kích hoạt
+                                <option value="1" selected>Đã kích hoạt
                                 </option>
-                                <option value="0" <?= $f->old('status', $old) == 0 ? "selected" : null ?>>Chưa kích hoạt
+                                <option value="0">Chưa kích hoạt
                                 </option>
                             </select>
                         </div>

@@ -185,11 +185,10 @@ $old = getFlashData('old');
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                    <?= $item['author_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                        <?= $item['author_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -202,11 +201,10 @@ $old = getFlashData('old');
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                    <?= $item['genre_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                        <?= $item['genre_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -227,7 +225,7 @@ $old = getFlashData('old');
                         </div>
                         <div class="form-group">
                             <img id="previewImage" src="#" alt="Ảnh xem trước"
-                                style="max-width: 100%; max-height: 100%; display: none; margin-top: 20px;">
+                                style="max-width: 100%; max-height: 100%; margin-top: 20px;">
                         </div>
                     </div>
                 </div>

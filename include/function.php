@@ -180,6 +180,13 @@ class func
         $new_filename = time() . '.' . $imageFileType;
         $allow_file_upload = array("jpg", "jpeg", "png", "gif", "jfif");
 
+        // Kiểm tra nếu không có file được chọn
+        if (!isset($_FILES[$filenameupload]) || $_FILES[$filenameupload]['error'] == UPLOAD_ERR_NO_FILE)
+        {
+            $this->getSmg('Không có file nào được chọn.', 'danger');
+            return "noimage.jpg";
+        }
+
         // Kiểm tra nếu file có phải là hình ảnh thật hay không
         $checkImage = getimagesize($_FILES[$filenameupload]["tmp_name"]);
         if ($checkImage === false)

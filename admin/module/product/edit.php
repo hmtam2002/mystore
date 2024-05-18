@@ -31,12 +31,13 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     $statusValue = $filterAll['status'];
     if (!empty($filterAll['id']))
     {
-        $userId = $filterAll['id'];
-        $user_detail = $db->oneRaw("SELECT * FROM products WHERE id=$userId");
-        if (!empty($user_detail))
+        $productId = $filterAll['id'];
+        $produc_detail = $db->oneRaw("SELECT * FROM products WHERE id=$productId");
+        if (!empty($produc_detail))
         {
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
-            $condition = "id=$userId";
+            $dataUpdate['update_at'] = date('Y-m-d H:i:s');
+            $condition = "id=$productId";
             $updateStatus = $db->update('products', $dataUpdate, $condition);
             if ($updateStatus)
             {
@@ -59,86 +60,104 @@ if ($f->isPOST())
     // $userId = $filterAll['id'];
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
-    //validate username
-    if (empty($filterAll['username']))
-    {
-        $errors['username']['required'] = 'Tên người dùng bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['username']) < 5)
-        {
-            $errors['username']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
-        }
-    }
-    //validate fullname
-    if (empty($filterAll['fullname']))
-    {
-        $errors['fullname']['required'] = 'Họ tên bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['fullname']) < 5)
-        {
-            $errors['fullname']['min'] = 'Họ tên phải có ít nhất 5 ký tự';
-        }
-    }
-    //validate email
-    if (empty($filterAll['email']))
-    {
-        $errors['email']['required'] = 'Email bắt buộc phải nhập';
-    } else
-    {
-        $email = $filterAll['email'];
-        $sql = "SELECT id FROM admin WHERE email = '$email' AND id <> '$userId'";
-        if ($db->getRows($sql) > 0)
-        {
-            $errors['email']['unique'] = 'Email đã tồn tại';
-        }
-    }
-    //validate số điện thoại
-    if (empty($filterAll['phone']))
-    {
-        $errors['phone']['required'] = 'Số điện thoại bắt buộc phải nhập';
-    } else
-    {
-        if (!$f->isPhone($filterAll['phone']))
-        {
-            $errors['phone']['isPhone'] = 'Số điện thoại không hợp lệ';
-        }
-    }
+    // //validate username
+    // if (empty($filterAll['username']))
+    // {
+    //     $errors['username']['required'] = 'Tên người dùng bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['username']) < 5)
+    //     {
+    //         $errors['username']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
+    //     }
+    // }
+    // //validate fullname
+    // if (empty($filterAll['fullname']))
+    // {
+    //     $errors['fullname']['required'] = 'Họ tên bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['fullname']) < 5)
+    //     {
+    //         $errors['fullname']['min'] = 'Họ tên phải có ít nhất 5 ký tự';
+    //     }
+    // }
+    // //validate email
+    // if (empty($filterAll['email']))
+    // {
+    //     $errors['email']['required'] = 'Email bắt buộc phải nhập';
+    // } else
+    // {
+    //     $email = $filterAll['email'];
+    //     $sql = "SELECT id FROM admin WHERE email = '$email' AND id <> '$userId'";
+    //     if ($db->getRows($sql) > 0)
+    //     {
+    //         $errors['email']['unique'] = 'Email đã tồn tại';
+    //     }
+    // }
+    // //validate số điện thoại
+    // if (empty($filterAll['phone']))
+    // {
+    //     $errors['phone']['required'] = 'Số điện thoại bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (!$f->isPhone($filterAll['phone']))
+    //     {
+    //         $errors['phone']['isPhone'] = 'Số điện thoại không hợp lệ';
+    //     }
+    // }
 
 
-    if (!empty($filterAll['password']))
-    {
-        //validate password confirm
-        if (empty($filterAll['password_confirm']))
-        {
-            $errors['password_confirm']['required'] = 'Bạn phải nhập lại mật khẩu';
-        } else
-        {
-            if ($filterAll['password'] != $filterAll['password_confirm'])
-            {
-                $errors['password_confirm']['match'] = 'Mật khẩu bạn nhập lại không đúng';
-            }
-        }
-    }
+    // if (!empty($filterAll['password']))
+    // {
+    //     //validate password confirm
+    //     if (empty($filterAll['password_confirm']))
+    //     {
+    //         $errors['password_confirm']['required'] = 'Bạn phải nhập lại mật khẩu';
+    //     } else
+    //     {
+    //         if ($filterAll['password'] != $filterAll['password_confirm'])
+    //         {
+    //             $errors['password_confirm']['match'] = 'Mật khẩu bạn nhập lại không đúng';
+    //         }
+    //     }
+    // }
 
     if (empty($errors))
     {
         //xử lý insert
         $dataUpdate = [
-            'username' => $filterAll['username'],
-            'fullname' => $filterAll['fullname'],
-            'email' => $filterAll['email'],
+            'title' => $filterAll['title'],
+            'slug' => $filterAll['slug'],
+            'description' => $filterAll['description'],
+            'price' => $filterAll['price'],
+            'discount' => $filterAll['discount'],
+            'author_id' => $filterAll['author_id'],
+            'genre_id' => $filterAll['genre_id'],
             'status' => $filterAll['status'],
-            'phone_number' => $filterAll['phone'],
+            'image' => $f->upload('imageUpload'),
             'update_at' => date('Y-m-d H:i:s')
         ];
-        if (!empty($filterAll['password']))
+        if ($dataUpdate['image'] === 'noimage.jpg')
         {
-            $dataUpdate['password'] = password_hash($filterAll['password'], PASSWORD_DEFAULT);
+            unset($dataUpdate['image']);
         }
-        $condition = "id=$userId";
-        $updateStatus = $db->update('admin', $dataUpdate, $condition);
+
+        foreach ($dataUpdate as $key => $value)
+        {
+            // Nếu giá trị của phần tử là null hoặc rỗng, xóa phần tử đó
+            if (is_null($value) || $value === "")
+            {
+                unset($dataUpdate[$key]);
+            }
+        }
+        // echo '<pre>';
+        // print_r($dataUpdate);
+        // echo '</pre>';
+        // die();
+
+        $condition = "id=$productId";
+        $updateStatus = $db->update('products', $dataUpdate, $condition);
 
         if ($updateStatus)
         {
@@ -146,7 +165,7 @@ if ($f->isPOST())
             setFlashData('smg_type', 'success');
         } else
         {
-            setFlashData('smg', 'Thêm không thành công');
+            setFlashData('smg', 'Sửa không thành công');
             setFlashData('smg_type', 'danger');
         }
     } else
@@ -156,7 +175,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=product&act=edit&id=" . $userId);
+    $f->redirect("?cmd=product&act=edit&id=" . $productId);
 
 }
 
@@ -175,7 +194,7 @@ if (!empty($product_data))
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
@@ -183,8 +202,8 @@ if (!empty($product_data))
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=user&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=user&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=product&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=product&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -197,7 +216,9 @@ if (!empty($product_data))
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group mg-form">
-                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: localhost/mystore/ </label>
+                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: localhost/mystore/<?php
+                            echo $f->old('slug', $old);
+                            ?> </label>
                             <input name="slug" id="slugInput" class="form-control" placeholder="Đường dẫn" value="<?php
                             echo $f->old('slug', $old);
                             ?>">
@@ -227,7 +248,7 @@ if (!empty($product_data))
                         </div>
                         <div class="form-group mg-form">
                             <label for="">Giá bán</label>
-                            <input name="price" class="form-control" placeholder="Giá bán" value="<?php
+                            <input name="price" type="number" class="form-control" placeholder="Giá bán" value="<?php
                             echo $f->old('price', $old);
                             ?>">
                             <?php
@@ -236,7 +257,7 @@ if (!empty($product_data))
                         </div>
                         <div class="form-group mg-form">
                             <label for="">Giá giảm</label>
-                            <input name="discount" class="form-control" placeholder="Giá giảm" value="<?php
+                            <input name="discount" type="number" class="form-control" placeholder="Giá giảm" value="<?php
                             echo $f->old('discount', $old);
                             ?>">
                             <?php
@@ -249,11 +270,12 @@ if (!empty($product_data))
                             <label for="">Tác giả</label>
                             <select name="author_id" class="form-control">
                                 <?php
+                                $selectedAuthorId = $f->old('author_id', $old);
                                 $authorList = $db->getRaw('SELECT * FROM authors');
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
                                         <?= $item['author_name'] ?>
                                     </option>
                                     <?php
@@ -265,11 +287,12 @@ if (!empty($product_data))
                             <label for="">Thể loại</label>
                             <select name="genre_id" class="form-control">
                                 <?php
+                                $selectedGenreId = $f->old('genre_id', $old);
                                 $genreList = $db->getRaw('SELECT * FROM genres');
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
                                         <?= $item['genre_name'] ?>
                                     </option>
                                     <?php
@@ -292,13 +315,14 @@ if (!empty($product_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="#" alt="Ảnh xem trước"
-                                style="max-width: 100%; max-height: 100%; display: none; margin-top: 20px;">
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old)) ?>"
+                                alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="id" value="<?php echo $productId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
-                    Thêm
+                    Cập nhật
                 </button>
             </form>
         </div>
