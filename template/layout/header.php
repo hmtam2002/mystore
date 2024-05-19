@@ -7,7 +7,7 @@
     <div class="wrap-content">
         <div class="header-index d-flex justify-content-between align-items-center">
             <div class="logo">
-                <img src="<?= _HOST ?>/assets/images/logo.png" alt="" />
+                <a href="<?= _HOST ?>"><img src="<?= _HOST ?>/assets/images/logo.png" alt="" /></a>
             </div>
             <div class="search-header">
                 <input type="search" name="" id="" placeholder="Tìm kiếm..." />
