@@ -16,6 +16,10 @@ if (!empty($filterAll['id']))
         {
             setFlashData("smg", "Đã xoá slider thành công");
             setFlashData("smg_type", "success");
+        } else
+        {
+            setFlashData("smg", "Đã xoá slider thành công");
+            setFlashData("smg_type", "success");
         }
     } else
     {
