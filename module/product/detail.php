@@ -1,6 +1,4 @@
 <?php
-// echo "SELECT * FROM products WHERE slug = $slug";
-// echo $slug;
 $product_detail = $db->oneRaw("SELECT * FROM products WHERE slug = '$slug'");
 if (empty($product_detail))
 {
@@ -14,8 +12,8 @@ $author = $db->oneRaw("SELECT author_name FROM authors WHERE id = '$author_id'")
 <html lang="<?= _LANGUAGE ?>">
 
 <head>
-    <?= require_once _PATH_TEMPLATE . '/layout/head.php'; ?>
-    <?= require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/head.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
 </head>
 
 <body>
@@ -186,10 +184,11 @@ $author = $db->oneRaw("SELECT author_name FROM authors WHERE id = '$author_id'")
     </div>
 
     <!-- footer -->
-    <?= require_once _PATH_TEMPLATE . '/layout/footer.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/footer.php'; ?>
 
-    <!-- js tổng quát và đóng HTML -->
-    <?= require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
+    <!-- js tổng quát  -->
+    <?php require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
+    <script src="<?= _HOST_TEMPLATE . '/js/app.js' ?>"></script>
 </body>
 
 </html>

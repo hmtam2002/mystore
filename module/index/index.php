@@ -2,16 +2,16 @@
 <html lang="<?= _LANGUAGE ?>">
 
 <head>
-    <?= require_once _PATH_TEMPLATE . '/layout/head.php'; ?>
-    <?= require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
+    <?php include _PATH_TEMPLATE . '/layout/head.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
 </head>
 
 <body>
     <!-- header -->
-    <?= require_once _PATH_TEMPLATE . '/layout/header.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/header.php'; ?>
 
     <!-- slider -->
-    <?= include _PATH_TEMPLATE . '/layout/slider.php' ?>
+    <?php include _PATH_TEMPLATE . '/layout/slider.php' ?>
 
     <!-- danh mục sản phẩm -->
     <div class="wrap-product_list">
@@ -458,12 +458,10 @@
     </div>
 
     <!-- footer -->
-    <?php
-    require_once _PATH_TEMPLATE . '/layout/footer.php';
-    ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/footer.php'; ?>
 
     <!-- js tổng quát -->
-    <?= require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -514,7 +512,7 @@
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
     </script>
-
+    <script src="<?= _HOST_TEMPLATE . '/js/app.js' ?>"></script>
 
 </body>
 
