@@ -33,3 +33,17 @@ require_once _PATH_TEMPLATE . '/layout/js.php';
 <?php
 require_once _PATH_TEMPLATE . '/layout/end.php';
 ?>
+
+<!DOCTYPE html>
+<html lang="<?= _LANGUAGE ?>">
+
+<head>
+    <?= require_once _PATH_TEMPLATE . '/layout/head2.php'; ?>
+    <?= require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -6,7 +6,6 @@
                 <div class="logo logo-footer">
                     <img src="<?= _HOST_ASSETS ?>/images/logo.png" alt="" />
                 </div>
-
                 <div class="footer-info">
                     <p> Hotline: 1900 6656</p>
                     <p> Email: hotro@nhasachphuongnam.com</p>

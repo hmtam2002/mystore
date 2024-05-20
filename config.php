@@ -9,8 +9,13 @@ if (session_status() == PHP_SESSION_NONE)
 define('_PROJECT_NAME', 'mystore');
 
 
+//ngôn ngữ
+define('_LANGUAGE', 'vi');
+
+
+
 //thiết lập host
-define('_HOST', 'http://' . $_SERVER['HTTP_HOST'] . '/mystore');
+define('_HOST', 'http://' . $_SERVER['HTTP_HOST'] . '/' . _PROJECT_NAME);
 define('_HOST_TEMPLATE', _HOST . '/template');
 define('_HOST_ASSETS', _HOST . '/assets');
 
