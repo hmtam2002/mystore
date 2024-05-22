@@ -37,11 +37,6 @@ if (!empty($filterAll['id']))
                 unset($dataInsert[$key]);
             }
         }
-        // $dataInsert = [
-        //     'title' => 'Huỳnh Minh Tâm',
-        // ];
-
-
         $insertStatus = $db->insert('products', $dataInsert);
         if ($insertStatus)
         {

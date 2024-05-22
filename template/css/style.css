@@ -11,7 +11,7 @@
 }
 /* head */
 .banner img {
-  max-height: 200px;
+  max-height: 50px;
   object-fit: cover;
 }
 .wrap-content {

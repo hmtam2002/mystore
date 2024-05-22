@@ -14,13 +14,16 @@ $f->layout('header_page');
 $f->layout('menu_page');
 $sql = 'SELECT * FROM images WHERE type = "slider"';
 $listSlider = $db->getRaw($sql);
+
 $smg = getFlashData('smg');
+// $smg = 'Load thành công';
 $smg_type = getFlashData('smg_type');
-$slideStatus = getFlashData('productStatus');
-if (!empty($slideStatus))
-{
-    $smg = $slideStatus;
-}
+// $smg_type = 'success';
+$slideStatus = getFlashData('slidertStatus');
+// if (!empty($slideStatus))
+// {
+//     $smg = $slideStatus;
+// }
 
 
 ?>
@@ -35,6 +38,10 @@ if (!empty($slideStatus))
         <a href="?cmd=slider&act=list" class="btn btn-secondary">Quản lý</a>
         <a href="?cmd=slider&act=add" class="btn btn-success">Thêm mới</a>
     </div>
+    <?php if (!empty($smg))
+    {
+        $f->getSmg($smg, $smg_type);
+    } ?>
 
     <table class="table">
         <thead>

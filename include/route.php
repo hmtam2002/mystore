@@ -19,8 +19,8 @@ switch ($url)
         break;
     case '/san-pham':
         // Trang sản phẩm
-
-        include './module/product/detail.php';
+        $slug = ltrim($url, '/');
+        require_once './module/product/detail.php';
         break;
     case '/master':
         // Trang master
@@ -32,7 +32,7 @@ switch ($url)
         break;
     default:
         // Nếu không tìm thấy, giả định rằng đó là slug của sản phẩm
-// và chuyển hướng đến trang sản phẩm
+        // và chuyển hướng đến trang sản phẩm
         $slug = ltrim($url, '/');
         require_once './module/product/detail.php';
         break;
