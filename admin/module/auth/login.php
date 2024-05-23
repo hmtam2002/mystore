@@ -74,37 +74,39 @@ $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $old = getFlashData('old');
 ?>
-<div class="row">
-    <div class="col-4" style="margin: 50px auto;">
-        <h2 class="text-center text-uppercase">Đăng nhập quản trị</h2>
-        <?php if (!empty($smg))
-        {
-            $f->getSmg($smg, $smg_type);
-        } ?>
-        <form action="" method="post">
-            <div class="form-group mg-form">
-                <label for="">Email</label>
-                <input name="email" type="email" class="form-control" placeholder="Địa chỉ email" value="<?php
-                echo $f->old('email', $old);
-                ?>">
-            </div>
-            <div class="form-group mg-form">
-                <label for="">Mật khẩu</label>
-                <input name="password" type="password" class="form-control" placeholder="Mật khẩu" value="<?php
-                echo $f->old('password', $old);
-                ?>" id="passwordField">
-                <div class="form-group form-check mt-2">
-                    <input type="checkbox" class="form-check-input" id="showPasswordCheckbox">
-                    <label class="form-check-label" for="showPasswordCheckbox">Hiện mật khẩu</label>
+
+
+
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 50px;">
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <h2 class="text-center text-uppercase">Đăng nhập quản trị</h2>
+            <?php if (!empty($smg))
+            {
+                $f->getSmg($smg, $smg_type);
+            } ?>
+            <form action="" method="post">
+                <div class="form-group mg-form">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" class="form-control" placeholder="Địa chỉ email"
+                        value="<?php echo $f->old('email', $old); ?>" required>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block mg-btn">Đăng nhập</button>
-            <hr />
-            <p class="text-center"><a href="?cmd=auth&act=forgot">Quên mật khẩu</a></p>
-        </form>
+                <div class="form-group mg-form">
+                    <label for="passwordField">Mật khẩu</label>
+                    <input name="password" type="password" class="form-control" placeholder="Mật khẩu"
+                        value="<?php echo $f->old('password', $old); ?>" id="passwordField" required>
+                    <div class="form-group form-check mt-2">
+                        <input type="checkbox" class="form-check-input" id="showPasswordCheckbox">
+                        <label class="form-check-label" for="showPasswordCheckbox">Hiện mật khẩu</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mg-btn">Đăng nhập</button>
+                <hr />
+                <p class="text-center"><a href="?cmd=auth&act=forgot">Quên mật khẩu</a></p>
+            </form>
+        </div>
     </div>
 </div>
-
 <?php
 $f->layout('footer');
 ?>

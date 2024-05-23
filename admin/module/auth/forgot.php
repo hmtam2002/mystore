@@ -75,24 +75,26 @@ if ($f->isPOST())
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 ?>
-<p></p>
-<a href=""></a>
-<div class="row">
-    <div class="col-4" style="margin: 50px auto;">
-        <h2 class="text-center text-uppercase">Quên mật khẩu</h2>
-        <?php if (!empty($smg))
-        {
-            $f->getSmg($smg, $smg_type);
-        } ?>
-        <form action="" method="post">
-            <div class="form-group mg-form">
-                <label for="">Email</label>
-                <input name="email" type="email" class="form-control" placeholder="Địa chỉ email">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block mg-btn">Gửi</button>
-            <hr />
-            <p class="text-center"><a href="?cmd=auth&act=login">Đăng nhập</a></p>
-        </form>
+
+
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 50px;">
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <h2 class="text-center text-uppercase">Quên mật khẩu</h2>
+            <?php if (!empty($smg))
+            {
+                $f->getSmg($smg, $smg_type);
+            } ?>
+            <form action="" method="post">
+                <div class="form-group mg-form">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" class="form-control" placeholder="Địa chỉ email" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mg-btn">Gửi</button>
+                <hr />
+                <p class="text-center"><a href="?cmd=auth&act=login">Đăng nhập</a></p>
+            </form>
+        </div>
     </div>
 </div>
 
