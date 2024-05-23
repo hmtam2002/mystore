@@ -2,13 +2,13 @@
 <div class="wrap-header">
     <div class="banner">
         <a class="d-block" href="">
-            <img class="w-100" src="<?= _HOST ?>/assets/images/banner.jpg" />
+            <img class="w-100" src="<?= _HOST ?>/assets/images/banner_top.jpeg" />
         </a>
     </div>
     <div class="wrap-content">
         <div class="header-index d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="<?= _HOST ?>"><img src="<?= _HOST ?>/assets/images/logo.png" alt="" /></a>
+                <a href="<?= _HOST ?>"><img src="<?= _HOST ?>/assets/images/MuaSach.png" alt="" /></a>
             </div>
             <div class="search-header">
                 <input type="search" name="" id="" placeholder="Tìm kiếm..." />

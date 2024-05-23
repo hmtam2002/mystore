@@ -18,6 +18,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="?cmd=book&act=list">
+                    <span class="ml-2">Book</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="?cmd=author&act=list">
                     <span class="ml-2">Tác giả</span>
                 </a>
@@ -28,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="?cmd=vanphongpham&act=list">
+                <a class="nav-link active" aria-current="page" href="?cmd=stationery&act=list">
                     <span class="ml-2">Văn phòng phẩm</span>
                 </a>
             </li>
@@ -45,6 +50,11 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="?cmd=slider&act=list">
                     <span class="ml-2">Slider</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="?cmd=policy&act=list">
+                    <span class="ml-2">Chính sách</span>
                 </a>
             </li>
 

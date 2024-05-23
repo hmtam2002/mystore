@@ -14,17 +14,13 @@ if (strpos($url, $base_path) === 0)
 switch ($url)
 {
     case '':
-        // Trang chính
+        // Trang chủ
         include './module/index/index.php';
         break;
     case '/san-pham':
         // Trang sản phẩm
         $slug = ltrim($url, '/');
         require_once './module/product/detail.php';
-        break;
-    case '/master':
-        // Trang master
-        include './module/master/master.php';
         break;
     case '/kiem-tra':
         // Trang kiểm tra

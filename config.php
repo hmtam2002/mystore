@@ -6,12 +6,15 @@ if (session_status() == PHP_SESSION_NONE)
 }
 
 //tên project
-define('_PROJECT_NAME', 'mystore');
+const projectName = 'mystore';
+define('_PROJECT_NAME', projectName);
 
 
 //ngôn ngữ
 define('_LANGUAGE', 'vi');
 
+// Đặt múi giờ cho PHP
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 
 //thiết lập host
