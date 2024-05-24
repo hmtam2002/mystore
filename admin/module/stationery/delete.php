@@ -14,16 +14,16 @@ if (!empty($filterAll['id']))
         $deleteProduct = $db->delete("products", "id = $productId");
         if ($deleteProduct)
         {
-            setFlashData("smg", "Đã xoá sách thành công");
+            setFlashData("smg", "Đã xoá sản phẩm thành công");
             setFlashData("smg_type", "success");
         } else
         {
-            setFlashData("smg", "Sách này đang được sử dụng");
+            setFlashData("smg", "Sản phẩm này đang được sử dụng");
             setFlashData("smg_type", "danger");
         }
     } else
     {
-        setFlashData("smg", "Sách không tồn tại trong hệ thống");
+        setFlashData("smg", "Sản phẩm không tồn tại trong hệ thống");
         setFlashData("smg_type", "danger");
     }
 
@@ -32,4 +32,4 @@ if (!empty($filterAll['id']))
     setFlashData("smg", "Liên kết không tồn tại");
     setFlashData("smg_type", "danger");
 }
-$f->redirect("?cmd=product&act=list");
+$f->redirect("?cmd=stationery&act=list");

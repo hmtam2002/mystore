@@ -25,7 +25,7 @@ if (!empty($filterAll['id']))
         //     $dataInsert['title'] = $afterTitle;
         // } else
         // {
-        $dataInsert['title'] = $dataInsert['title'] . '(1)';
+        $dataInsert['product_name'] = $dataInsert['product_name'] . '(1)';
         // }
         $dataInsert['create_at'] = date('Y-m-d H:i:s');
         unset($dataInsert['id']);
@@ -48,5 +48,5 @@ if (!empty($filterAll['id']))
             setFlashData('smg_type', 'danger');
         }
     }
-    $f->redirect('?cmd=product&act=list');
+    $f->redirect('?cmd=stationery&act=list');
 }

@@ -13,11 +13,11 @@ $data = [
 
 $f->layout('header_page');
 $f->layout('menu_page');
-$sql = 'SELECT products.*, genres.genre_name, authors.author_name
+$sql = 'SELECT products.*, origins.country_name, brands.brand_name
 FROM products
-INNER JOIN genres ON products.genre_id = genres.id
-INNER JOIN authors ON products.author_id = authors.id
-WHERE products.product_type_id = "1"';
+INNER JOIN origins ON products.origin_id = origins.id
+INNER JOIN brands ON products.brand_id = brands.id
+WHERE products.product_type_id = "2"';
 $listProduct = $db->getRaw($sql);
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
@@ -47,8 +47,8 @@ if (!empty($productStatus))
             <th width="4%">STT</th>
             <th>Hình ảnh</th>
             <th>Tiêu đề</th>
-            <th>Thể loại</th>
-            <th>Tác giả</th>
+            <th>Xuất xứ</th>
+            <th>Thương hiệu</th>
             <th>Trạng thái</th>
             <th width="5%">Chép</th>
             <th width="5%">Sửa</th>
@@ -66,41 +66,41 @@ if (!empty($productStatus))
                         <?= $dem ?>
                     </td>
                     <td>
-                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>">
+                        <a href="?cmd=stationery&act=edit&id=<?= $item['id'] ?>">
                             <img style="max-width: 90px;" src="<?= $f->image_exists($item['image']) ?>" alt="Ảnh xem trước">
                         </a>
 
                     </td>
                     <td>
-                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                            <?= $item['title'] ?>
+                        <a href="?cmd=stationery&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
+                            <?= $item['product_name'] ?>
                         </a>
                     </td>
                     <td>
-                        <?= $item['genre_name'] ?>
+                        <?= $item['country_name'] ?>
                     </td>
                     <td>
-                        <?= $item['author_name'] ?>
+                        <?= $item['brand_name'] ?>
                     </td>
                     <td>
-                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                        <a href="?cmd=stationery&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
                             <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
                         </a>
                     </td>
                     <td>
-                        <a href="?cmd=product&act=copy&id=<?= $item['id'] ?>" class="btn btn-success btn-sm">
+                        <a href="?cmd=stationery&act=copy&id=<?= $item['id'] ?>" class="btn btn-success btn-sm">
                             <i class="fa-regular fa-copy"></i>
                         </a>
                     </td>
                     <!-- nút sửa -->
                     <td>
-                        <a href="?cmd=product&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
+                        <a href="?cmd=stationery&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </td>
                     <!-- nút xoá -->
                     <td>
-                        <a href="?cmd=product&act=delete&id=<?= $item['id'] ?>"
+                        <a href="?cmd=stationery&act=delete&id=<?= $item['id'] ?>"
                             onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
                             <i class="fa-solid fa-trash"></i>
                         </a>

@@ -14,63 +14,63 @@ if ($f->isPOST())
 {
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
-    //validate slug
-    if (empty($filterAll['slug']))
-    {
-        $errors['slug']['required'] = 'Đường dẫn bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['slug']) < 5)
-        {
-            $errors['slug']['min'] = 'Đường dẫn phải có ít nhất 5 ký tự';
-        }
-    }
-    //validate title
-    if (empty($filterAll['title']))
-    {
-        $errors['title']['required'] = 'Tiêu đề bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['title']) < 5)
-        {
-            $errors['title']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
-        }
-    }
-    //validate price
-    if (empty($filterAll['price']))
-    {
-        $errors['price']['required'] = 'Tiêu đề bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['title']) < 5)
-        {
-            $errors['price']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
-        }
-    }
-    //validate discount
-    if (empty($filterAll['discount']))
-    {
-        $errors['discount']['required'] = 'Tiêu đề bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['discount']) < 5)
-        {
-            $errors['discount']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
-        }
-    }
+    // //validate slug
+    // if (empty($filterAll['slug']))
+    // {
+    //     $errors['slug']['required'] = 'Đường dẫn bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['slug']) < 5)
+    //     {
+    //         $errors['slug']['min'] = 'Đường dẫn phải có ít nhất 5 ký tự';
+    //     }
+    // }
+    // //validate title
+    // if (empty($filterAll['title']))
+    // {
+    //     $errors['title']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['title']) < 5)
+    //     {
+    //         $errors['title']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+    //     }
+    // }
+    // //validate price
+    // if (empty($filterAll['price']))
+    // {
+    //     $errors['price']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['title']) < 5)
+    //     {
+    //         $errors['price']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+    //     }
+    // }
+    // //validate discount
+    // if (empty($filterAll['discount']))
+    // {
+    //     $errors['discount']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['discount']) < 5)
+    //     {
+    //         $errors['discount']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+    //     }
+    // }
 
     if (empty($errors))
     {
         //xử lý insert
         $dataInsert = [
-            'title' => $filterAll['title'],
-            'product_type_id' => '1',
+            'product_name' => $filterAll['product_name'],
+            'product_type_id' => '2',
             'slug' => $filterAll['slug'],
             'description' => $_POST['description'],
             'price' => $filterAll['price'],
             'discount' => $filterAll['discount'],
-            'author_id' => $filterAll['author_id'],
-            'genre_id' => $filterAll['genre_id'],
+            'origin_id' => $filterAll['origin_id'],
+            'brand_id' => $filterAll['brand_id'],
             'status' => $filterAll['status'],
             'image' => $f->upload('imageUpload'),
             'create_at' => date('Y-m-d H:i:s')
@@ -78,7 +78,7 @@ if ($f->isPOST())
         $insertStatus = $db->insert('products', $dataInsert);
         if ($insertStatus)
         {
-            setFlashData('smg', 'Thêm sách thành công');
+            setFlashData('smg', 'Thêm sản phẩm thành công');
             setFlashData('smg_type', 'success');
         } else
         {
@@ -86,14 +86,14 @@ if ($f->isPOST())
             setFlashData('smg_type', 'danger');
             setFlashData('old', $filterAll);
         }
-        $f->redirect('?cmd=product&act=list');
+        $f->redirect('?cmd=stationery&act=list');
     } else
     {
         setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu');
         setFlashData('smg_type', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
-        $f->redirect('?cmd=product&act=add');
+        $f->redirect('?cmd=stationery&act=add');
     }
 }
 $f->layout('header_page');
@@ -115,8 +115,8 @@ $old = getFlashData('old');
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=product&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=product&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=stationery&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=stationery&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -139,8 +139,8 @@ $old = getFlashData('old');
                         </div>
                         <div class="form-group mg-form">
                             <label for="">Tiêu đề</label>
-                            <input id="title" name="title" class="form-control" placeholder="Tiêu đề" value="<?php
-                            echo $f->old('title', $old);
+                            <input id="title" name="product_name" class="form-control" placeholder="Tiêu đề" value="<?php
+                            echo $f->old('product_name', $old);
                             ?>">
                             <?php
                             echo $f->formError('title', '<span class="error">', '</span>', $errors);
@@ -178,33 +178,37 @@ $old = getFlashData('old');
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="">Tác giả</label>
-                            <select name="author_id" class="form-control">
+                            <label for="">Xuất xứ</label>
+                            <select name="origin_id" class="form-control">
                                 <?php
-                                $authorList = $db->getRaw('SELECT * FROM authors');
-                                foreach ($authorList as $item)
+                                $selectedOriginId = $f->old('origin_id', $old);
+                                $originList = $db->getRaw('SELECT * FROM origins');
+                                foreach ($originList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                        <?= $item['author_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
+                                    <?= $item['country_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Thể loại</label>
-                            <select name="genre_id" class="form-control">
+                            <label for="">Thương hiệu</label>
+                            <select name="brand_id" class="form-control">
                                 <?php
-                                $genreList = $db->getRaw('SELECT * FROM genres');
-                                foreach ($genreList as $item)
+                                $selectedBrandId = $f->old('brand_id', $old);
+                                $brandList = $db->getRaw('SELECT * FROM brands');
+                                foreach ($brandList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                        <?= $item['genre_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
+                                    <?= $item['brand_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>

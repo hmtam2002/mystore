@@ -23,7 +23,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             setFlashData('product_detail', $product_detail);
         } else
         {
-            $f->redirect("?cmd=product&act=list");
+            $f->redirect("?cmd=stationery&act=list");
         }
     }
 } else
@@ -50,7 +50,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             }
         }
     }
-    $f->redirect("?cmd=product&act=list");
+    $f->redirect("?cmd=stationery&act=list");
 }
 
 
@@ -127,13 +127,13 @@ if ($f->isPOST())
     {
         //xử lý insert
         $dataUpdate = [
-            'title' => $filterAll['title'],
+            'product_name' => $filterAll['product_name'],
             'slug' => $filterAll['slug'],
             'description' => $_POST['description'],
             'price' => $filterAll['price'],
             'discount' => $filterAll['discount'],
-            'author_id' => $filterAll['author_id'],
-            'genre_id' => $filterAll['genre_id'],
+            'origin_id' => $filterAll['origin_id'],
+            'brand_id' => $filterAll['brand_id'],
             'status' => $filterAll['status'],
             'image' => $f->upload('imageUpload'),
             'update_at' => date('Y-m-d H:i:s')
@@ -175,7 +175,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=product&act=edit&id=" . $productId);
+    $f->redirect("?cmd=stationery&act=edit&id=" . $productId);
 
 }
 
@@ -202,8 +202,8 @@ if (!empty($product_data))
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=product&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=product&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=stationery&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=stationery&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -228,8 +228,8 @@ if (!empty($product_data))
                         </div>
                         <div class="form-group mg-form">
                             <label for="">Tiêu đề</label>
-                            <input id="title" name="title" class="form-control" placeholder="Tiêu đề" value="<?php
-                            echo $f->old('title', $old);
+                            <input id="title" name="product_name" class="form-control" placeholder="Tiêu đề" value="<?php
+                            echo $f->old('product_name', $old);
                             ?>">
                             <?php
                             echo $f->formError('title', '<span class="error">', '</span>', $errors);
@@ -267,35 +267,37 @@ if (!empty($product_data))
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="">Tác giả</label>
-                            <select name="author_id" class="form-control">
+                            <label for="">Xuất xứ</label>
+                            <select name="origin_id" class="form-control">
                                 <?php
-                                $selectedAuthorId = $f->old('author_id', $old);
-                                $authorList = $db->getRaw('SELECT * FROM authors');
-                                foreach ($authorList as $item)
+                                $selectedOriginId = $f->old('origin_id', $old);
+                                $originList = $db->getRaw('SELECT * FROM origins');
+                                foreach ($originList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
-                                        <?= $item['author_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
+                                    <?= $item['country_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Thể loại</label>
-                            <select name="genre_id" class="form-control">
+                            <label for="">Thương hiệu</label>
+                            <select name="brand_id" class="form-control">
                                 <?php
-                                $selectedGenreId = $f->old('genre_id', $old);
-                                $genreList = $db->getRaw('SELECT * FROM genres');
-                                foreach ($genreList as $item)
+                                $selectedBrandId = $f->old('brand_id', $old);
+                                $brandList = $db->getRaw('SELECT * FROM brands');
+                                foreach ($brandList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
-                                        <?= $item['genre_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
+                                    <?= $item['brand_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
