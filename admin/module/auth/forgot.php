@@ -35,7 +35,7 @@ if ($f->isPOST())
             if ($updateStatus)
             {
                 //tạo link reset khôi phục mật khẩu
-                $linkReset = _WEB_HOST . '?cmd=auth&act=reset&token=' . $forgotToken;
+                $linkReset = _HOST . '/admin?cmd=auth&act=reset&token=' . $forgotToken;
                 //gửi mail cho người dùng
                 $subject = 'Yêu cầu khôi phục mật khẩu.';
                 $content = '<p>Chào bạn</p>';
