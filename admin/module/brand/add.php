@@ -15,36 +15,36 @@ if ($f->isPOST())
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
     //validate author_name
-    if (empty($filterAll['author_name']))
-    {
-        $errors['author_name']['required'] = 'Tên tác giả bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['author_name']) < 5)
-        {
-            $errors['author_name']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
-        }
-    }
+    // if (empty($filterAll['author_name']))
+    // {
+    //     $errors['author_name']['required'] = 'Tên tác giả bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['author_name']) < 5)
+    //     {
+    //         $errors['author_name']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
+    //     }
+    // }
 
     if (empty($errors))
     {
         //xử lý insert
         $dataInsert = [
-            'author_name' => $filterAll['author_name'],
+            'brand_name' => $filterAll['brand_name'],
             'status' => $filterAll['status'],
             'create_at' => date('Y-m-d H:i:s')
         ];
-        $insertStatus = $db->insert('authors', $dataInsert);
+        $insertStatus = $db->insert('brands', $dataInsert);
         if ($insertStatus)
         {
-            setFlashData('smg', 'Thêm tác giả thành công');
+            setFlashData('smg', 'Thêm dữ liệu thành công');
             setFlashData('smg_type', 'success');
-            $f->redirect('?cmd=author&act=list');
+            $f->redirect('?cmd=brand&act=list');
         } else
         {
             setFlashData('smg', 'Lỗi cơ sở dữ liệu');
             setFlashData('smg_type', 'danger');
-            $f->redirect('?cmd=author&act=add');
+            $f->redirect('?cmd=brand&act=add');
         }
     } else
     {
@@ -52,7 +52,7 @@ if ($f->isPOST())
         setFlashData('smg_type', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
-        $f->redirect('?cmd=author&act=add');
+        $f->redirect('?cmd=brand&act=add');
     }
 }
 $f->layout('header_page');
@@ -70,12 +70,12 @@ $old = getFlashData('old');
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tác giả</li>
+            <li class="breadcrumb-item active" aria-current="page">Thương hiệu</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=author&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=author&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=brand&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=brand&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -88,12 +88,12 @@ $old = getFlashData('old');
                 <div class="row">
                     <div class="col">
                         <div class="form-group mg-form">
-                            <label for="">Tác giả</label>
-                            <input name="author_name" class="form-control" placeholder="Tác giả" value="<?php
-                            echo $f->old('username', $old);
+                            <label for="">Thương hiệu</label>
+                            <input name="brand_name" class="form-control" placeholder="Thương hiệu" value="<?php
+                            echo $f->old('brand_name', $old);
                             ?>">
                             <?php
-                            echo $f->formError('author_name', '<span class="error">', '</span>', $errors);
+                            echo $f->formError('brand_name', '<span class="error">', '</span>', $errors);
                             ?>
                         </div>
 

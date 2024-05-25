@@ -18,14 +18,13 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     if (!empty($filterAll['id']))
     {
         $authorId = $filterAll['id'];
-        $author_name = $filterAll['author_name'];
-        $author_data = $db->oneRaw("SELECT * FROM authors WHERE id=$authorId");
+        $author_data = $db->oneRaw("SELECT * FROM brands WHERE id=$authorId");
         if (!empty($author_data))
         {
             setFlashData('author_detail', $author_data);
         } else
         {
-            $f->redirect("?cmd=author&act=list");
+            $f->redirect("?cmd=brand&act=list");
         }
     }
 } else
@@ -35,12 +34,12 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     if (!empty($filterAll['id']))
     {
         $authorId = $filterAll['id'];
-        $author_detail = $db->oneRaw("SELECT * FROM authors WHERE id=$authorId");
+        $author_detail = $db->oneRaw("SELECT * FROM brands WHERE id=$authorId");
         if (!empty($author_detail))
         {
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $condition = "id=$authorId";
-            $updateStatus = $db->update('authors', $dataUpdate, $condition);
+            $updateStatus = $db->update('brands', $dataUpdate, $condition);
             if ($updateStatus)
             {
                 // setFlashData('authorStatus', 'Sửa thành công');
@@ -52,7 +51,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             }
         }
     }
-    $f->redirect("?cmd=author&act=list");
+    $f->redirect("?cmd=brand&act=list");
 }
 
 
@@ -62,32 +61,32 @@ if ($f->isPOST())
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
     //validate author_name
-    if (empty($filterAll['author_name']))
-    {
-        $errors['author_name']['required'] = 'Tên tác giả bắt buộc phải nhập';
-    } else
-    {
-        if (strlen($filterAll['author_name']) < 5)
-        {
-            $errors['author_name']['min'] = 'Tên tác giả phải có ít nhất 5 ký tự';
-        } else
-        {
-            if ($filterAll['author_name'] == $author_name)
-            {
-                $errors['author_name']['exist'] = 'Bạn chưa sửa tên tác giả';
-            }
-        }
-    }
+    // if (empty($filterAll['author_name']))
+    // {
+    //     $errors['author_name']['required'] = 'Tên tác giả bắt buộc phải nhập';
+    // } else
+    // {
+    //     if (strlen($filterAll['author_name']) < 5)
+    //     {
+    //         $errors['author_name']['min'] = 'Tên tác giả phải có ít nhất 5 ký tự';
+    //     } else
+    //     {
+    //         if ($filterAll['author_name'] == $author_name)
+    //         {
+    //             $errors['author_name']['exist'] = 'Bạn chưa sửa tên tác giả';
+    //         }
+    //     }
+    // }
     if (empty($errors))
     {
         //xử lý insert
         $dataUpdate = [
-            'author_name' => $filterAll['author_name'],
+            'brand_name' => $filterAll['brand_name'],
             'status' => $filterAll['status'],
             'update_at' => date('Y-m-d H:i:s')
         ];
         $condition = "id=$authorId";
-        $updateStatus = $db->update('authors', $dataUpdate, $condition);
+        $updateStatus = $db->update('brands', $dataUpdate, $condition);
         if ($updateStatus)
         {
             setFlashData('smg', 'Sửa thành công');
@@ -104,7 +103,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=author&act=edit&id=" . $authorId);
+    $f->redirect("?cmd=brand&act=edit&id=" . $authorId);
 }
 
 $f->layout('header_page');
@@ -126,12 +125,12 @@ if (!empty($author_data))
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Thể loại</li>
+            <li class="breadcrumb-item active" aria-current="page">Thương hiệu</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=author&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=author&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=brand&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=brand&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -144,13 +143,12 @@ if (!empty($author_data))
                 <div class="row">
                     <div class="col">
                         <div class="form-group mg-form">
-                            <label for="">Tác giả</label>
-                            <input name="author_name" type="author_name" class="form-control" placeholder="Tác giả"
-                                value="<?php
-                                echo $f->old('author_name', $old);
+                            <label for="">Thương hiệu</label>
+                            <input name="brand_name" class="form-control" placeholder="Thương hiệu" value="<?php
+                                echo $f->old('brand_name', $old);
                                 ?>">
                             <?php
-                            echo $f->formError('author_name', '<span class="error">', '</span>', $errors);
+                            echo $f->formError('brand_name', '<span class="error">', '</span>', $errors);
                             ?>
                         </div>
                     </div>
