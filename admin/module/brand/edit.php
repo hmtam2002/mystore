@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -106,8 +103,6 @@ if ($f->isPOST())
     $f->redirect("?cmd=brand&act=edit&id=" . $authorId);
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
 
 
 $smg = getFlashData('smg');
@@ -145,8 +140,8 @@ if (!empty($author_data))
                         <div class="form-group mg-form">
                             <label for="">Thương hiệu</label>
                             <input name="brand_name" class="form-control" placeholder="Thương hiệu" value="<?php
-                                echo $f->old('brand_name', $old);
-                                ?>">
+                            echo $f->old('brand_name', $old);
+                            ?>">
                             <?php
                             echo $f->formError('brand_name', '<span class="error">', '</span>', $errors);
                             ?>
@@ -172,7 +167,3 @@ if (!empty($author_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

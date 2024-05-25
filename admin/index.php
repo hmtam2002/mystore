@@ -34,11 +34,37 @@ if (!empty($_GET['act']))
     }
 }
 
-$path = 'module/' . $module . '/' . $action . '.php';
-if (file_exists($path))
+//kiểm tra đăng nhập
+if (!$f->isLogin())
 {
-    require_once ($path);
+    //Nếu chưa đăng nhập thì chuyển đến trang đăng nhập
+    $f->redirect('?cmd=auth&act=login');
 } else
 {
-    require_once ('404.php');
+    if ($module == 'auth')
+    {
+        $path = 'module/' . $module . '/' . $action . '.php';
+        if (file_exists($path))
+        {
+            require_once ($path);
+        } else
+        {
+            require_once ('404.php');
+        }
+    } else
+    {
+        $f->layout('header_page');
+        $f->layout('menu_page');
+        $path = 'module/' . $module . '/' . $action . '.php';
+        if (file_exists($path))
+        {
+            require_once ($path);
+        } else
+        {
+            require_once ('404.php');
+        }
+
+        $f->layout('footer_page');
+    }
+
 }
