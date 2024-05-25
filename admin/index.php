@@ -1,6 +1,6 @@
 <?php
-require_once ("../config.php");
-require_once ('./config.php');
+require_once '../config.php';
+require_once './config.php';
 require_once '../include/connect.php';
 
 
@@ -33,38 +33,35 @@ if (!empty($_GET['act']))
         $action = trim($_GET['act']);
     }
 }
-
+$path = 'module/' . $module . '/' . $action . '.php';
 //kiểm tra đăng nhập
-if (!$f->isLogin())
+if ($f->isLogin())
 {
-    //Nếu chưa đăng nhập thì chuyển đến trang đăng nhập
-    $f->redirect('?cmd=auth&act=login');
-} else
-{
-    if ($module == 'auth')
+    $f->layout('header_page');
+    $f->layout('menu_page');
+    if (file_exists($path))
     {
-        $path = 'module/' . $module . '/' . $action . '.php';
-        if (file_exists($path))
-        {
-            require_once ($path);
-        } else
-        {
-            require_once ('404.php');
-        }
+        require_once ($path);
     } else
     {
-        $f->layout('header_page');
-        $f->layout('menu_page');
-        $path = 'module/' . $module . '/' . $action . '.php';
-        if (file_exists($path))
-        {
-            require_once ($path);
-        } else
-        {
-            require_once ('404.php');
-        }
-
-        $f->layout('footer_page');
+        require_once ('404.php');
     }
 
+    $f->layout('footer_page');
+
+} else
+{
+    if ($module != 'auth' || $action != 'login')
+    {
+        // Chuyển hướng tới trang đăng nhập
+        $f->redirect("?cmd=auth&act=login");
+        // Đảm bảo rằng mã sau lệnh chuyển hướng không được thực thi
+    }
+    if (file_exists($path))
+    {
+        require_once ($path);
+    } else
+    {
+        require_once ('404.php');
+    }
 }
