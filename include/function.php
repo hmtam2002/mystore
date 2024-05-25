@@ -1,12 +1,10 @@
 <?php
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 class func
 {
-
     function isLogin()
     {
         $checkLogin = false;
@@ -253,24 +251,7 @@ class func
         }
     }
 
-    public function messager($text = '')
-    {
-        global $cmd;
-        $_SESSION['flash'] = '<div class="alert alert-success" role="alert">' . $text . '</div>';
-        echo "<script>document.location.href='index.php?cmd=" . $cmd . "'</script>";
-    }
-    function createSlug($str)
-    {
-        $slug = strtolower(trim($str));
-        $slug = preg_replace('/[^a-z0-9-]/', '-', $slug); // Loại bỏ các ký tự không phải chữ cái, số hoặc dấu gạch ngang
-        $slug = preg_replace('/-+/', "-", $slug); // Loại bỏ các dấu gạch ngang liên tiếp
-        return $slug;
-    }
-    public function testgame()
-    {
-        echo 'testgame func';
-    }
-    public function image_exists($filename)
+    public function image_exists($filename, $path = '')
     {
         $defaultImage = _HOST_ASSETS . '/images/noimage/noimage.png'; // Đường dẫn tới ảnh mặc định
         if (empty($filename))
