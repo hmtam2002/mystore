@@ -38,6 +38,16 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="?cmd=origin&act=list">
+                    <span class="ml-2">Xuất xứ</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="?cmd=brand&act=list">
+                    <span class="ml-2">Thương hiệu</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="?cmd=user&act=list">
                     <span class="ml-2">Tài khoản</span>
                 </a>
