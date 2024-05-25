@@ -57,10 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <script src="<?= _WEB_HOST_TEMPLATE ?>/ckeditor/ckeditor.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> -->
-
-<script src="<?= _WEB_HOST_TEMPLATE ?>/js/sidebars.js"></script>
-
 <script>
 ClassicEditor
     .create(document.querySelector('#description'), {
@@ -75,12 +71,7 @@ ClassicEditor
     });
 </script>
 
-<!-- <script>
-    CKEDITOR.replace('description');
-    // CKEDITOR.replace('editor2');
-</script> -->
-<script src="<?= _WEB_HOST_TEMPLATE ?>/js/bootstrap.bundle.min.js">
-</script>
+<script src="<?= _WEB_HOST_TEMPLATE ?>/js/bootstrap.bundle.min.js"></script>
 <script>
 document.getElementById('showPasswordCheckbox').addEventListener('change', function() {
     console.log(this.checked);

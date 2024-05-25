@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th5 25, 2024 lúc 11:01 AM
+-- Thời gian đã tạo: Th5 25, 2024 lúc 03:48 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -371,8 +371,7 @@ INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `a
 (67, 'hoang-tu-be', 'Hoàng tử bé', 1, 3, 25, NULL, NULL, NULL, NULL, NULL, '<p>Hoàng tử bé</p>', '1716037282.jpg', 900000, 900000, NULL, 1, '2024-05-18 08:01:22', '2024-05-18 08:01:41'),
 (68, 'so-dua', 'Sọ dừa', 1, 3, 26, NULL, NULL, NULL, NULL, NULL, '<p>Sọ dừa</p>', '1716037465.jpeg', 80000, 80000, NULL, 1, '2024-05-18 08:04:25', '2024-05-18 09:06:33'),
 (69, 'nhung-giac-mo-xanh', 'Những giấc mơ xanh', 1, 3, 27, NULL, NULL, NULL, NULL, NULL, '<p>Những giấc mơ xanh</p>', '1716037564.jpg', 900000, 900000, NULL, 1, '2024-05-18 08:06:04', '2024-05-18 08:07:16'),
-(73, 'but-bi', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi', 1, 1, NULL, '1716564047.png', 5000, 4000, 2, 1, '2024-05-24 13:55:55', '2024-05-24 15:20:47'),
-(81, 'but-bi-do', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi đỏ', 1, 1, '<p>đỏ lè đỏ lét</p>', 'noimage.jpg', 50000, 50000, NULL, 1, '2024-05-24 14:34:05', NULL);
+(81, 'but-bi-do', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi đỏ', 1, 1, '<p>đỏ lè đỏ lét</p>', '1716627873.jpg', 50000, 50000, NULL, 1, '2024-05-24 14:34:05', '2024-05-25 09:04:33');
 
 -- --------------------------------------------------------
 

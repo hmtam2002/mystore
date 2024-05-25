@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" href="./assets/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE ?>/css/style.css?ver=1">
-    <!-- <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE ?>/css/sidebars.css?ver=1"> -->
+    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE . '/css/style.css?ver=' . rand(1000, 9999) ?>">
 
     <!-- <style>
     .sidebar {

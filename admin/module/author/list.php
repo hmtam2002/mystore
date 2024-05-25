@@ -10,8 +10,7 @@ if (!$f->isLogin())
 $data = [
     'titlePage' => 'Quản trị website'
 ];
-$f->layout('header_page');
-$f->layout('menu_page');
+
 $listUser = $db->getRaw('SELECT * FROM authors ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
@@ -20,6 +19,8 @@ if (!empty($authorStatus))
 {
     $smg = $authorStatus;
 }
+$f->layout('header_page');
+$f->layout('menu_page');
 ?>
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
