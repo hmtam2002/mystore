@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-// if (!$f->isLogin())
-// {
-//     $f->redirect('?cmd=auth&act=login');
-// }
+
 $data = [
     'titlePage' => 'Quản trị website'
 ];

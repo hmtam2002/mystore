@@ -14,8 +14,8 @@ require_once '../include/function.php';
 require_once '../include/database.php';
 require_once '../include/session.php';
 
-$module = _MODULE;
-$action = _ACTION;
+// $module = _MODULE;
+// $action = _ACTION;
 $db = new Database();
 $f = new func();
 if (!empty($_GET['cmd']))
@@ -46,7 +46,6 @@ if ($f->isLogin())
     {
         require_once ('404.php');
     }
-
     $f->layout('footer_page');
 
 } else
@@ -55,6 +54,7 @@ if ($f->isLogin())
     {
         // Chuyển hướng tới trang đăng nhập
         $f->redirect("?cmd=auth&act=login");
+        exit();
         // Đảm bảo rằng mã sau lệnh chuyển hướng không được thực thi
     }
     if (file_exists($path))

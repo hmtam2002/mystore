@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -96,8 +93,7 @@ if ($f->isPOST())
         $f->redirect('?cmd=stationery&act=add');
     }
 }
-$f->layout('header_page');
-$f->layout('menu_page');
+
 
 
 $smg = getFlashData('smg');
@@ -186,11 +182,10 @@ $old = getFlashData('old');
                                 foreach ($originList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
-                                    <?= $item['country_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
+                                        <?= $item['country_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -204,11 +199,10 @@ $old = getFlashData('old');
                                 foreach ($brandList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
-                                    <?= $item['brand_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
+                                        <?= $item['brand_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -240,7 +234,3 @@ $old = getFlashData('old');
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

@@ -84,11 +84,25 @@ class func
         }
         return $filterArr;
     }
+    // public function redirect($path = 'index.php')
+    // {
+    //     header("location: $path");
+    //     exit;
+    // }
     public function redirect($path = 'index.php')
     {
-        header("location: $path");
-        exit;
+        if (!headers_sent())
+        {
+            header("location: $path");
+            exit;
+        } else
+        {
+            echo "<script>window.location.href='$path';</script>";
+            exit;
+        }
+
     }
+
     public function getSmg($smg, $type = 'success')
     {
         echo '<div class="alert alert-' . $type . '">';
@@ -234,8 +248,8 @@ class func
         }
 
         // In ra đường dẫn và tên file để kiểm tra
-        echo "Đường dẫn file tạm: " . $_FILES[$filenameupload]["tmp_name"] . "<br>";
-        echo "Đường dẫn đích: " . $target_dir . $new_filename . "<br>";
+        // echo "Đường dẫn file tạm: " . $_FILES[$filenameupload]["tmp_name"] . "<br>";
+        // echo "Đường dẫn đích: " . $target_dir . $new_filename . "<br>";
 
         // Thực hiện upload file
         if (move_uploaded_file($_FILES[$filenameupload]["tmp_name"], $target_dir . $new_filename))

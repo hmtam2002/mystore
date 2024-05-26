@@ -3,10 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -172,8 +168,7 @@ if ($f->isPOST())
 
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
+
 
 
 $smg = getFlashData('smg');
@@ -269,7 +264,3 @@ if (!empty($product_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

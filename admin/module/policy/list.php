@@ -3,13 +3,8 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
 
-$f->layout('header_page');
-$f->layout('menu_page');
+
 $listUser = $db->getRaw('SELECT * FROM authors ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
@@ -81,7 +76,3 @@ if (!empty($authorStatus))
         </tbody>
     </table>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

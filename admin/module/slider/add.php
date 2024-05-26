@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 if ($f->isPOST())
 {
     $filterAll = $f->filter();
@@ -52,9 +49,6 @@ if ($f->isPOST())
     }
 }
 
-
-$f->layout('header_page');
-$f->layout('menu_page');
 
 
 $smg = getFlashData('smg');
@@ -119,7 +113,3 @@ if (!empty($slider_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

@@ -3,15 +3,11 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-$f->layout('header_page');
-$f->layout('menu_page');
+
+// $data = [
+//     'titlePage' => 'Quản trị website'
+// ];
+
 $listUser = $db->getRaw('SELECT * FROM origins');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
@@ -77,7 +73,3 @@ if (!empty($authorStatus))
         </tbody>
     </table>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

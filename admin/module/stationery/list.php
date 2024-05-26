@@ -3,16 +3,12 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 $data = [
     'titlePage' => 'Quản trị website'
 ];
 
-$f->layout('header_page');
-$f->layout('menu_page');
+
 $sql = 'SELECT products.*, origins.country_name, brands.brand_name
 FROM products
 INNER JOIN origins ON products.origin_id = origins.id
@@ -113,7 +109,3 @@ if (!empty($productStatus))
         </tbody>
     </table>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

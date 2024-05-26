@@ -3,10 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
 $data = [
     'titlePage' => 'Quản trị website'
 ];
@@ -21,8 +17,7 @@ $data = [
 
 //     }
 // }
-$f->layout('header_page');
-$f->layout('menu_page');
+
 $listUser = $db->getRaw('SELECT * FROM admin ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
@@ -64,46 +59,41 @@ if (!empty($userStatus))
             {
                 $dem += 1;
                 ?>
-                <tr>
-                    <td>
-                        <?= $dem ?>
-                    </td>
-                    <td>
-                        <a href="?cmd=user&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                            <?= $item['fullname'] ?>
-                        </a>
-                    </td>
-                    <td>
-                        <?= $item['email'] ?>
-                    </td>
-                    <td>
-                        <?= $item['phone_number'] ?>
-                    </td>
-                    <td>
-                        <a href="?cmd=user&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Đã kích hoạt</button>' : '<button class="btn btn-danger btn-sm">Chưa kích hoạt</button>' ?>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=user&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=user&act=delete&id=<?= $item['id'] ?>"
-                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <?php
+            <tr>
+                <td>
+                    <?= $dem ?>
+                </td>
+                <td>
+                    <a href="?cmd=user&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
+                        <?= $item['fullname'] ?>
+                    </a>
+                </td>
+                <td>
+                    <?= $item['email'] ?>
+                </td>
+                <td>
+                    <?= $item['phone_number'] ?>
+                </td>
+                <td>
+                    <a href="?cmd=user&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Đã kích hoạt</button>' : '<button class="btn btn-danger btn-sm">Chưa kích hoạt</button>' ?>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=user&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=user&act=delete&id=<?= $item['id'] ?>"
+                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <?php
             }
             ?>
         </tbody>
     </table>
-
 </main>
-
-<?php
-$f->layout('footer_page');
-?>
