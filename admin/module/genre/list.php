@@ -18,8 +18,6 @@ $data = [
 
 //     }
 // }
-$f->layout('header_page');
-$f->layout('menu_page');
 $listUser = $db->getRaw('SELECT * FROM genres ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');

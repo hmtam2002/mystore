@@ -1,4 +1,4 @@
-<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse overflow-auto">
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse position-fixed overflow-auto">
     <div class="position-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -12,14 +12,14 @@
                     <span class="ml-2">Trang chủ</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="?cmd=product&act=list">
                     <span class="ml-2">Sách</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="?cmd=book&act=list">
-                    <span class="ml-2">Book</span>
+                    <span class="ml-2">Sách</span>
                 </a>
             </li>
             <li class="nav-item">

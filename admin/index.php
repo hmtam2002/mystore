@@ -14,8 +14,8 @@ require_once '../include/function.php';
 require_once '../include/database.php';
 require_once '../include/session.php';
 
-// $module = _MODULE;
-// $action = _ACTION;
+$module = _MODULE;
+$action = _ACTION;
 $db = new Database();
 $f = new func();
 if (!empty($_GET['cmd']))
@@ -37,8 +37,11 @@ $path = 'module/' . $module . '/' . $action . '.php';
 //kiểm tra đăng nhập
 if ($f->isLogin())
 {
-    $f->layout('header_page');
-    $f->layout('menu_page');
+    // Bắt đầu bộ đệm đầu ra
+    ob_start();
+
+    // Bao gồm nội dung từ tệp $noidung
+
     if (file_exists($path))
     {
         require_once ($path);
@@ -46,7 +49,10 @@ if ($f->isLogin())
     {
         require_once ('404.php');
     }
-    $f->layout('footer_page');
+    $noidung = ob_get_clean();
+    $f->template('template', $noidung, ['titlePage' => 'Trang chủ']);
+
+
 
 } else
 {

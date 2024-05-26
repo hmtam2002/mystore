@@ -27,7 +27,27 @@ class func
 
     public function layout($layoutName = 'head', $data = [])
     {
-        require_once _WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php';
+        $layoutPath = _WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php';
+
+        if (file_exists($layoutPath))
+        {
+            require_once $layoutPath;
+        } else
+        {
+            echo 'Lỗi: Tệp bố cục "' . $layoutName . '" không tồn tại.';
+        }
+    }
+    public function template($layoutName = '', $noidung = null, $data = [])
+    {
+        $layoutPath = _WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php';
+
+        if (file_exists($layoutPath))
+        {
+            require_once $layoutPath;
+        } else
+        {
+            echo 'Lỗi: Tệp bố cục "' . $layoutName . '" không tồn tại.';
+        }
     }
     public function isPOST()
     {
@@ -298,5 +318,9 @@ class func
         {
             return $defaultImage;
         }
+    }
+    public function test()
+    {
+        return true;
     }
 }
