@@ -71,10 +71,9 @@ inputElement.addEventListener('input', function() {
 });
 </script>
 <?php
-}
+} ?>
 
-
-if (false)
+<?php if (false)
 { ?>
 <script>
 document.getElementById('showPasswordCheckbox').addEventListener('change', function() {
