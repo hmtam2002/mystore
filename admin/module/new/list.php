@@ -8,7 +8,7 @@ if (!defined("_CODE"))
 //     'titlePage' => 'Quản trị website'
 // ];
 
-$listNews = $db->getRaw('SELECT * FROM news ORDER BY update_at');
+$listNews = $db->getRaw('SELECT * FROM news ');
 if (empty($listNews))
 {
     $smg = setFlashData('smg', 'Không có dữ liệu');
@@ -53,34 +53,34 @@ if (!empty($authorStatus))
             foreach ($listNews as $item)
             {
                 ?>
-                <tr>
-                    <td><?= $dem++ ?></td>
-                    <td>
-                        <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                            <?= $item['title'] ?>
-                        </a>
-                    </td>
+            <tr>
+                <td><?= $dem++ ?></td>
+                <td>
+                    <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
+                        <?= $item['title'] ?>
+                    </a>
+                </td>
 
-                    <td>
-                        <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>" class="btn btn-success btn-sm"
-                            class="btn btn-warning btn-sm">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=new&act=delete&id=<?= $item['id'] ?>"
-                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                    </td>
-                </tr>
-                <?php
+                <td>
+                    <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>" class="btn btn-success btn-sm"
+                        class="btn btn-warning btn-sm">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=new&act=delete&id=<?= $item['id'] ?>"
+                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+                </td>
+            </tr>
+            <?php
             }
             ?>
         </tbody>

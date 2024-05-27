@@ -50,7 +50,11 @@ if ($f->isLogin())
         require_once ('404.php');
     }
     $noidung = ob_get_clean();
-    $f->template('template', $noidung, ['titlePage' => 'Trang chủ']);
+    $data = [
+        'module' => $module,
+        'action' => $action
+    ];
+    $f->template('template', $noidung, $data);
 
 
 
