@@ -18,6 +18,7 @@ $f = new func();
         flex-shrink: 0;
         padding: 15px;
         border-right: 1px solid #dee2e6;
+        position: fixed;
         /* Light border color */
     }
 
@@ -50,6 +51,7 @@ $f = new func();
 
     @media (max-width: 767.98px) {
         .sidebar {
+            position: static;
             top: 11.5rem;
             padding: 0;
         }
@@ -70,7 +72,7 @@ $f = new func();
 
     <div class="container-fluid">
         <div class="row">
-            <?php 
+            <?php
             $f->layout('menu_page'); ?>
             <?php echo $noidung; ?>
         </div>

@@ -190,9 +190,9 @@ if (!empty($product_data))
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
         </ol>
@@ -271,11 +271,10 @@ if (!empty($product_data))
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
-                                    <?= $item['author_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
+                                        <?= $item['author_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -289,11 +288,10 @@ if (!empty($product_data))
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
-                                    <?= $item['genre_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
+                                        <?= $item['genre_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>

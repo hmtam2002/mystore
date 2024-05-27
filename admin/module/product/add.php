@@ -103,9 +103,9 @@ $old = getFlashData('old');
 
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Sách</li>
         </ol>
@@ -181,11 +181,10 @@ $old = getFlashData('old');
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                    <?= $item['author_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                        <?= $item['author_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -198,11 +197,10 @@ $old = getFlashData('old');
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                    <?= $item['genre_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                        <?= $item['genre_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
