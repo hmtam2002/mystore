@@ -30,7 +30,13 @@ $f = new func();
 
     .sidebar .nav-link:hover {
         background-color: #e0e0e0;
-        border-radius: 10px 0 0 10px;
+        /* border-radius: 10px 0 0 10px; */
+        /* Light hover background color */
+    }
+
+    .nav-link.active {
+        background-color: #e0e0e0;
+        /* border-radius: 10px 0 0 10px; */
         /* Light hover background color */
     }
 
@@ -74,7 +80,7 @@ $f = new func();
         <div class="row">
             <?php
 
-            $f->layout('menu_page'); ?>
+            $f->layout('menu_page', $data); ?>
 
             <?php echo $noidung; ?>
 

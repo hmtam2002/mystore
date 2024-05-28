@@ -45,16 +45,17 @@ if ($f->isLogin())
     if (file_exists($path))
     {
         require_once ($path);
+        $noidung = ob_get_clean();
+        $data = [
+            'module' => $module,
+            'action' => $action
+        ];
+        $f->template('template', $noidung, $data);
     } else
     {
         require_once ('404.php');
     }
-    $noidung = ob_get_clean();
-    $data = [
-        'module' => $module,
-        'action' => $action
-    ];
-    $f->template('template', $noidung, $data);
+
 
 
 

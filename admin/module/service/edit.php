@@ -19,7 +19,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             setFlashData('product_detail', $product_detail);
         } else
         {
-            $f->redirect("?cmd=policy&act=list");
+            $f->redirect("?cmd=service&act=list");
         }
     }
 } else
@@ -47,7 +47,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             }
         }
     }
-    $f->redirect("?cmd=policy&act=list");
+    $f->redirect("?cmd=service&act=list");
 }
 
 
@@ -164,7 +164,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=policy&act=edit&id=" . $productId);
+    $f->redirect("?cmd=service&act=edit&id=" . $productId);
 
 }
 
@@ -190,8 +190,8 @@ if (!empty($product_data))
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=policy&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=policy&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=service&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=service&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">

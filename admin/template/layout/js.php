@@ -3,6 +3,62 @@
 <!-- áp dụng cho tất cả trang -->
 <script src="<?= _HOST . '/admin/template/js/custom.js?ver=' . rand(100, 999) ?>"></script>
 
+<!-- áp dụng cho sidebar -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.collapse').forEach((collapse) => {
+        // Set initial state from localStorage
+        const state = localStorage.getItem(collapse.id);
+        if (state === "shown") {
+            new bootstrap.Collapse(collapse, {
+                toggle: true
+            });
+        } else {
+            new bootstrap.Collapse(collapse, {
+                toggle: false
+            });
+        }
+
+        collapse.addEventListener("shown.bs.collapse", function() {
+            const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
+            if (arrow) {
+                arrow.classList.add("rotated");
+            }
+            localStorage.setItem(this.id, "shown");
+        });
+
+        collapse.addEventListener("hidden.bs.collapse", function() {
+            const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
+            if (arrow) {
+                arrow.classList.remove("rotated");
+            }
+            localStorage.setItem(this.id, "hidden");
+        });
+    });
+});
+</script>
+
+<!-- <script>
+document.querySelectorAll('.collapse').forEach((collapse) => {
+    collapse.addEventListener("shown.bs.collapse", function() {
+        const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
+        if (arrow) {
+            arrow.classList.add("rotated");
+        }
+    });
+
+    collapse.addEventListener("hidden.bs.collapse", function() {
+        const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
+        if (arrow) {
+            arrow.classList.remove("rotated");
+        }
+    });
+});
+</script> -->
+
+
+
+
 <?php
 if ($data['action'] == 'add' || $data['action'] == 'edit')
 { ?>
@@ -87,6 +143,4 @@ document.getElementById('showPasswordconfirmCheckbox').addEventListener('change'
     passwordField.type = this.checked ? "text" : "password";
 });
 </script>
-<?php
-}
-?>
+<?php } ?>

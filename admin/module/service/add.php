@@ -42,7 +42,7 @@ if ($f->isPOST())
             'slug' => $filterAll['slug'],
             'title' => $filterAll['title'],
             'description' => $_POST['description'],
-            'type' => 'policy',
+            'type' => 'service',
             'image' => $f->upload('imageUpload', 'images/new'),
             'status' => $filterAll['status'],
             'create_at' => date('Y-m-d H:i:s')
@@ -62,14 +62,14 @@ if ($f->isPOST())
             setFlashData('smg_type', 'danger');
             setFlashData('old', $filterAll);
         }
-        $f->redirect('?cmd=policy&act=list');
+        $f->redirect('?cmd=service&act=list');
     } else
     {
         setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu');
         setFlashData('smg_type', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
-        $f->redirect('?cmd=policy&act=add');
+        $f->redirect('?cmd=service&act=add');
     }
 }
 
@@ -90,8 +90,8 @@ $old = getFlashData('old');
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=policy&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=policy&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=service&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=service&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">

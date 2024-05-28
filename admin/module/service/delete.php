@@ -32,4 +32,4 @@ if (!empty($filterAll['id']))
     setFlashData("smg", "Liên kết không tồn tại");
     setFlashData("smg_type", "danger");
 }
-$f->redirect("?cmd=policy&act=list");
+$f->redirect("?cmd=service&act=list");
