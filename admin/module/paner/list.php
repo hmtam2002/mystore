@@ -23,7 +23,7 @@ $slideStatus = getFlashData('slidertStatus');
 
 
 ?>
-<main class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
@@ -54,32 +54,32 @@ $slideStatus = getFlashData('slidertStatus');
             foreach ($listSlider as $item)
             {
                 ?>
-            <tr>
-                <td><?= $count += 1 ?></td>
-                <td>
-                    <a href="?cmd=paner&act=edit&id=<?= $item['id'] ?>">
-                        <img style="max-width: 300px;" src="<?= $f->slider_exists($item['image']) ?>"
-                            alt="Ảnh xem trước">
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=paner&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=paner&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=paner&act=delete&id=<?= $item['id'] ?>"
-                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-            <?php
+                <tr>
+                    <td><?= $count += 1 ?></td>
+                    <td>
+                        <a href="?cmd=paner&act=edit&id=<?= $item['id'] ?>">
+                            <img style="max-width: 300px;" src="<?= $f->slider_exists($item['image']) ?>"
+                                alt="Ảnh xem trước">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=paner&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=paner&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=paner&act=delete&id=<?= $item['id'] ?>"
+                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php
             }
             ?>
         </tbody>
