@@ -214,7 +214,7 @@ $postCommands = ['new', 'policy'];
 </nav> -->
 
 
-<nav id="sidebar" class="col-md-3 h-100 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebar" class="col-md-3 h-100 col-lg-2 d-md-block bg-light sidebar collapse overflow-auto">
     <div class="position-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">

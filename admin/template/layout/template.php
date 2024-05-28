@@ -48,7 +48,8 @@ $f = new func();
     }
 
     .arrow {
-        transition: transform 0.3s;
+        /* transition: transform 0.3s; */
+        transition: none;
     }
 
     .arrow.rotated {
@@ -89,33 +90,6 @@ $f = new func();
 
     <?php $f->layout('js', $data); ?>
 
-
-
-
-
-
-
-
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Lắng nghe sự kiện change trên input file
-        document.getElementById('imageUpload').addEventListener('change', function(event) {
-            // Kiểm tra xem có file được chọn hay không
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    // Cập nhật nguồn ảnh cho thẻ img
-                    document.getElementById('previewImage').src = e.target.result;
-                    // Hiển thị thẻ img
-                    // document.getElementById('previewImage').style.display = 'block';
-                }
-                // Đọc dữ liệu của file được chọn
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    });
-    </script>
 </body>
 
 </html>
