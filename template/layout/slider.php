@@ -3,7 +3,7 @@
 
     <div class="slider">
         <?php
-        $sliderList = $db->getRaw('SELECT * FROM images WHERE status = "1"');
+        $sliderList = $db->getRaw('SELECT * FROM images WHERE status = "1" and type="slider"');
         foreach ($sliderList as $item)
         {
             ?>

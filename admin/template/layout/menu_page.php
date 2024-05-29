@@ -215,7 +215,8 @@ $postCommands = ['new', 'policy'];
 
 
 <nav id="sidebar" class="col-md-3 h-100 col-lg-2 d-md-block bg-light sidebar collapse overflow-auto">
-    <div class="position-sticky">
+    <div class="position-sticky" style="
+    padding-bottom: 100px;">
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center <?php echo ($cmd == 'home') ? 'active' : ''; ?>"

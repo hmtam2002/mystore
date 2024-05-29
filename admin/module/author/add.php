@@ -4,9 +4,6 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
 if ($f->isPOST())
 {
     $filterAll = $f->filter();
@@ -19,7 +16,7 @@ if ($f->isPOST())
     {
         if (strlen($filterAll['author_name']) < 5)
         {
-            $errors['author_name']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
+            $errors['author_name']['min'] = 'Tên tác giả phải có ít nhất 5 ký tự';
         }
     }
 

@@ -3,10 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
 $filterAll = $f->filter();
 
 if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1')))//nút status
