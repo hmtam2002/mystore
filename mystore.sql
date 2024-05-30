@@ -217,7 +217,7 @@ INSERT INTO `images` (`id`, `imageURL`, `image`, `type`, `status`) VALUES
 (3, NULL, '3.jpg', 'slider', 1),
 (4, NULL, '1716651593.png', 'slider', 0),
 (5, NULL, '1716047376.jpg', 'slider', 1),
-(13, NULL, '1716889707.jpeg', 'paner', 1);
+(13, NULL, '1716889707.jpeg', 'banner', 1);
 
 -- --------------------------------------------------------
 

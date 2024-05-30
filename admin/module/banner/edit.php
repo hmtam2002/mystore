@@ -21,7 +21,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             setFlashData('slider_detail', $sliderData);
         } else
         {
-            $f->redirect("?cmd=paner&act=list");
+            $f->redirect("?cmd=banner&act=list");
         }
     }
 } else
@@ -48,7 +48,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             }
         }
     }
-    $f->redirect("?cmd=paner&act=list");
+    $f->redirect("?cmd=banner&act=list");
 }
 
 if ($f->isPOST())
@@ -60,7 +60,7 @@ if ($f->isPOST())
     {
         //xử lý insert
         $dataUpdate = [
-            'image' => $f->upload('imageUpload', 'images/slider'),
+            'image' => $f->upload('imageUpload', 'images/banner'),
             'status' => $filterAll['status'],
         ];
         if ($dataUpdate['image'] === 'noimage.jpg')
@@ -97,7 +97,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=paner&act=edit&id=" . $sliderId);
+    $f->redirect("?cmd=banner&act=edit&id=" . $sliderId);
 }
 
 
@@ -121,8 +121,8 @@ if (!empty($slider_data))
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=paner&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=paner&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=banner&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=banner&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -140,7 +140,7 @@ if (!empty($slider_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->slider_exists($f->old('image', $old)) ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'banner') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>

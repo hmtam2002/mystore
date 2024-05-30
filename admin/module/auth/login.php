@@ -4,10 +4,10 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 //Kiểm tra đăng nhập
-if ($f->isLogin())
-{
-    $f->redirect("?cmd=home&act=dashboard");
-}
+// if ($f->isLogin())
+// {
+//     $f->redirect("?cmd=home&act=dashboard");
+// }
 $data = [
     'titlePage' => 'Đăng nhập'
 ];

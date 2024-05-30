@@ -24,8 +24,8 @@ if ($f->isPOST())
     {
         //xử lý insert
         $dataInsert = [
-            'image' => $f->upload('imageUpload', 'images/slider'),
-            'type' => 'paner',
+            'image' => $f->upload('imageUpload', 'images/banner'),
+            'type' => 'banner',
             'status' => $filterAll['status'],
         ];
         $insertStatus = $db->insert('images', $dataInsert);
@@ -33,19 +33,19 @@ if ($f->isPOST())
         {
             setFlashData('smg', 'Thêm slider thành công');
             setFlashData('smg_type', 'success');
-            $f->redirect('?cmd=paner&act=list');
+            $f->redirect('?cmd=banner&act=list');
         } else
         {
             setFlashData('smg', 'Lỗi cơ sở dữ liệu');
             setFlashData('smg_type', 'danger');
-            $f->redirect('?cmd=paner&act=add');
+            $f->redirect('?cmd=banner&act=add');
         }
     } else
     {
         setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu');
         setFlashData('smg_type', 'danger');
         setFlashData('errors', $errors);
-        $f->redirect('?cmd=paner&act=add');
+        $f->redirect('?cmd=banner&act=add');
     }
 }
 
@@ -70,8 +70,8 @@ if (!empty($slider_data))
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=paner&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=paner&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=banner&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=banner&act=add" class="btn btn-success">Thêm mới</a>
     </div>
 
     <div class="container">
@@ -89,7 +89,7 @@ if (!empty($slider_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->slider_exists($f->old('image', $old)) ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'banner') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>

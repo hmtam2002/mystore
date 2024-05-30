@@ -89,7 +89,7 @@ if (!empty($slider_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->slider_exists($f->old('image', $old)) ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'slider') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>

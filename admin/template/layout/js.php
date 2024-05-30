@@ -175,63 +175,63 @@ $(document).ready(function() {
 </script> -->
 <!-- phiên bản này lưu cả cuộn nha -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const arrows = document.querySelectorAll('.arrow');
-    const sidebar = document.getElementById('sidebar');
+    document.addEventListener("DOMContentLoaded", function () {
+        const arrows = document.querySelectorAll('.arrow');
+        const sidebar = document.getElementById('sidebar');
 
-    // Tạm thời vô hiệu hóa chuyển tiếp trên các mũi tên
-    arrows.forEach(arrow => arrow.style.transition = 'none');
+        // Tạm thời vô hiệu hóa chuyển tiếp trên các mũi tên
+        arrows.forEach(arrow => arrow.style.transition = 'none');
 
-    document.querySelectorAll('.collapse').forEach((collapse) => {
-        // Set initial state from localStorage
-        const state = localStorage.getItem(collapse.id);
-        if (state === "shown") {
-            collapse.classList.add("show");
-            const arrow = document.querySelector(`a[href="#${collapse.id}"] .arrow`);
-            if (arrow) {
-                arrow.classList.add("rotated");
+        document.querySelectorAll('.collapse').forEach((collapse) => {
+            // Set initial state from localStorage
+            const state = localStorage.getItem(collapse.id);
+            if (state === "shown") {
+                collapse.classList.add("show");
+                const arrow = document.querySelector(`a[href="#${collapse.id}"] .arrow`);
+                if (arrow) {
+                    arrow.classList.add("rotated");
+                }
+            } else {
+                collapse.classList.remove("show");
+                const arrow = document.querySelector(`a[href="#${collapse.id}"] .arrow`);
+                if (arrow) {
+                    arrow.classList.remove("rotated");
+                }
             }
-        } else {
-            collapse.classList.remove("show");
-            const arrow = document.querySelector(`a[href="#${collapse.id}"] .arrow`);
-            if (arrow) {
-                arrow.classList.remove("rotated");
-            }
+
+            collapse.addEventListener("shown.bs.collapse", function () {
+                const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
+                if (arrow) {
+                    arrow.classList.add("rotated");
+                }
+                localStorage.setItem(this.id, "shown");
+            });
+
+            collapse.addEventListener("hidden.bs.collapse", function () {
+                const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
+                if (arrow) {
+                    arrow.classList.remove("rotated");
+                }
+                localStorage.setItem(this.id, "hidden");
+            });
+        });
+
+        // Sau khi thiết lập trạng thái ban đầu, bật lại chuyển tiếp
+        setTimeout(() => {
+            arrows.forEach(arrow => arrow.style.transition = '0.3s');
+        }, 0);
+
+        // Lưu trạng thái cuộn của menu
+        sidebar.addEventListener('scroll', function () {
+            localStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+        });
+
+        // Khôi phục trạng thái cuộn của menu
+        const scrollPosition = localStorage.getItem('sidebarScrollPosition');
+        if (scrollPosition !== null) {
+            sidebar.scrollTop = scrollPosition;
         }
-
-        collapse.addEventListener("shown.bs.collapse", function() {
-            const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
-            if (arrow) {
-                arrow.classList.add("rotated");
-            }
-            localStorage.setItem(this.id, "shown");
-        });
-
-        collapse.addEventListener("hidden.bs.collapse", function() {
-            const arrow = document.querySelector(`a[href="#${this.id}"] .arrow`);
-            if (arrow) {
-                arrow.classList.remove("rotated");
-            }
-            localStorage.setItem(this.id, "hidden");
-        });
     });
-
-    // Sau khi thiết lập trạng thái ban đầu, bật lại chuyển tiếp
-    setTimeout(() => {
-        arrows.forEach(arrow => arrow.style.transition = '0.3s');
-    }, 0);
-
-    // Lưu trạng thái cuộn của menu
-    sidebar.addEventListener('scroll', function() {
-        localStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
-    });
-
-    // Khôi phục trạng thái cuộn của menu
-    const scrollPosition = localStorage.getItem('sidebarScrollPosition');
-    if (scrollPosition !== null) {
-        sidebar.scrollTop = scrollPosition;
-    }
-});
 </script>
 <!-- Phiên bản không bung, không hiệu ứng mũi tên -->
 <!-- <script>
@@ -355,107 +355,111 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- Cái nào có upload hình thì xài -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Lắng nghe sự kiện change trên input file
-    document.getElementById('imageUpload').addEventListener('change', function(event) {
-        // Kiểm tra xem có file được chọn hay không
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // Cập nhật nguồn ảnh cho thẻ img
-                document.getElementById('previewImage').src = e.target.result;
-                // Hiển thị thẻ img
-                // document.getElementById('previewImage').style.display = 'block';
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lắng nghe sự kiện change trên input file
+        document.getElementById('imageUpload').addEventListener('change', function (event) {
+            // Kiểm tra xem có file được chọn hay không
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Cập nhật nguồn ảnh cho thẻ img
+                    document.getElementById('previewImage').src = e.target.result;
+                    // Hiển thị thẻ img
+                    // document.getElementById('previewImage').style.display = 'block';
+                }
+                // Đọc dữ liệu của file được chọn
+                reader.readAsDataURL(this.files[0]);
             }
-            // Đọc dữ liệu của file được chọn
-            reader.readAsDataURL(this.files[0]);
-        }
+        });
     });
-});
 </script>
 
 <?php
 if ($data['action'] == 'add' || $data['action'] == 'edit')
 { ?>
-<script src="<?= _WEB_HOST_TEMPLATE ?>/ckeditor/ckeditor.js"></script>
-<script>
-ClassicEditor
-    .create(document.querySelector('#description'), {})
-    .then(editor => {
-        window.editor = editor;
-    })
-    .catch(err => {
-        console.error(err.stack);
-    });
-</script>
-<script>
-function createSlug(text) {
-    const from =
-        "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ";
-    const to =
-        "AAAAAAAAAAAAAAAAAEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYaaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyydD";
+    <!-- ckeditor offline -->
+    <script src="<?= _WEB_HOST_TEMPLATE ?>/ckeditor/ckeditor.js"></script>
+    <!-- ckeditor online -->
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> -->
 
-    const convertVietnamese = (str) => {
-        let newStr = '';
-        for (let i = 0; i < str.length; i++) {
-            const index = from.indexOf(str[i]);
-            if (index !== -1) {
-                newStr += to[index];
-            } else {
-                newStr += str[i];
-            }
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'), {})
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+    <script>
+        function createSlug(text) {
+            const from =
+                "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ";
+            const to =
+                "AAAAAAAAAAAAAAAAAEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYaaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyydD";
+
+            const convertVietnamese = (str) => {
+                let newStr = '';
+                for (let i = 0; i < str.length; i++) {
+                    const index = from.indexOf(str[i]);
+                    if (index !== -1) {
+                        newStr += to[index];
+                    } else {
+                        newStr += str[i];
+                    }
+                }
+                return newStr;
+            };
+
+            let slug = convertVietnamese(text);
+            slug = slug.toLowerCase();
+            slug = slug.replace(/[^a-z0-9\s-]/g,
+                '') // Loại bỏ ký tự không phải là chữ cái, số, khoảng trắng và dấu gạch ngang
+                .replace(/\s+/g, '-') // Thay thế khoảng trắng bằng dấu gạch ngang
+                .replace(/-+/g, '-') // Thay thế nhiều dấu gạch ngang liên tiếp bằng một dấu gạch ngang
+                .replace(/^-+|-+$/g, ''); // Loại bỏ dấu gạch ngang ở đầu và cuối chuỗi
+
+            return slug;
         }
-        return newStr;
-    };
+        const labelElement2 = document.getElementById('slugLabel');
 
-    let slug = convertVietnamese(text);
-    slug = slug.toLowerCase();
-    slug = slug.replace(/[^a-z0-9\s-]/g,
-            '') // Loại bỏ ký tự không phải là chữ cái, số, khoảng trắng và dấu gạch ngang
-        .replace(/\s+/g, '-') // Thay thế khoảng trắng bằng dấu gạch ngang
-        .replace(/-+/g, '-') // Thay thế nhiều dấu gạch ngang liên tiếp bằng một dấu gạch ngang
-        .replace(/^-+|-+$/g, ''); // Loại bỏ dấu gạch ngang ở đầu và cuối chuỗi
+        document.getElementById('title').addEventListener('input', function () {
+            const title = this.value;
+            const slug = createSlug(title);
+            document.getElementById('slugInput').value = slug;
+            labelElement2.textContent = 'Đường dẫn mẫu: localhost/mystore/' + slug;
+        });
+    </script>
+    <script>
+        // Lấy thẻ input và thẻ label bằng ID
+        const inputElement = document.getElementById('slugInput');
+        const labelElement = document.getElementById('slugLabel');
 
-    return slug;
-}
-const labelElement2 = document.getElementById('slugLabel');
+        // Thêm sự kiện lắng nghe khi có sự thay đổi trong thẻ input
+        inputElement.addEventListener('input', function () {
+            // Lấy giá trị hiện tại của thẻ input
+            const inputValue = inputElement.value;
 
-document.getElementById('title').addEventListener('input', function() {
-    const title = this.value;
-    const slug = createSlug(title);
-    document.getElementById('slugInput').value = slug;
-    labelElement2.textContent = 'Đường dẫn mẫu: localhost/mystore/' + slug;
-});
-</script>
-<script>
-// Lấy thẻ input và thẻ label bằng ID
-const inputElement = document.getElementById('slugInput');
-const labelElement = document.getElementById('slugLabel');
-
-// Thêm sự kiện lắng nghe khi có sự thay đổi trong thẻ input
-inputElement.addEventListener('input', function() {
-    // Lấy giá trị hiện tại của thẻ input
-    const inputValue = inputElement.value;
-
-    // Cập nhật nội dung của thẻ label
-    labelElement.textContent = 'Đường dẫn mẫu: localhost/mystore/' + inputValue;
-});
-</script>
-<?php
+            // Cập nhật nội dung của thẻ label
+            labelElement.textContent = 'Đường dẫn mẫu: localhost/mystore/' + inputValue;
+        });
+    </script>
+    <?php
 } ?>
 
 <?php if (false)
 { ?>
-<script>
-document.getElementById('showPasswordCheckbox').addEventListener('change', function() {
-    console.log(this.checked);
-    var passwordField = document.getElementById('passwordField');
-    passwordField.type = this.checked ? "text" : "password";
-});
-document.getElementById('showPasswordconfirmCheckbox').addEventListener('change', function() {
-    console.log(this.checked);
-    var passwordField = document.getElementById('passwordconfirmField');
-    passwordField.type = this.checked ? "text" : "password";
-});
-</script>
+    <script>
+        document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
+            console.log(this.checked);
+            var passwordField = document.getElementById('passwordField');
+            passwordField.type = this.checked ? "text" : "password";
+        });
+        document.getElementById('showPasswordconfirmCheckbox').addEventListener('change', function () {
+            console.log(this.checked);
+            var passwordField = document.getElementById('passwordconfirmField');
+            passwordField.type = this.checked ? "text" : "password";
+        });
+    </script>
 <?php } ?>

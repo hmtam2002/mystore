@@ -8,7 +8,7 @@ if (!defined("_CODE"))
 //     'titlePage' => 'Quản trị website'
 // ];
 
-$sql = 'SELECT * FROM images WHERE type = "slider"';
+$sql = 'SELECT * FROM images WHERE type = "banner"';
 $listSlider = $db->getRaw($sql);
 
 $smg = getFlashData('smg');
@@ -31,8 +31,8 @@ $slideStatus = getFlashData('slidertStatus');
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=slider&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=slider&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=banner&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=banner&act=add" class="btn btn-success">Thêm mới</a>
     </div>
     <?php if (!empty($smg))
     {
@@ -57,23 +57,23 @@ $slideStatus = getFlashData('slidertStatus');
             <tr>
                 <td><?= $count += 1 ?></td>
                 <td>
-                    <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>">
-                        <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'],'slider') ?>"
+                    <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>">
+                        <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'],'banner') ?>"
                             alt="Ảnh xem trước">
                     </a>
                 </td>
                 <td>
-                    <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                    <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
                         <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
                     </a>
                 </td>
                 <td>
-                    <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
+                    <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="?cmd=slider&act=delete&id=<?= $item['id'] ?>"
+                    <a href="?cmd=banner&act=delete&id=<?= $item['id'] ?>"
                         onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
                         <i class="fa-solid fa-trash"></i>
                     </a>

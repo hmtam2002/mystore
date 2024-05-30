@@ -311,7 +311,7 @@ $postCommands = ['new', 'policy'];
                         <li class="nav-item">
                             <a class="nav-link d-flex align-items-center <?php echo ($cmd == 'new') ? 'active' : ''; ?>"
                                 href="?cmd=new&act=list">
-                                <i class="bi bi-newspaper me-2"></i> Tin tức
+                                <i class="bi bi-newspaper me-2"></i> Bài viết
                             </a>
                         </li>
                         <li class="nav-item">
@@ -345,9 +345,9 @@ $postCommands = ['new', 'policy'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center <?php echo ($cmd == 'paner') ? 'active' : ''; ?>"
-                                href="?cmd=paner&act=list">
-                                <i class="bi bi-card-image me-2"></i> Paner
+                            <a class="nav-link d-flex align-items-center <?php echo ($cmd == 'banner') ? 'active' : ''; ?>"
+                                href="?cmd=banner&act=list">
+                                <i class="bi bi-card-image me-2"></i> Banner
                             </a>
                         </li>
                     </ul>

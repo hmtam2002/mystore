@@ -37,31 +37,35 @@ $path = 'module/' . $module . '/' . $action . '.php';
 //kiểm tra đăng nhập
 if ($f->isLogin())
 {
-    // Bắt đầu bộ đệm đầu ra
-    ob_start();
-
-    // Bao gồm nội dung từ tệp $noidung
-
-    if (file_exists($path))
+    if ($module != 'auth' || $action == 'logout')
     {
-        require_once ($path);
-        $noidung = ob_get_clean();
-        $data = [
-            'module' => $module,
-            'action' => $action
-        ];
-        $f->template('template', $noidung, $data);
+        // Bắt đầu bộ đệm đầu ra
+        ob_start();
+
+        // Bao gồm nội dung từ tệp $noidung
+
+        if (file_exists($path))
+        {
+            require_once ($path);
+            $noidung = ob_get_clean();
+            $data = [
+                'module' => $module,
+                'action' => $action
+            ];
+            $f->template('template', $noidung, $data);
+        } else
+        {
+            require_once ('404.php');
+        }
     } else
     {
-        require_once ('404.php');
+        // Chuyển hướng tới trang đăng nhập
+        $f->redirect("?cmd=home&act=dashboard");
+        // Đảm bảo rằng mã sau lệnh chuyển hướng không được thực thi
     }
-
-
-
-
 } else
 {
-    if ($module != 'auth' || $action != 'login')
+    if ($module != 'auth')
     {
         // Chuyển hướng tới trang đăng nhập
         $f->redirect("?cmd=auth&act=login");
