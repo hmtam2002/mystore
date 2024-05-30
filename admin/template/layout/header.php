@@ -1,5 +1,6 @@
-<nav class="navbar navbar-light bg-light p-3 d-flex align-items-center justify-content-between">
-    <div class="col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 d-flex align-items-center justify-content-between">
+<nav class="navbar navbar-light bg-light p-3 d-flex align-items-center justify-content-between" style="
+    border-bottom: 1px solid #dee2e6;">
+    <div class=" col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 d-flex align-items-center justify-content-between">
         <h4 class="mb-0">Bảng điều khiển</h4>
         <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
