@@ -4,6 +4,11 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 $listGenre = $db->getRaw('SELECT * FROM genres ORDER BY update_at');
+if (empty($listGenre))
+{
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
+}
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 ?>

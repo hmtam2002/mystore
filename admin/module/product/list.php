@@ -11,11 +11,6 @@ WHERE products.product_type_id = "1"';
 $listProduct = $db->getRaw($sql);
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$productStatus = getFlashData('productStatus');
-if (!empty($productStatus))
-{
-    $smg = $productStatus;
-}
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">

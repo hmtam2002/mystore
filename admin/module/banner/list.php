@@ -4,18 +4,15 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
-
 $sql = 'SELECT * FROM images WHERE type = "banner"';
 $listBanner = $db->getRaw($sql);
-
+if (empty($listBanner))
+{
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
+}
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-
-
-
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">

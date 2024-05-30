@@ -36,13 +36,9 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['update_at'] = date('Y-m-d H:i:s');
             $condition = "id=$productId";
             $updateStatus = $db->update('products', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('productStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -271,11 +267,10 @@ if (!empty($product_data))
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
-                                    <?= $item['author_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
+                                        <?= $item['author_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -289,11 +284,10 @@ if (!empty($product_data))
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
-                                    <?= $item['genre_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
+                                        <?= $item['genre_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>

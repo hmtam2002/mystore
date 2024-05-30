@@ -15,13 +15,14 @@ INNER JOIN origins ON products.origin_id = origins.id
 INNER JOIN brands ON products.brand_id = brands.id
 WHERE products.product_type_id = "2"';
 $listProduct = $db->getRaw($sql);
+if (empty($listProduct))
+{
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
+}
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$productStatus = getFlashData('productStatus');
-if (!empty($productStatus))
-{
-    $smg = $productStatus;
-}
+
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">

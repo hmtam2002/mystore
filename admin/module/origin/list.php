@@ -4,12 +4,13 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 $listOrigin = $db->getRaw('SELECT * FROM origins');
+if (empty($listOrigin))
+{
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
+}
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-if (!empty($authorStatus))
-{
-    $smg = $authorStatus;
-}
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
