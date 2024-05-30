@@ -11,11 +11,7 @@ if (empty($listNews))
 }
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$newStatus = getFlashData('updateStatus');
-if (!empty($newStatus))
-{
-    $smg = $newStatus;
-}
+
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
@@ -35,6 +31,7 @@ if (!empty($newStatus))
     <table class="table">
         <thead>
             <th>STT</th>
+            <th>Hình ảnh</th>
             <th>Tiêu đề</th>
             <th width="10%">Trạng thái</th>
             <th width="5%">Sửa</th>
@@ -48,6 +45,12 @@ if (!empty($newStatus))
                 ?>
                 <tr>
                     <td><?= $dem++ ?></td>
+                    <td>
+                        <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>">
+                            <img style="max-width: 90px;" src="<?= $f->image_exists($item['image'], 'new') ?>"
+                                alt="Ảnh xem trước">
+                        </a>
+                    </td>
                     <td>
                         <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
                             <?= $item['title'] ?>

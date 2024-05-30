@@ -4,11 +4,7 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
 $filterAll = $f->filter();
-
 if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1')))//nút status
 {
     //cho chỉnh sửa thông tin
@@ -37,20 +33,15 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $condition = "id=$imageId";
             $updateStatus = $db->update('images', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('authorStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
     }
     $f->redirect("?cmd=slider&act=list");
 }
-
 if ($f->isPOST())
 {
     $filterAll = $f->filter();
@@ -75,10 +66,6 @@ if ($f->isPOST())
                 unset($dataUpdate[$key]);
             }
         }
-        // echo '<pre>';
-        // print_r($dataUpdate);
-        // echo '</pre>';
-        // die();
         $condition = "id=$sliderId";
         $updateStatus = $db->update('images', $dataUpdate, $condition);
         if ($updateStatus)
@@ -100,8 +87,6 @@ if ($f->isPOST())
     $f->redirect("?cmd=slider&act=edit&id=" . $sliderId);
 }
 
-
-
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
@@ -112,7 +97,6 @@ if (!empty($slider_data))
     $old = $slider_data;
 }
 ?>
-
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">

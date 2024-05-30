@@ -8,14 +8,9 @@ if (!defined("_CODE"))
 //     'titlePage' => 'Quản trị website'
 // ];
 
-$listUser = $db->getRaw('SELECT * FROM brands');
+$listBrand = $db->getRaw('SELECT * FROM brands');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$authorStatus = getFlashData('authorStatus');
-if (!empty($authorStatus))
-{
-    $smg = $authorStatus;
-}
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
@@ -43,7 +38,7 @@ if (!empty($authorStatus))
         <tbody>
             <?php
             $dem = 0;
-            foreach ($listUser as $item)
+            foreach ($listBrand as $item)
             {
                 $dem += 1;
                 ?>

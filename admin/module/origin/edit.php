@@ -14,11 +14,11 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     //cho chỉnh sửa thông tin
     if (!empty($filterAll['id']))
     {
-        $authorId = $filterAll['id'];
-        $author_data = $db->oneRaw("SELECT * FROM origins WHERE id=$authorId");
-        if (!empty($author_data))
+        $originId = $filterAll['id'];
+        $origin_data = $db->oneRaw("SELECT * FROM origins WHERE id=$originId");
+        if (!empty($origin_data))
         {
-            setFlashData('author_detail', $author_data);
+            setFlashData('origin_detail', $origin_data);
         } else
         {
             $f->redirect("?cmd=author&act=list");
@@ -53,7 +53,7 @@ if ($f->isPOST())
         $dataUpdate = [
             'country_name' => $filterAll['country_name'],
         ];
-        $condition = "id=$authorId";
+        $condition = "id=$originId";
         $updateStatus = $db->update('origins', $dataUpdate, $condition);
         if ($updateStatus)
         {
@@ -71,7 +71,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=origin&act=edit&id=" . $authorId);
+    $f->redirect("?cmd=origin&act=edit&id=" . $originId);
 }
 
 
@@ -81,10 +81,10 @@ $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$author_data = getFlashData('author_detail');
-if (!empty($author_data))
+$origin_data = getFlashData('origin_detail');
+if (!empty($origin_data))
 {
-    $old = $author_data;
+    $old = $origin_data;
 }
 ?>
 
@@ -118,7 +118,7 @@ if (!empty($author_data))
                         ?>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $authorId ?>">
+                <input type="hidden" name="id" value="<?php echo $originId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
                     Cập nhật
                 </button>

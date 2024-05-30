@@ -80,7 +80,7 @@ $old = getFlashData('old');
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form method="post">
                 <div class="row">
                     <div class="col">
                         <div class="form-group mg-form">

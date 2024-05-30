@@ -4,24 +4,10 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
-
 $sql = 'SELECT * FROM images WHERE type = "slider"';
 $listSlider = $db->getRaw($sql);
-
 $smg = getFlashData('smg');
-// $smg = 'Load thành công';
 $smg_type = getFlashData('smg_type');
-// $smg_type = 'success';
-$slideStatus = getFlashData('slidertStatus');
-// if (!empty($slideStatus))
-// {
-//     $smg = $slideStatus;
-// }
-
-
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
@@ -58,7 +44,7 @@ $slideStatus = getFlashData('slidertStatus');
                 <td><?= $count += 1 ?></td>
                 <td>
                     <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>">
-                        <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'],'slider') ?>"
+                        <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'], 'slider') ?>"
                             alt="Ảnh xem trước">
                     </a>
                 </td>
@@ -83,7 +69,5 @@ $slideStatus = getFlashData('slidertStatus');
             }
             ?>
         </tbody>
-
     </table>
-
 </main>

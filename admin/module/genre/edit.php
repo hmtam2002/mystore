@@ -11,6 +11,7 @@ $filterAll = $f->filter();
 
 if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1')))
 {
+    // Cho chỉnh sửa thông tin
     if (!empty($filterAll['id']))
     {
         $genreId = $filterAll['id'];
@@ -25,6 +26,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     }
 } else
 {
+    // Cho nút status
     $statusValue = $filterAll['status'];
     if (!empty($filterAll['id']))
     {
@@ -35,13 +37,9 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $condition = "id=$genreId";
             $updateStatus = $db->update('genres', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('genreStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('genreStatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -53,7 +51,6 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
 
 if ($f->isPOST())
 {
-    // $userId = $filterAll['id'];
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
     //validate genre_name

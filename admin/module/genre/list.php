@@ -3,29 +3,9 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-// if ($f->isGET())
-// {
-//     $status = $filterAll['status'];
-//     if ($status == 1)
-//     {
-
-//     } else
-//     {
-
-//     }
-// }
-$listUser = $db->getRaw('SELECT * FROM genres ORDER BY update_at');
+$listGenre = $db->getRaw('SELECT * FROM genres ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$genreStatus = getFlashData('genreStatus');
-if (!empty($genreStatus))
-{
-    $smg = $genreStatus;
-}
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
@@ -53,40 +33,39 @@ if (!empty($genreStatus))
         <tbody>
             <?php
             $dem = 0;
-            foreach ($listUser as $item)
+            foreach ($listGenre as $item)
             {
                 $dem += 1;
                 ?>
-                <tr>
-                    <td>
-                        <?= $dem ?>
-                    </td>
-                    <td>
-                        <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                            <?= $item['genre_name'] ?>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=genre&act=delete&id=<?= $item['id'] ?>"
-                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <?php
+            <tr>
+                <td>
+                    <?= $dem ?>
+                </td>
+                <td>
+                    <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
+                        <?= $item['genre_name'] ?>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=genre&act=delete&id=<?= $item['id'] ?>"
+                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <?php
             }
             ?>
         </tbody>
     </table>
-
 </main>

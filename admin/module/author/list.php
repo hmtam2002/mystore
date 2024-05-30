@@ -4,11 +4,8 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 
-$data = [
-    'titlePage' => 'Quản trị website'
-];
 
-$listUser = $db->getRaw('SELECT * FROM authors ORDER BY update_at');
+$listAuthor = $db->getRaw('SELECT * FROM authors ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $authorStatus = getFlashData('authorStatus');
@@ -44,7 +41,7 @@ if (!empty($authorStatus))
         <tbody>
             <?php
             $dem = 0;
-            foreach ($listUser as $item)
+            foreach ($listAuthor as $item)
             {
                 $dem += 1;
                 ?>

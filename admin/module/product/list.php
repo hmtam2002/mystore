@@ -3,12 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-
-
 $sql = 'SELECT products.*, genres.genre_name, authors.author_name
 FROM products
 INNER JOIN genres ON products.genre_id = genres.id

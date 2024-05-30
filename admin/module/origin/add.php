@@ -57,7 +57,6 @@ $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-
 ?>
 
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">

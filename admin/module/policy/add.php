@@ -81,7 +81,6 @@ $errors = getFlashData('errors');
 $old = getFlashData('old');
 
 ?>
-
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">

@@ -9,17 +9,11 @@ if (!defined("_CODE"))
 // ];
 
 $sql = 'SELECT * FROM images WHERE type = "banner"';
-$listSlider = $db->getRaw($sql);
+$listBanner = $db->getRaw($sql);
 
 $smg = getFlashData('smg');
-// $smg = 'Load thành công';
 $smg_type = getFlashData('smg_type');
-// $smg_type = 'success';
-$slideStatus = getFlashData('slidertStatus');
-// if (!empty($slideStatus))
-// {
-//     $smg = $slideStatus;
-// }
+
 
 
 ?>
@@ -27,7 +21,7 @@ $slideStatus = getFlashData('slidertStatus');
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Slider</li>
+            <li class="breadcrumb-item active" aria-current="page">Banner</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">
@@ -51,35 +45,35 @@ $slideStatus = getFlashData('slidertStatus');
             <?php
             // foreach ($listBook as $item)
             $count = 0;
-            foreach ($listSlider as $item)
+            foreach ($listBanner as $item)
             {
                 ?>
-            <tr>
-                <td><?= $count += 1 ?></td>
-                <td>
-                    <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>">
-                        <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'],'banner') ?>"
-                            alt="Ảnh xem trước">
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="?cmd=banner&act=delete&id=<?= $item['id'] ?>"
-                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-            <?php
+                <tr>
+                    <td><?= $count += 1 ?></td>
+                    <td>
+                        <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>">
+                            <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'], 'banner') ?>"
+                                alt="Ảnh xem trước">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Hiện</button>' : '<button class="btn btn-danger btn-sm">Ẩn</button>' ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=banner&act=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="?cmd=banner&act=delete&id=<?= $item['id'] ?>"
+                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php
             }
             ?>
         </tbody>

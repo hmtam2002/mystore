@@ -3,15 +3,9 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
-
-$listUser = $db->getRaw('SELECT * FROM origins');
+$listOrigin = $db->getRaw('SELECT * FROM origins');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$authorStatus = getFlashData('authorStatus');
 if (!empty($authorStatus))
 {
     $smg = $authorStatus;
@@ -42,7 +36,7 @@ if (!empty($authorStatus))
         <tbody>
             <?php
             $dem = 0;
-            foreach ($listUser as $item)
+            foreach ($listOrigin as $item)
             {
                 $dem += 1;
                 ?>

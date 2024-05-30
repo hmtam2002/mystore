@@ -36,13 +36,9 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['update_at'] = date('Y-m-d H:i:s');
             $condition = "id=$newId";
             $updateStatus = $db->update('news', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('productStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updateStatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -250,7 +246,7 @@ if (!empty($product_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'image/new') ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'new') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>

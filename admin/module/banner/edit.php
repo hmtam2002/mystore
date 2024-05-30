@@ -4,9 +4,6 @@ if (!defined("_CODE"))
     exit("Access denied...");
 }
 
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
 $filterAll = $f->filter();
 
 if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1')))//nút status
@@ -14,11 +11,11 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     //cho chỉnh sửa thông tin
     if (!empty($filterAll['id']))
     {
-        $sliderId = $filterAll['id'];
-        $sliderData = $db->oneRaw("SELECT * FROM images WHERE id=$sliderId");
-        if (!empty($sliderData))
+        $bannerId = $filterAll['id'];
+        $bannerData = $db->oneRaw("SELECT * FROM images WHERE id=$bannerId");
+        if (!empty($bannerData))
         {
-            setFlashData('slider_detail', $sliderData);
+            setFlashData('banner_Detail', $bannerData);
         } else
         {
             $f->redirect("?cmd=banner&act=list");
@@ -37,11 +34,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $condition = "id=$imageId";
             $updateStatus = $db->update('images', $dataUpdate, $condition);
-            if ($updateStatus)
-            {
-                // setFlashData('authorStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
+            if (!$updateStatus)
             {
                 setFlashData('updatestatus', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
@@ -79,7 +72,7 @@ if ($f->isPOST())
         // print_r($dataUpdate);
         // echo '</pre>';
         // die();
-        $condition = "id=$sliderId";
+        $condition = "id=$bannerId";
         $updateStatus = $db->update('images', $dataUpdate, $condition);
         if ($updateStatus)
         {
@@ -97,7 +90,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=banner&act=edit&id=" . $sliderId);
+    $f->redirect("?cmd=banner&act=edit&id=" . $bannerId);
 }
 
 
@@ -106,10 +99,10 @@ $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$slider_data = getFlashData('slider_detail');
-if (!empty($slider_data))
+$banner_data = getFlashData('banner_Detail');
+if (!empty($banner_data))
 {
-    $old = $slider_data;
+    $old = $banner_data;
 }
 ?>
 
@@ -117,7 +110,7 @@ if (!empty($slider_data))
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Thể loại</li>
+            <li class="breadcrumb-item active" aria-current="page">Banner</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">
@@ -156,7 +149,7 @@ if (!empty($slider_data))
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $sliderId ?>">
+                <input type="hidden" name="id" value="<?php echo $bannerId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
                     Cập nhật
                 </button>

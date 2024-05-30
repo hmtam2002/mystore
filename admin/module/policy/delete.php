@@ -6,13 +6,13 @@ if (!defined("_CODE"))
 $filterAll = $f->filter();
 if (!empty($filterAll['id']))
 {
-    $productId = $filterAll['id'];
-    $productDetail = $db->getRows("SELECT * FROM news WHERE id=$productId");
-    if ($productDetail > 0)
+    $policyId = $filterAll['id'];
+    $policyDetail = $db->getRows("SELECT * FROM news WHERE id=$policyId");
+    if ($policyDetail > 0)
     {
         //thực hiện xoá
-        $deleteProduct = $db->delete("news", "id = $productId");
-        if ($deleteProduct)
+        $deletePolicy = $db->delete("news", "id = $policyId");
+        if ($deletePolicy)
         {
             setFlashData("smg", "Đã xoá bài viết thành công");
             setFlashData("smg_type", "success");

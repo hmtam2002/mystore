@@ -6,24 +6,24 @@ if (!defined("_CODE"))
 $filterAll = $f->filter();
 if (!empty($filterAll['id']))
 {
-    $sliderId = $filterAll['id'];
-    $slider_detail = $db->getRows("SELECT * FROM images WHERE id=$sliderId");
-    if ($slider_detail > 0)
+    $bannerId = $filterAll['id'];
+    $banner_detail = $db->getRows("SELECT * FROM images WHERE id=$bannerId");
+    if ($banner_detail > 0)
     {
         //thực hiện xoá
-        $deleteSlider = $db->delete("images", "id = $sliderId");
-        if ($deleteSlider)
+        $deleteBanner = $db->delete("images", "id = $bannerId");
+        if ($deleteBanner)
         {
-            setFlashData("smg", "Đã xoá slider thành công");
+            setFlashData("smg", "Đã xoá ảnh thành công");
             setFlashData("smg_type", "success");
         } else
         {
-            setFlashData("smg", "Đã xoá slider thành công");
+            setFlashData("smg", "Đã xoá ảnh thành công");
             setFlashData("smg_type", "success");
         }
     } else
     {
-        setFlashData("smg", "Slider không tồn tại trong hệ thống");
+        setFlashData("smg", "Ảnh không tồn tại trong hệ thống");
         setFlashData("smg_type", "danger");
     }
 

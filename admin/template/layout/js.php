@@ -428,7 +428,7 @@ if ($data['action'] == 'add' || $data['action'] == 'edit')
             const title = this.value;
             const slug = createSlug(title);
             document.getElementById('slugInput').value = slug;
-            labelElement2.textContent = 'Đường dẫn mẫu: localhost/mystore/' + slug;
+            labelElement2.textContent = 'Đường dẫn mẫu: <?= _HOST ?>' + slug;
         });
     </script>
     <script>

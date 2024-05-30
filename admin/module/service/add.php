@@ -3,10 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
 if ($f->isPOST())
 {
     $filterAll = $f->filter();
@@ -73,15 +69,12 @@ if ($f->isPOST())
     }
 }
 
-
-
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
 
 ?>
-
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">

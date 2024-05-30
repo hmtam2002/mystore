@@ -104,7 +104,7 @@ $old = getFlashData('old');
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group mg-form">
-                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: localhost/mystore/ </label>
+                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: <?= _HOST ?> </label>
                             <input name="slug" id="slugInput" class="form-control" placeholder="Đường dẫn" value="<?php
                             echo $f->old('slug', $old);
                             ?>">
@@ -137,9 +137,9 @@ $old = getFlashData('old');
                         <div class="form-group">
                             <label>Trạng thái</label>
                             <select name="status" id="mySelect" class="form-control" style="width: 50% display=block;">
-                                <option value="1" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>Hiện
+                                <option value="1" selected>Hiện
                                 </option>
-                                <option value="0" <?= $f->old('status', $old) == 0 ? "selected" : null ?>>Ẩn
+                                <option value="0">Ẩn
                                 </option>
                             </select>
                         </div>

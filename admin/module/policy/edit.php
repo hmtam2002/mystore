@@ -12,11 +12,11 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
 {
     if (!empty($filterAll['id']))
     {
-        $productId = $filterAll['id'];
-        $product_detail = $db->oneRaw("SELECT * FROM news WHERE id=$productId");
-        if (!empty($product_detail))
+        $policyId = $filterAll['id'];
+        $policy_detail = $db->oneRaw("SELECT * FROM news WHERE id=$policyId");
+        if (!empty($policy_detail))
         {
-            setFlashData('product_detail', $product_detail);
+            setFlashData('policy_detail', $policy_detail);
         } else
         {
             $f->redirect("?cmd=policy&act=list");
@@ -28,21 +28,17 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     $statusValue = $filterAll['status'];
     if (!empty($filterAll['id']))
     {
-        $productId = $filterAll['id'];
-        $produc_detail = $db->oneRaw("SELECT * FROM news WHERE id=$productId");
-        if (!empty($produc_detail))
+        $policyId = $filterAll['id'];
+        $policy_detail = $db->oneRaw("SELECT * FROM news WHERE id=$policyId");
+        if (!empty($policy_detail))
         {
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $dataUpdate['update_at'] = date('Y-m-d H:i:s');
-            $condition = "id=$productId";
+            $condition = "id=$policyId";
             $updateStatus = $db->update('news', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('productStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -145,7 +141,7 @@ if ($f->isPOST())
             }
         }
 
-        $condition = "id=$productId";
+        $condition = "id=$policyId";
         $updateStatus = $db->update('news', $dataUpdate, $condition);
 
         if ($updateStatus)
@@ -164,7 +160,7 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=policy&act=edit&id=" . $productId);
+    $f->redirect("?cmd=policy&act=edit&id=" . $policyId);
 
 }
 
@@ -175,10 +171,10 @@ $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$product_data = getFlashData('product_detail');
-if (!empty($product_data))
+$policy_data = getFlashData('policy_detail');
+if (!empty($policy_data))
 {
-    $old = $product_data;
+    $old = $policy_data;
 }
 ?>
 
@@ -256,7 +252,7 @@ if (!empty($product_data))
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $productId ?>">
+                <input type="hidden" name="id" value="<?php echo $policyId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
                     Cập nhật
                 </button>

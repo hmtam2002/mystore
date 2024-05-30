@@ -6,13 +6,13 @@ if (!defined("_CODE"))
 $filterAll = $f->filter();
 if (!empty($filterAll['id']))
 {
-    $productId = $filterAll['id'];
-    $productDetail = $db->getRows("SELECT * FROM news WHERE id=$productId");
-    if ($productDetail > 0)
+    $serviceId = $filterAll['id'];
+    $serviceDetail = $db->getRows("SELECT * FROM news WHERE id=$serviceId");
+    if ($serviceDetail > 0)
     {
         //thực hiện xoá
-        $deleteProduct = $db->delete("news", "id = $productId");
-        if ($deleteProduct)
+        $deleteService = $db->delete("news", "id = $serviceId");
+        if ($deleteService)
         {
             setFlashData("smg", "Đã xoá bài viết thành công");
             setFlashData("smg_type", "success");

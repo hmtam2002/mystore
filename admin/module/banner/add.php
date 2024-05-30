@@ -31,7 +31,7 @@ if ($f->isPOST())
         $insertStatus = $db->insert('images', $dataInsert);
         if ($insertStatus)
         {
-            setFlashData('smg', 'Thêm slider thành công');
+            setFlashData('smg', 'Thêm ảnh thành công');
             setFlashData('smg_type', 'success');
             $f->redirect('?cmd=banner&act=list');
         } else

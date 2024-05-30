@@ -3,26 +3,14 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
-
-$listNews = $db->getRaw('SELECT * FROM news WHERE type = "service"');
-if (empty($listNews))
+$listService = $db->getRaw('SELECT * FROM news WHERE type = "service"');
+if (empty($listService))
 {
     $smg = setFlashData('smg', 'Không có dữ liệu');
     $smg = setFlashData('smg_type', 'danger');
 }
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$authorStatus = getFlashData('authorStatus');
-if (!empty($authorStatus))
-{
-    $smg = $authorStatus;
-}
-
-
 ?>
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
@@ -50,7 +38,7 @@ if (!empty($authorStatus))
         <tbody>
             <?php
             $dem = 1;
-            foreach ($listNews as $item)
+            foreach ($listService as $item)
             {
                 ?>
                 <tr>
