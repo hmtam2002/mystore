@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -75,8 +72,7 @@ if ($f->isPOST())
         $f->redirect('?cmd=new&act=add');
     }
 }
-$f->layout('header_page');
-$f->layout('menu_page');
+
 
 
 $smg = getFlashData('smg');
@@ -86,9 +82,9 @@ $old = getFlashData('old');
 
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Bài viết</li>
         </ol>
@@ -108,7 +104,7 @@ $old = getFlashData('old');
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group mg-form">
-                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: localhost/mystore/ </label>
+                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: <?= _HOST ?> </label>
                             <input name="slug" id="slugInput" class="form-control" placeholder="Đường dẫn" value="<?php
                             echo $f->old('slug', $old);
                             ?>">
@@ -141,9 +137,9 @@ $old = getFlashData('old');
                         <div class="form-group">
                             <label>Trạng thái</label>
                             <select name="status" id="mySelect" class="form-control" style="width: 50% display=block;">
-                                <option value="1" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>Hiện
+                                <option value="1" selected>Hiện
                                 </option>
-                                <option value="0" <?= $f->old('status', $old) == 0 ? "selected" : null ?>>Ẩn
+                                <option value="0">Ẩn
                                 </option>
                             </select>
                         </div>
@@ -165,7 +161,3 @@ $old = getFlashData('old');
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

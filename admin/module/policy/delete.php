@@ -6,24 +6,24 @@ if (!defined("_CODE"))
 $filterAll = $f->filter();
 if (!empty($filterAll['id']))
 {
-    $authorId = $filterAll['id'];
-    $author_detail = $db->getRows("SELECT * FROM authors WHERE id=$authorId");
-    if ($author_detail > 0)
+    $policyId = $filterAll['id'];
+    $policyDetail = $db->getRows("SELECT * FROM news WHERE id=$policyId");
+    if ($policyDetail > 0)
     {
         //thực hiện xoá
-        $deleteAuthor = $db->delete("authors", "id = $authorId");
-        if ($deleteAuthor)
+        $deletePolicy = $db->delete("news", "id = $policyId");
+        if ($deletePolicy)
         {
-            setFlashData("smg", "Đã xoá tác giả thành công");
+            setFlashData("smg", "Đã xoá bài viết thành công");
             setFlashData("smg_type", "success");
         } else
         {
-            setFlashData("smg", "Tác giả này đang được sử dụng");
+            setFlashData("smg", "Bài viết này đang được sử dụng");
             setFlashData("smg_type", "danger");
         }
     } else
     {
-        setFlashData("smg", "Tác giả không tồn tại trong hệ thống");
+        setFlashData("smg", "Bài viết không tồn tại trong hệ thống");
         setFlashData("smg_type", "danger");
     }
 
@@ -32,4 +32,4 @@ if (!empty($filterAll['id']))
     setFlashData("smg", "Liên kết không tồn tại");
     setFlashData("smg_type", "danger");
 }
-$f->redirect("?cmd=author&act=list");
+$f->redirect("?cmd=policy&act=list");

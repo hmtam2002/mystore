@@ -3,16 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-
-$f->layout('header_page');
-$f->layout('menu_page');
 $sql = 'SELECT products.*, genres.genre_name, authors.author_name
 FROM products
 INNER JOIN genres ON products.genre_id = genres.id
@@ -21,15 +11,10 @@ WHERE products.product_type_id = "1"';
 $listProduct = $db->getRaw($sql);
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$productStatus = getFlashData('productStatus');
-if (!empty($productStatus))
-{
-    $smg = $productStatus;
-}
 ?>
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Sách</li>
         </ol>
@@ -113,7 +98,3 @@ if (!empty($productStatus))
         </tbody>
     </table>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

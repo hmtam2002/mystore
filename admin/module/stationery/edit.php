@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -39,13 +36,9 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['update_at'] = date('Y-m-d H:i:s');
             $condition = "id=$productId";
             $updateStatus = $db->update('products', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('productStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -179,9 +172,6 @@ if ($f->isPOST())
 
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
-
 
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
@@ -194,9 +184,9 @@ if (!empty($product_data))
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
         </ol>
@@ -275,11 +265,10 @@ if (!empty($product_data))
                                 foreach ($originList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
-                                    <?= $item['country_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
+                                        <?= $item['country_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -293,11 +282,10 @@ if (!empty($product_data))
                                 foreach ($brandList as $item)
                                 {
                                     ?>
-                                <option value="<?= $item['id'] ?>"
-                                    <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
-                                    <?= $item['brand_name'] ?>
-                                </option>
-                                <?php
+                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
+                                        <?= $item['brand_name'] ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -330,7 +318,3 @@ if (!empty($product_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

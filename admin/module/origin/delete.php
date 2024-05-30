@@ -6,13 +6,13 @@ if (!defined("_CODE"))
 $filterAll = $f->filter();
 if (!empty($filterAll['id']))
 {
-    $authorId = $filterAll['id'];
-    $author_detail = $db->getRows("SELECT * FROM origins WHERE id=$authorId");
-    if ($author_detail > 0)
+    $originId = $filterAll['id'];
+    $origin_detail = $db->getRows("SELECT * FROM origins WHERE id=$originId");
+    if ($origin_detail > 0)
     {
         //thực hiện xoá
-        $deleteAuthor = $db->delete("origins", "id = $authorId");
-        if ($deleteAuthor)
+        $deleteOrigin = $db->delete("origins", "id = $originId");
+        if ($deleteOrigin)
         {
             setFlashData("smg", "Đã xoá thành công");
             setFlashData("smg_type", "success");

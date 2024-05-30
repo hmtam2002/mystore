@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -55,8 +52,7 @@ if ($f->isPOST())
         $f->redirect('?cmd=genre&act=add');
     }
 }
-$f->layout('header_page');
-$f->layout('menu_page');
+
 
 
 $smg = getFlashData('smg');
@@ -66,9 +62,9 @@ $old = getFlashData('old');
 
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Thể loại</li>
         </ol>
@@ -84,7 +80,7 @@ $old = getFlashData('old');
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form method="post">
                 <div class="row">
                     <div class="col">
                         <div class="form-group mg-form">
@@ -118,7 +114,3 @@ $old = getFlashData('old');
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

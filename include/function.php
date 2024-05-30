@@ -27,68 +27,69 @@ class func
 
     public function layout($layoutName = 'head', $data = [])
     {
-        require_once _WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php';
+        $layoutPath = _WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php';
+
+        if (file_exists($layoutPath))
+        {
+            require_once $layoutPath;
+        } else
+        {
+            echo 'Lỗi: Tệp bố cục "' . $layoutName . '" không tồn tại.';
+        }
+    }
+    public function template($layoutName = '', $noidung = null, $data = [])
+    {
+        $layoutPath = _WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php';
+
+        if (file_exists($layoutPath))
+        {
+            require_once $layoutPath;
+        } else
+        {
+            echo 'Lỗi: Tệp bố cục "' . $layoutName . '" không tồn tại.';
+        }
     }
     public function isPOST()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST")
-        {
-            return true;
-        }
-        return false;
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
     public function isGET()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "GET")
-        {
-            return true;
-        }
-        return false;
+        return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
-    function filter()
+    public function filter()
     {
         $filterArr = [];
+
+        // Lọc các tham số từ phương thức GET
         if ($this->isGET())
         {
-            if (!empty($_GET))
-            {
-                foreach ($_GET as $key => $value)
-                {
-                    $key = strip_tags($key);
-                    if (is_array($value))
-                    {
-                        $filterArr[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
-                    } else
-                    {
-                        $filterArr[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-                    }
-                }
-            }
+            $filterArr += filter_input_array(INPUT_GET, FILTER_SANITIZE_SPECIAL_CHARS);
         }
 
+        // Lọc các tham số từ phương thức POST
         if ($this->isPOST())
         {
-            if (!empty($_POST))
-            {
-                foreach ($_POST as $key => $value)
-                {
-                    if (is_array($value))
-                    {
-                        $filterArr[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
-                    } else
-                    {
-                        $filterArr[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-                    }
-                }
-            }
+            $filterArr += filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         }
+
         return $filterArr;
     }
+
     public function redirect($path = 'index.php')
     {
-        header("location: $path");
-        exit;
+        if (!headers_sent())
+        {
+            header("location: $path");
+            exit;
+        } else
+        {
+            echo "<script>window.location.href='$path';</script>";
+            exit;
+        }
+
     }
+
     public function getSmg($smg, $type = 'success')
     {
         echo '<div class="alert alert-' . $type . '">';
@@ -152,22 +153,28 @@ class func
     //Hàm kiểm tra số điện thoại
     public function isPhone($phone)
     {
-        //điều kiện ký tự đầu tiên là số 0
-        $checkZero = false;
-        if ($phone[0] == 0)
+        // Kiểm tra xem độ dài của chuỗi có bằng 10 không
+        if (strlen($phone) != 10)
         {
-            $checkZero = true;
-            $phone = substr($phone, 1);
+            return false;
         }
-        // đằng sau nó có 9 số
-        $checkNumber = false;
-        if ($this->isNumberInt($phone) && (strlen($phone) == 9))
+
+        // Kiểm tra xem ký tự đầu tiên có phải là số 0 không
+        if ($phone[0] != '0')
         {
-            $checkNumber = true;
+            return false;
         }
-        if ($checkZero && $checkNumber)
-            return true;
-        return false;
+
+        // Kiểm tra xem các ký tự còn lại có phải là số không
+        for ($i = 1; $i < 10; $i++)
+        {
+            if (!is_numeric($phone[$i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
     public function upload($filenameupload, $path = '')
     {
@@ -234,8 +241,8 @@ class func
         }
 
         // In ra đường dẫn và tên file để kiểm tra
-        echo "Đường dẫn file tạm: " . $_FILES[$filenameupload]["tmp_name"] . "<br>";
-        echo "Đường dẫn đích: " . $target_dir . $new_filename . "<br>";
+        // echo "Đường dẫn file tạm: " . $_FILES[$filenameupload]["tmp_name"] . "<br>";
+        // echo "Đường dẫn đích: " . $target_dir . $new_filename . "<br>";
 
         // Thực hiện upload file
         if (move_uploaded_file($_FILES[$filenameupload]["tmp_name"], $target_dir . $new_filename))
@@ -251,18 +258,18 @@ class func
         }
     }
 
-    public function image_exists($filename, $path = '')
+    public function image_exists($filename, $path = 'product')
     {
         $defaultImage = _HOST_ASSETS . '/images/noimage/noimage.png'; // Đường dẫn tới ảnh mặc định
         if (empty($filename))
         {
             return $defaultImage;
         }
-        $imagePath = _PATH_ASSETS . '/images/product/' . $filename; // Đường dẫn tới ảnh cần kiểm tra
+        $imagePath = _PATH_ASSETS . '/images/' . $path . '/' . $filename; // Đường dẫn tới ảnh cần kiểm tra
 
         if (file_exists($imagePath))
         {
-            return _HOST_ASSETS . '/images/product/' . $filename;
+            return _HOST_ASSETS . '/images/' . $path . '/' . $filename;
         } else
         {
             return $defaultImage;
@@ -284,5 +291,9 @@ class func
         {
             return $defaultImage;
         }
+    }
+    public function test()
+    {
+        return true;
     }
 }

@@ -3,33 +3,20 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-$f->layout('header_page');
-$f->layout('menu_page');
+
 $sql = 'SELECT * FROM images WHERE type = "slider"';
 $listSlider = $db->getRaw($sql);
-
+if (empty($listSlider))
+{
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
+}
 $smg = getFlashData('smg');
-// $smg = 'Load thành công';
 $smg_type = getFlashData('smg_type');
-// $smg_type = 'success';
-$slideStatus = getFlashData('slidertStatus');
-// if (!empty($slideStatus))
-// {
-//     $smg = $slideStatus;
-// }
-
-
 ?>
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Slider</li>
         </ol>
@@ -62,7 +49,7 @@ $slideStatus = getFlashData('slidertStatus');
                     <td><?= $count += 1 ?></td>
                     <td>
                         <a href="?cmd=slider&act=edit&id=<?= $item['id'] ?>">
-                            <img style="max-width: 300px;" src="<?= $f->slider_exists($item['image']) ?>"
+                            <img style="max-width: 300px;" src="<?= $f->image_exists($item['image'], 'slider') ?>"
                                 alt="Ảnh xem trước">
                         </a>
                     </td>
@@ -87,11 +74,5 @@ $slideStatus = getFlashData('slidertStatus');
             }
             ?>
         </tbody>
-
     </table>
-
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

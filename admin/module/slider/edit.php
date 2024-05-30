@@ -3,15 +3,8 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
-// $data = [
-//     'titlePage' => 'Quản trị website'
-// ];
-$filterAll = $f->filter();
 
+$filterAll = $f->filter();
 if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1')))//nút status
 {
     //cho chỉnh sửa thông tin
@@ -40,20 +33,15 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $condition = "id=$imageId";
             $updateStatus = $db->update('images', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('authorStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
     }
     $f->redirect("?cmd=slider&act=list");
 }
-
 if ($f->isPOST())
 {
     $filterAll = $f->filter();
@@ -78,10 +66,6 @@ if ($f->isPOST())
                 unset($dataUpdate[$key]);
             }
         }
-        // echo '<pre>';
-        // print_r($dataUpdate);
-        // echo '</pre>';
-        // die();
         $condition = "id=$sliderId";
         $updateStatus = $db->update('images', $dataUpdate, $condition);
         if ($updateStatus)
@@ -103,10 +87,6 @@ if ($f->isPOST())
     $f->redirect("?cmd=slider&act=edit&id=" . $sliderId);
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
-
-
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
@@ -117,10 +97,9 @@ if (!empty($slider_data))
     $old = $slider_data;
 }
 ?>
-
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Thể loại</li>
         </ol>
@@ -145,7 +124,7 @@ if (!empty($slider_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->slider_exists($f->old('image', $old)) ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'slider') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>
@@ -169,7 +148,3 @@ if (!empty($slider_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

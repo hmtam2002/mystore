@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -14,49 +11,68 @@ if ($f->isPOST())
 {
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
-    //validate author_name
-    if (empty($filterAll['author_name']))
+    //validate slug
+    if (empty($filterAll['slug']))
     {
-        $errors['author_name']['required'] = 'Tên tác giả bắt buộc phải nhập';
+        $errors['slug']['required'] = 'Đường dẫn bắt buộc phải nhập';
     } else
     {
-        if (strlen($filterAll['author_name']) < 5)
+        if (strlen($filterAll['slug']) < 5)
         {
-            $errors['author_name']['min'] = 'Tên người dùng phải có ít nhất 5 ký tự';
+            $errors['slug']['min'] = 'Đường dẫn phải có ít nhất 5 ký tự';
         }
     }
+    //validate title
+    if (empty($filterAll['title']))
+    {
+        $errors['title']['required'] = 'Tiêu đề bắt buộc phải nhập';
+    } else
+    {
+        if (strlen($filterAll['title']) < 5)
+        {
+            $errors['title']['min'] = 'Tiêu đề phải có ít nhất 5 ký tự';
+        }
+    }
+
 
     if (empty($errors))
     {
         //xử lý insert
         $dataInsert = [
-            'author_name' => $filterAll['author_name'],
+            'slug' => $filterAll['slug'],
+            'title' => $filterAll['title'],
+            'description' => $_POST['description'],
+            'type' => 'policy',
+            'image' => $f->upload('imageUpload', 'images/new'),
             'status' => $filterAll['status'],
             'create_at' => date('Y-m-d H:i:s')
         ];
-        $insertStatus = $db->insert('authors', $dataInsert);
+        if ($dataInsert['image'] === 'noimage.jpg')
+        {
+            unset($dataInsert['image']);
+        }
+        $insertStatus = $db->insert('news', $dataInsert);
         if ($insertStatus)
         {
-            setFlashData('smg', 'Thêm tác giả thành công');
+            setFlashData('smg', 'Thêm bài viết thành công');
             setFlashData('smg_type', 'success');
-            $f->redirect('?cmd=author&act=list');
         } else
         {
-            setFlashData('smg', 'Lỗi cơ sở dữ liệu');
+            setFlashData('smg', 'Thêm không thành công');
             setFlashData('smg_type', 'danger');
-            $f->redirect('?cmd=author&act=add');
+            setFlashData('old', $filterAll);
         }
+        $f->redirect('?cmd=policy&act=list');
     } else
     {
         setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu');
         setFlashData('smg_type', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
-        $f->redirect('?cmd=author&act=add');
+        $f->redirect('?cmd=policy&act=add');
     }
 }
-$f->layout('header_page');
-$f->layout('menu_page');
+
 
 
 $smg = getFlashData('smg');
@@ -65,12 +81,11 @@ $errors = getFlashData('errors');
 $old = getFlashData('old');
 
 ?>
-
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Chính sách</li>
+        <ol class="breadcrumb bg-light p-3 rounded-3">
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bài viết</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">
@@ -84,32 +99,58 @@ $old = getFlashData('old');
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm-8">
                         <div class="form-group mg-form">
-                            <label for="">Tác giả</label>
-                            <input name="author_name" class="form-control" placeholder="Tác giả" value="<?php
-                            echo $f->old('username', $old);
+                            <label for="slugInput" id="slugLabel">Đường dẫn mẫu: localhost/mystore/ </label>
+                            <input name="slug" id="slugInput" class="form-control" placeholder="Đường dẫn" value="<?php
+                            echo $f->old('slug', $old);
                             ?>">
                             <?php
-                            echo $f->formError('author_name', '<span class="error">', '</span>', $errors);
+                            echo $f->formError('slug', '<span class="error">', '</span>', $errors);
                             ?>
                         </div>
-
+                        <div class="form-group mg-form">
+                            <label for="">Tiêu đề</label>
+                            <input id="title" name="title" class="form-control" placeholder="Tiêu đề" value="<?php
+                            echo $f->old('title', $old);
+                            ?>">
+                            <?php
+                            echo $f->formError('title', '<span class="error">', '</span>', $errors);
+                            ?>
+                        </div>
+                        <div class="form-group mg-form">
+                            <label for="">Nội dung</label>
+                            <textarea name="description" id="description" class="form-control" placeholder="Mô tả">
+                                <?php
+                                echo $f->old('description', $old);
+                                ?>
+                                </textarea>
+                            <?php
+                            echo $f->formError('description', '<span class="error">', '</span>', $errors);
+                            ?>
+                        </div>
                     </div>
-                    <div class="col">
-
+                    <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="">Trạng thái</label>
+                            <label>Trạng thái</label>
                             <select name="status" id="mySelect" class="form-control" style="width: 50% display=block;">
-                                <option value="1" selected>Đã kích hoạt
+                                <option value="1" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>Hiện
                                 </option>
-                                <option value="0">Chưa kích hoạt
+                                <option value="0" <?= $f->old('status', $old) == 0 ? "selected" : null ?>>Ẩn
                                 </option>
                             </select>
                         </div>
-
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="file" class="form-control" name="imageUpload" id="imageUpload"
+                                accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old)) ?>"
+                                alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%; margin-top: 20px;">
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
@@ -119,7 +160,3 @@ $old = getFlashData('old');
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

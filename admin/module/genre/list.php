@@ -3,38 +3,18 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
+$listGenre = $db->getRaw('SELECT * FROM genres ORDER BY update_at');
+if (empty($listGenre))
 {
-    $f->redirect('?cmd=auth&act=login');
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
 }
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-// if ($f->isGET())
-// {
-//     $status = $filterAll['status'];
-//     if ($status == 1)
-//     {
-
-//     } else
-//     {
-
-//     }
-// }
-$f->layout('header_page');
-$f->layout('menu_page');
-$listUser = $db->getRaw('SELECT * FROM genres ORDER BY update_at');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$genreStatus = getFlashData('genreStatus');
-if (!empty($genreStatus))
-{
-    $smg = $genreStatus;
-}
 ?>
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Thể loại</li>
         </ol>
@@ -58,7 +38,7 @@ if (!empty($genreStatus))
         <tbody>
             <?php
             $dem = 0;
-            foreach ($listUser as $item)
+            foreach ($listGenre as $item)
             {
                 $dem += 1;
                 ?>
@@ -93,9 +73,4 @@ if (!empty($genreStatus))
             ?>
         </tbody>
     </table>
-
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

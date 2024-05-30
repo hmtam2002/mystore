@@ -6,13 +6,13 @@ if (!defined("_CODE"))
 $filterAll = $f->filter();
 if (!empty($filterAll['id']))
 {
-    $authorId = $filterAll['id'];
-    $author_detail = $db->getRows("SELECT * FROM brands WHERE id=$authorId");
-    if ($author_detail > 0)
+    $brandId = $filterAll['id'];
+    $brand_detail = $db->getRows("SELECT * FROM brands WHERE id=$brandId");
+    if ($brand_detail > 0)
     {
         //thực hiện xoá
-        $deleteAuthor = $db->delete("brands", "id = $authorId");
-        if ($deleteAuthor)
+        $brandAuthor = $db->delete("brands", "id = $brandId");
+        if ($brandAuthor)
         {
             setFlashData("smg", "Đã xoá dữ liệu thành công");
             setFlashData("smg_type", "success");

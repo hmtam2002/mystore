@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -17,11 +14,11 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     //cho chỉnh sửa thông tin
     if (!empty($filterAll['id']))
     {
-        $authorId = $filterAll['id'];
-        $author_data = $db->oneRaw("SELECT * FROM brands WHERE id=$authorId");
-        if (!empty($author_data))
+        $brandId = $filterAll['id'];
+        $brand_data = $db->oneRaw("SELECT * FROM brands WHERE id=$brandId");
+        if (!empty($brand_data))
         {
-            setFlashData('author_detail', $author_data);
+            setFlashData('brand_detail', $brand_data);
         } else
         {
             $f->redirect("?cmd=brand&act=list");
@@ -33,20 +30,16 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     $statusValue = $filterAll['status'];
     if (!empty($filterAll['id']))
     {
-        $authorId = $filterAll['id'];
-        $author_detail = $db->oneRaw("SELECT * FROM brands WHERE id=$authorId");
-        if (!empty($author_detail))
+        $brandId = $filterAll['id'];
+        $brand_detail = $db->oneRaw("SELECT * FROM brands WHERE id=$brandId");
+        if (!empty($brand_detail))
         {
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
-            $condition = "id=$authorId";
+            $condition = "id=$brandId";
             $updateStatus = $db->update('brands', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('authorStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -85,7 +78,7 @@ if ($f->isPOST())
             'status' => $filterAll['status'],
             'update_at' => date('Y-m-d H:i:s')
         ];
-        $condition = "id=$authorId";
+        $condition = "id=$brandId";
         $updateStatus = $db->update('brands', $dataUpdate, $condition);
         if ($updateStatus)
         {
@@ -103,27 +96,25 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=brand&act=edit&id=" . $authorId);
+    $f->redirect("?cmd=brand&act=edit&id=" . $brandId);
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
 
 
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$author_data = getFlashData('author_detail');
-if (!empty($author_data))
+$brand_data = getFlashData('brand_detail');
+if (!empty($brand_data))
 {
-    $old = $author_data;
+    $old = $brand_data;
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Thương hiệu</li>
         </ol>
@@ -145,8 +136,8 @@ if (!empty($author_data))
                         <div class="form-group mg-form">
                             <label for="">Thương hiệu</label>
                             <input name="brand_name" class="form-control" placeholder="Thương hiệu" value="<?php
-                                echo $f->old('brand_name', $old);
-                                ?>">
+                            echo $f->old('brand_name', $old);
+                            ?>">
                             <?php
                             echo $f->formError('brand_name', '<span class="error">', '</span>', $errors);
                             ?>
@@ -164,7 +155,7 @@ if (!empty($author_data))
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $authorId ?>">
+                <input type="hidden" name="id" value="<?php echo $brandId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
                     Cập nhật
                 </button>
@@ -172,7 +163,3 @@ if (!empty($author_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

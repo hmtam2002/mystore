@@ -3,10 +3,6 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -16,11 +12,11 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
 {
     if (!empty($filterAll['id']))
     {
-        $productId = $filterAll['id'];
-        $product_detail = $db->oneRaw("SELECT * FROM news WHERE id=$productId");
-        if (!empty($product_detail))
+        $newId = $filterAll['id'];
+        $new_detail = $db->oneRaw("SELECT * FROM news WHERE id=$newId");
+        if (!empty($new_detail))
         {
-            setFlashData('product_detail', $product_detail);
+            setFlashData('new_detail', $new_detail);
         } else
         {
             $f->redirect("?cmd=new&act=list");
@@ -32,21 +28,17 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     $statusValue = $filterAll['status'];
     if (!empty($filterAll['id']))
     {
-        $productId = $filterAll['id'];
-        $produc_detail = $db->oneRaw("SELECT * FROM news WHERE id=$productId");
+        $newId = $filterAll['id'];
+        $produc_detail = $db->oneRaw("SELECT * FROM news WHERE id=$newId");
         if (!empty($produc_detail))
         {
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $dataUpdate['update_at'] = date('Y-m-d H:i:s');
-            $condition = "id=$productId";
+            $condition = "id=$newId";
             $updateStatus = $db->update('news', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('productStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('updatestatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -58,7 +50,6 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
 
 if ($f->isPOST())
 {
-    // $userId = $filterAll['id'];
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
     // //validate username
@@ -132,7 +123,7 @@ if ($f->isPOST())
             'slug' => $filterAll['slug'],
             'description' => $_POST['description'],
             'status' => $filterAll['status'],
-            'image' => $f->upload('imageUpload'),
+            'image' => $f->upload('imageUpload', 'images/new'),
             'update_at' => date('Y-m-d H:i:s')
         ];
         if ($dataUpdate['image'] === 'noimage.jpg')
@@ -149,7 +140,7 @@ if ($f->isPOST())
             }
         }
 
-        $condition = "id=$productId";
+        $condition = "id=$newId";
         $updateStatus = $db->update('news', $dataUpdate, $condition);
 
         if ($updateStatus)
@@ -168,28 +159,27 @@ if ($f->isPOST())
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
     }
-    $f->redirect("?cmd=new&act=edit&id=" . $productId);
+    $f->redirect("?cmd=new&act=edit&id=" . $newId);
 
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
+
 
 
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$product_data = getFlashData('product_detail');
+$product_data = getFlashData('new_detail');
 if (!empty($product_data))
 {
     $old = $product_data;
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Bài viết</li>
         </ol>
@@ -256,12 +246,12 @@ if (!empty($product_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old)) ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'new') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $productId ?>">
+                <input type="hidden" name="id" value="<?php echo $newId ?>">
                 <button type="submit" class="btn btn-primary btn-block mg-btn" style="margin-top: 40px">
                     Cập nhật
                 </button>
@@ -269,7 +259,3 @@ if (!empty($product_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

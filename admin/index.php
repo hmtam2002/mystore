@@ -1,6 +1,6 @@
 <?php
-require_once ("../config.php");
-require_once ('./config.php');
+require_once '../config.php';
+require_once './config.php';
 require_once '../include/connect.php';
 
 
@@ -33,12 +33,50 @@ if (!empty($_GET['act']))
         $action = trim($_GET['act']);
     }
 }
-
 $path = 'module/' . $module . '/' . $action . '.php';
-if (file_exists($path))
+//kiểm tra đăng nhập
+if ($f->isLogin())
 {
-    require_once ($path);
+    if ($module != 'auth' || $action == 'logout')
+    {
+        // Bắt đầu bộ đệm đầu ra
+        ob_start();
+
+        // Bao gồm nội dung từ tệp $noidung
+
+        if (file_exists($path))
+        {
+            require_once ($path);
+            $noidung = ob_get_clean();
+            $data = [
+                'module' => $module,
+                'action' => $action
+            ];
+            $f->template('template', $noidung, $data);
+        } else
+        {
+            require_once ('404.php');
+        }
+    } else
+    {
+        // Chuyển hướng tới trang đăng nhập
+        $f->redirect("?cmd=home&act=dashboard");
+        // Đảm bảo rằng mã sau lệnh chuyển hướng không được thực thi
+    }
 } else
 {
-    require_once ('404.php');
+    if ($module != 'auth')
+    {
+        // Chuyển hướng tới trang đăng nhập
+        $f->redirect("?cmd=auth&act=login");
+        exit();
+        // Đảm bảo rằng mã sau lệnh chuyển hướng không được thực thi
+    }
+    if (file_exists($path))
+    {
+        require_once ($path);
+    } else
+    {
+        require_once ('404.php');
+    }
 }

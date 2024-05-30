@@ -3,10 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
+
 // $data = [
 //     'titlePage' => 'Quản trị website'
 // ];
@@ -14,6 +11,7 @@ $filterAll = $f->filter();
 
 if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1')))
 {
+    // Cho chỉnh sửa thông tin
     if (!empty($filterAll['id']))
     {
         $genreId = $filterAll['id'];
@@ -28,6 +26,7 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
     }
 } else
 {
+    // Cho nút status
     $statusValue = $filterAll['status'];
     if (!empty($filterAll['id']))
     {
@@ -38,13 +37,9 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
             $dataUpdate['status'] = ($statusValue == 0) ? 1 : 0;
             $condition = "id=$genreId";
             $updateStatus = $db->update('genres', $dataUpdate, $condition);
-            if ($updateStatus)
+            if (!$updateStatus)
             {
-                // setFlashData('genreStatus', 'Sửa thành công');
-                // setFlashData('smg_type', 'success');
-            } else
-            {
-                setFlashData('genreStatus', 'Sửa không thành công');
+                setFlashData('smg', 'Sửa không thành công');
                 setFlashData('smg_type', 'danger');
             }
         }
@@ -56,7 +51,6 @@ if (!(isset($_GET['status']) && ($_GET['status'] == '0' || $_GET['status'] == '1
 
 if ($f->isPOST())
 {
-    // $userId = $filterAll['id'];
     $filterAll = $f->filter();
     $errors = []; //mảng chứa các lỗi
     //validate genre_name
@@ -100,8 +94,6 @@ if ($f->isPOST())
     $f->redirect("?cmd=genre&act=edit&id=" . $genreId);
 }
 
-$f->layout('header_page');
-$f->layout('menu_page');
 
 
 $smg = getFlashData('smg');
@@ -115,9 +107,9 @@ if (!empty($genre_data))
 }
 ?>
 
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Thể loại</li>
         </ol>
@@ -167,7 +159,3 @@ if (!empty($genre_data))
         </div>
     </div>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

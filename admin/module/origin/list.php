@@ -3,27 +3,18 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
+$listOrigin = $db->getRaw('SELECT * FROM origins');
+if (empty($listOrigin))
 {
-    $f->redirect('?cmd=auth&act=login');
+    $smg = setFlashData('smg', 'Không có dữ liệu');
+    $smg = setFlashData('smg_type', 'danger');
 }
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-$f->layout('header_page');
-$f->layout('menu_page');
-$listUser = $db->getRaw('SELECT * FROM origins');
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$authorStatus = getFlashData('authorStatus');
-if (!empty($authorStatus))
-{
-    $smg = $authorStatus;
-}
 ?>
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 overflow-auto">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Xuất xứ</li>
         </ol>
@@ -46,7 +37,7 @@ if (!empty($authorStatus))
         <tbody>
             <?php
             $dem = 0;
-            foreach ($listUser as $item)
+            foreach ($listOrigin as $item)
             {
                 $dem += 1;
                 ?>
@@ -77,7 +68,3 @@ if (!empty($authorStatus))
         </tbody>
     </table>
 </main>
-
-<?php
-$f->layout('footer_page');
-?>

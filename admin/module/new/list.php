@@ -3,16 +3,7 @@ if (!defined("_CODE"))
 {
     exit("Access denied...");
 }
-if (!$f->isLogin())
-{
-    $f->redirect('?cmd=auth&act=login');
-}
-$data = [
-    'titlePage' => 'Quản trị website'
-];
-$f->layout('header_page');
-$f->layout('menu_page');
-$listNews = $db->getRaw('SELECT * FROM news ORDER BY update_at');
+$listNews = $db->getRaw('SELECT * FROM news WHERE type = "new"');
 if (empty($listNews))
 {
     $smg = setFlashData('smg', 'Không có dữ liệu');
@@ -20,17 +11,11 @@ if (empty($listNews))
 }
 $smg = getFlashData('smg');
 $smg_type = getFlashData('smg_type');
-$authorStatus = getFlashData('authorStatus');
-if (!empty($authorStatus))
-{
-    $smg = $authorStatus;
-}
-
 
 ?>
-<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+<main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Bài viết</li>
         </ol>
@@ -46,6 +31,7 @@ if (!empty($authorStatus))
     <table class="table">
         <thead>
             <th>STT</th>
+            <th>Hình ảnh</th>
             <th>Tiêu đề</th>
             <th width="10%">Trạng thái</th>
             <th width="5%">Sửa</th>
@@ -59,6 +45,12 @@ if (!empty($authorStatus))
                 ?>
                 <tr>
                     <td><?= $dem++ ?></td>
+                    <td>
+                        <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>">
+                            <img style="max-width: 90px;" src="<?= $f->image_exists($item['image'], 'new') ?>"
+                                alt="Ảnh xem trước">
+                        </a>
+                    </td>
                     <td>
                         <a href="?cmd=new&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
                             <?= $item['title'] ?>
@@ -88,11 +80,5 @@ if (!empty($authorStatus))
             }
             ?>
         </tbody>
-
     </table>
-
 </main>
-
-<?php
-$f->layout('footer_page');
-?>
