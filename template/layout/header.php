@@ -2,7 +2,7 @@
 <div class="wrap-header">
     <div class="banner">
         <a class="d-block" href="">
-            <img class="w-100" src="<?= _HOST ?>/assets/images/banner_top.jpeg" />
+            <img class="w-100" src="<?= _HOST ?>/assets/images/banner/1717155129.jpeg" alt="Banner top" />
         </a>
     </div>
     <div class="wrap-content">
@@ -49,6 +49,15 @@
                             </li>
                             <li>
                                 <a href="">Hành trang đến trường</a>
+                            </li>
+                            <li>
+                                <a href="<?= _HOST ?>/sach">Sách</a>
+                            </li>
+                            <li>
+                                <a href="<?= _HOST ?>/van-phong-pham">Văn phòng phẩm</a>
+                            </li>
+                            <li>
+                                <a href="<?= _HOST ?>/bai-viet">Bài viết</a>
                             </li>
                         </div>
                     </div>

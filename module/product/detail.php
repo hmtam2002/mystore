@@ -1,9 +1,6 @@
 <?php
 $product_detail = $db->oneRaw("SELECT * FROM products WHERE slug = '$slug'");
-if (empty($product_detail))
-{
-    header("location:" . _HOST);
-}
+
 $author_id = $product_detail['author_id'];
 $author = $db->oneRaw("SELECT author_name FROM authors WHERE id = '$author_id'");
 

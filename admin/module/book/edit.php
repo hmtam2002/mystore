@@ -267,10 +267,11 @@ if (!empty($product_data))
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
-                                        <?= $item['author_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedAuthorId ? 'selected' : null ?>>
+                                    <?= $item['author_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
@@ -284,10 +285,11 @@ if (!empty($product_data))
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
-                                        <?= $item['genre_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedGenreId ? 'selected' : null ?>>
+                                    <?= $item['genre_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
@@ -307,7 +309,7 @@ if (!empty($product_data))
                                 accept="image/*">
                         </div>
                         <div class="form-group">
-                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'new') ?>"
+                            <img id="previewImage" src="<?= $f->image_exists($f->old('image', $old), 'product') ?>"
                                 alt="Ảnh xem trước" style="max-width: 100%; max-height: 100%;  margin-top: 20px;">
                         </div>
                     </div>

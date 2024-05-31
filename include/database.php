@@ -50,7 +50,7 @@ class Database
 
         return $this->conn->query($sql);
     }
-
+    //lấy giá trị nhiều dòng
     public function getRaw($sql)
     {
         $result = $this->conn->query($sql);
@@ -64,7 +64,7 @@ class Database
         }
         return $rows;
     }
-
+    // lấy giá trị 1 dòng
     public function oneRaw($sql)
     {
         $result = $this->conn->query($sql);
@@ -75,7 +75,7 @@ class Database
         }
         return $row;
     }
-
+    // đếm số dòng
     public function getRows($sql)
     {
         $result = $this->conn->query($sql);

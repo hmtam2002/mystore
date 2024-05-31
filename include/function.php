@@ -292,8 +292,16 @@ class func
             return $defaultImage;
         }
     }
-    public function test()
+    public function route()
     {
-        return true;
+        $url = isset($_SERVER['REQUEST_URI']) ? rtrim($_SERVER['REQUEST_URI'], '/') : '/';
+        ;
+        $base_path = '/' . _PROJECT_NAME;
+
+        if (strpos($url, $base_path) === 0)
+        {
+            $url = substr($url, strlen($base_path));
+        }
+        return $url;
     }
 }

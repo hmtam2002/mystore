@@ -1,35 +1,57 @@
 <?php
-
-// Lấy URL từ yêu cầu
-$url = isset($_SERVER['REQUEST_URI']) ? rtrim($_SERVER['REQUEST_URI'], '/') : '/';
-$base_path = '/' . _PROJECT_NAME; // Đặt đường dẫn cơ sở của dự án tại đây
-
-// Loại bỏ đường dẫn cơ sở khỏi URL
-if (strpos($url, $base_path) === 0)
-{
-    $url = substr($url, strlen($base_path));
-}
-
-// Xử lý định tuyến
+$f = new func();
+$db = new Database();
+$url = $f->route();
+ob_start();
 switch ($url)
 {
     case '':
-        // Trang chủ
-        include './module/index/index.php';
+        // if (file_exists(_PATH . '/module/index/index.php'))
+        // {
+        //     $noidung = 'file tồn tại';
+        // } else
+        // {
+        //     $noidung = 'file không tồn tại';
+        // }
+        if (file_exists(_PATH . '/module/index/index.php'))
+        {
+            require_once _PATH . '/module/index/index.php';
+            $noidung = ob_get_clean();
+        }
         break;
-    case '/san-pham':
-        // Trang sản phẩm
-        $slug = ltrim($url, '/');
-        require_once './module/product/detail.php';
+    case '/sach':
+        if (file_exists(_PATH . '/module/book/list.php'))
+        {
+            require_once _PATH . '/module/book/list.php';
+            $noidung = ob_get_clean();
+        }
         break;
-    case '/kiem-tra':
-        // Trang kiểm tra
-        require_once './module/kiemtra/kiemtra.php';
+    case '/van-phong-pham':
+        if (file_exists(_PATH . '/module/stationery/list.php'))
+        {
+            require_once _PATH . '/module/stationery/list.php';
+            $noidung = ob_get_clean();
+        }
+        break;
+    case '/bai-viet':
+        if (file_exists(_PATH . '/module/new/list.php'))
+        {
+            require_once _PATH . '/module/new/list.php';
+            $noidung = ob_get_clean();
+        }
         break;
     default:
-        // Nếu không tìm thấy, giả định rằng đó là slug của sản phẩm
-        // và chuyển hướng đến trang sản phẩm
         $slug = ltrim($url, '/');
-        require_once './module/product/detail.php';
+        $product_detail = $db->oneRaw("SELECT * FROM products WHERE slug = '$slug'");
+        if (!empty($product_detail))
+        {
+            if (file_exists(_PATH . '/module/book/detail.php'))
+            {
+                require_once _PATH . '/module/book/detail.php';
+                $noidung = ob_get_clean();
+            }
+
+        }
+
         break;
 }
