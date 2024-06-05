@@ -8,6 +8,7 @@ if ($f->isLogin())
     $token = getSession("loginToken");
     $db->delete("adminToken", "token = '$token'");
     removeSession("loginToken");
+    removeSession("adminName");
     $f->redirect("?cmd=auth&act=login");
 } else
 {

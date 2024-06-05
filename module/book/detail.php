@@ -1,8 +1,34 @@
+<?php
+if ($f->isPOST())
+{
+    $filterAll = $f->filter();
+
+    $data = [
+        'id' => $filterAll['id'],
+        'quantity' => $filterAll['quantity'],
+    ];
+
+    $c->updateCart($data);
+
+
+}
+// $c->removeCart();
+// echo '<pre>';
+// print_r($c->getCart());
+// echo '</pre>';
+
+$smg = getFlashData('smg');
+$smg_type = getFlashData('smg_type');
+?>
+<!-- hiển thị thông báo -->
+<div class="wrap-content">
+
+</div>
 <div class="wrap-product_detail">
-    <div class="wrap-content">
+    <div class="wrap-content" style="background-color: white; padding: 20px;">
         <div class="product_detail-left">
             <div class="pic-product_detail">
-                <img class="w-75" src="<?= _HOST_ASSETS . '/images/product/' . $product_detail['image'] ?>"
+                <img class="img-fluid" src="<?= _HOST_ASSETS . '/images/product/' . $product_detail['image'] ?>"
                     alt="Ảnh sách" />
             </div>
             <div class="product_detail-right">
@@ -13,33 +39,39 @@
                     Tác giả: <span><?= $author['author_name'] ?></span>
                 </div>
                 <div class="price-product_detail">
-                    Giá: <span><?= $product_detail['discount'] ?></span>
+                    Giá: <span><?= number_format($product_detail['discount']) ?>đ</span>
                 </div>
                 <div class="price_sale-product_detail">
                     <!-- <p> Tiết kiệm: <span>20,000 đ (10%)</span></p> -->
-                    <p> Tiết kiệm: <span><?= $product_detail['price'] - $product_detail['discount'] ?></span>
+                    <p> Tiết kiệm:
+                        <span><?= number_format($product_detail['price'] - $product_detail['discount']) ?>đ</span>
                     </p>
-                    <p>Giá thị trường: <span><?= $product_detail['price'] ?></span></p>
+                    <p>Giá thị trường: <span><?= number_format($product_detail['price']) ?>đ</span></p>
                     <p>Tồn kho: <span>20</span></p>
                 </div>
-                <div class="d-flex flex-wrap align-items-center mt-3 mb-3">
-                    <label class="attr-label-pro-detail d-block mr-2 mb-0">Số lượng:</label>
-                    <div class="attr-content-pro-detail d-flex flex-wrap align-items-center justify-content-between">
-                        <div class="quantity-pro-detail">
-                            <span class="quantity-minus-pro-detail">-</span>
-                            <input type="number" class="qty-pro" min="1" value="1" readonly />
-                            <span class="quantity-plus-pro-detail">+</span>
+                <form method="post">
+                    <div class="d-flex flex-wrap align-items-center mt-3 mb-3">
+                        <label class="attr-label-pro-detail d-block mr-2 mb-0">Số lượng:</label>
+                        <div
+                            class="attr-content-pro-detail d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="quantity-pro-detail">
+                                <span class="quantity-minus-pro-detail">-</span>
+                                <input name="quantity" type="number" class="qty-pro" min="1" value="1" />
+                                <span class="quantity-plus-pro-detail">+</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="cart-product_detail">
-                    <div class="add_cart-product_detail">
-                        <a class="text-decoration-none d-inline-block" href="">
-                            <p class="mb-0"> Thêm vào giỏ hàng</p>
-                        </a>
+                    <input type="hidden" name="id" value="<?= $product_detail['id'] ?>">
+                    <div class="cart-product_detail">
+                        <div class="add_cart-product_detail">
+                            <button type="submit" class="mb-0 btn btn-success"> Thêm vào giỏ hàng</>
+                        </div>
                     </div>
-                </div>
+                </form>
+                <?php if (!empty($smg))
+                {
+                    $f->getSmg($smg, $smg_type);
+                } ?>
                 <div class="price_sale-product_detail">
                     <p> Gọi đặt hàng: <span>(028) 3820 7153 hoặc 0933 109 009</span></p>
                 </div>

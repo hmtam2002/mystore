@@ -1,5 +1,5 @@
 <!-- slider -->
-<div class="slideshow">
+<div class="slideshow wrap-content">
 
     <div class="slider">
         <?php

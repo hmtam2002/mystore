@@ -14,7 +14,7 @@
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                Hello, <?php echo getSession('adminName') ?>
+                Hello, <?= getSession('adminName') ?>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="#">Settings</a></li>

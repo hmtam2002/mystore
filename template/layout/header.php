@@ -1,5 +1,5 @@
 <!-- header -->
-<div class="wrap-header">
+<div class="wrap-header" style="background-color: white;">
     <div class="banner">
         <a class="d-block" href="">
             <img class="w-100" src="<?= _HOST ?>/assets/images/banner/1717155129.jpeg" alt="Banner top" />
@@ -15,9 +15,12 @@
                 <input type="button" value="Gửi" placeholder="Gửi" />
             </div>
             <div class="d-flex">
-                <div class="giohang">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
+                <a href="<?= _HOST . '/gio-hang' ?>" class="text-decoration-none">
+                    <div class="giohang">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span><?= $c->numberOfCart() ?></span>
+                    </div>
+                </a>
                 <div class="taikhoan">
                     <i class="fas fa-user"></i>
                 </div>

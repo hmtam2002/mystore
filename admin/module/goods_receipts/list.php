@@ -2,12 +2,12 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="?cmd=home&act=dashboard">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
+            <li class="breadcrumb-item active" aria-current="page">Danh sách nhập hàng</li>
         </ol>
     </nav>
     <div class="btn-group mb-3">
-        <a href="?cmd=order&act=list" class="btn btn-secondary">Quản lý</a>
-        <a href="?cmd=order&act=add" class="btn btn-success">Thêm mới</a>
+        <a href="?cmd=wherehouse&act=list" class="btn btn-secondary">Quản lý</a>
+        <a href="?cmd=wherehouse&act=add" class="btn btn-success">Thêm mới</a>
     </div>
     <?php if (!empty($smg))
     {
@@ -15,40 +15,19 @@
     } ?>
     <table class="table">
         <thead>
-            <!-- <th width="4%">STT</th> -->
-            <th>Mã đơn hàng</th>
-            <th>Họ tên</th>
-            <th>Ngày đặt</th>
-            <th>Hình thức thanh toán</th>
-            <th>Tổng giá</th>
-            <th>Tình trạng</th>
-            <!-- <th width="5%">Chép</th>-->
+            <th width="4%">STT</th>
+            <th>Ngày nhập</th>
+            <th>Nhân viên nhập</th>
+            <th>Số lượng</th>
+            <th>Còn lại</th>
+            <th>Chi tiết</th>
+            <!-- <th>Tác giả</th>
+            <th>Trạng thái</th>
+            <th width="5%">Chép</th>
             <th width="5%">Sửa</th>
-            <th width="5%">Xoá</th>
+            <th width="5%">Xoá</th> -->
         </thead>
         <tbody>
-            <tr>
-                <td>we424ei</td>
-                <td>Huỳnh Minh Tâm</td>
-                <td><?= date('h:i:s A - Y/m/d') ?></td>
-                <td>Cod</td>
-                <td>90.000đ</td>
-                <td>Đang giao</td>
-                <!-- nút sửa -->
-                <td>
-                    <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </td>
-                <!-- nút xoá -->
-                <td>
-                    <a href="?cmd=book&act=delete&id=<?= $item['id'] ?>"
-                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
-
-            </tr>
             <?php
             $dem = 0;
             foreach ($listProduct as $item)
@@ -56,7 +35,7 @@
                 $dem += 1;
                 ?>
             <tr>
-                <td>
+                <td class="text-center">
                     <?= $dem ?>
                 </td>
                 <td>
@@ -103,6 +82,16 @@
             <?php
             }
             ?>
+            <tr class="">
+                <td class="text-center">1</td>
+                <td>29/10/2024</td>
+                <td>Tâm</td>
+                <td>100</td>
+                <td>70</td>
+                <td>
+                    <button class="btn btn-success">Chi tiết</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </main>

@@ -21,7 +21,7 @@ $author = $db->oneRaw("SELECT author_name FROM authors WHERE id = '$author_id'")
             <div class="wrap-content">
                 <div class="product_detail-left">
                     <div class="pic-product_detail">
-                        <img class="w-75" src="<?= _HOST_ASSETS . '/images/product/' . $product_detail['image'] ?>"
+                        <img class="img-fluid" src="<?= _HOST_ASSETS . '/images/product/' . $product_detail['image'] ?>"
                             alt="Ảnh sách" />
                     </div>
                     <div class="product_detail-right">

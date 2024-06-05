@@ -16,10 +16,17 @@
                     Chính sách khách hàng
                 </div>
                 <div class="footer-ul p-0">
-                    <li><a href="">Chính sách giao hàng</a></li>
-                    <li><a href="">Chính sách trả hàng</a></li>
-                    <li><a href="">Thông tin bảo hành</a></li>
-                    <li><a href="">Thông tin bảo hành</a></li>
+                    <?php
+                    $new_list = $db->getRaw('SELECT * FROM news WHERE type = "service"');
+                    foreach ($new_list as $items)
+                    {
+                        ?>
+                    <li>
+                        <a href="<?= _HOST . '/' . $items['slug'] ?>"><?= $items['title'] ?></a>
+                    </li>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="footer-news">
