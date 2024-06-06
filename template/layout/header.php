@@ -16,14 +16,24 @@
             </div>
             <div class="d-flex">
                 <a href="<?= _HOST . '/gio-hang' ?>" class="text-decoration-none">
-                    <div class="giohang">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span><?= $c->numberOfCart() ?></span>
+                    <div class="giohang d-flex flex-column">
+                        <div class="mt-2 text-secondary m-auto">
+                            <span class="position-absolute"
+                                style="color: white;border-radius: 50%;background-color: green;padding: 0 7px;transform: translate(24px, -6px)"><?= $c->numberOfCart() ?></span>
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <span class="text-secondary">Giỏ hàng</span>
+
                     </div>
                 </a>
-                <div class="taikhoan">
-                    <i class="fas fa-user"></i>
-                </div>
+                <a href="<?= _HOST . '/tai-khoan' ?>" class="text-decoration-none">
+                    <div class="taikhoan d-flex flex-column">
+                        <div class="mt-2 text-secondary m-auto">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="text-secondary">Tài khoản</span>
+                    </div>
+                </a>
             </div>
             <div class="menu">
                 <button class="btn btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"

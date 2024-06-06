@@ -10,6 +10,7 @@ $db = new Database();
 $f = new func();
 $c = new cart();
 
+
 require_once './include/route.php';
 
 require_once './template/layout/template.php';

@@ -4,8 +4,8 @@
 
 <!-- danh mục sản phẩm -->
 <div class="wrap-product_list">
-    <div class="wrap-content">
-        <div class="product_list-index">
+    <div class="wrap-content bg-white rounded-3 p-4 pb-5 ">
+        <div class="">
             <div class="title-product_list">
                 <span>Danh mục sản phẩm</span>
             </div>
@@ -67,7 +67,7 @@
 
 <!-- sản phẩm tab -->
 <div class="wrap-bangxephang">
-    <div class="wrap-content">
+    <div class="wrap-content bg-white mt-4 p-4 pb-5 rounded-3">
         <div class="title-bangxephang">
             <span>Bảng xếp hạng sách bán chạy hàng tuần</span>
         </div>
@@ -244,9 +244,10 @@
     </div>
 </div>
 
+<!-- Văn phòng phẩm -->
 <!-- sản phẩm cấp 1 chạy slide -->
 <div class="wrap-product">
-    <div class="wrap-content">
+    <div class="wrap-content bg-white p-4 pb-5 pt-5 rounded-3">
         <div class="title-main"><span>Văn phòng phẩm</span></div>
         <div class="product-index">
             <div class="vanphongpham">
@@ -325,8 +326,10 @@
     </div>
 </div>
 
+
+<!-- Tiểu thuyết lãng mạng -->
 <div class="wrap-product">
-    <div class="wrap-content">
+    <div class="wrap-content bg-white rounded-3 p-4 pt-5 pb-5">
         <div class="title-main"><span>Tiểu thuyết lãng mạn</span></div>
         <div class="product-index">
             <div class="vanphongpham">
@@ -407,7 +410,7 @@
 
 <!-- doi tac -->
 <div class="wrap-partner">
-    <div class="wrap-content">
+    <div class="wrap-content rounded-3 bg-white p-4 pb-0 mb-5">
         <div class="title-main"><span>Đối tác</span></div>
         <div class="partner-index">
             <div class="slick-partner">

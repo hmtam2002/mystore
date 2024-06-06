@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div class="footer-news">
-                <div class="title-footer">
-                    Chính sách khách hàng
+                <div class="title-footer text-uppercase" style="font-weight: bold;">
+                    Dịch vụ
                 </div>
                 <div class="footer-ul p-0">
                     <?php
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="footer-news">
-                <div class="title-footer">
+                <div class="title-footer text-uppercase" style="font-weight: bold;">
                     liên hệ với chúng tôi
                 </div>
                 <div class="footer-info">

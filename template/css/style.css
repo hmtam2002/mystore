@@ -1,3 +1,6 @@
+.bg-light-custom {
+  background-color: #f0f0f0;
+}
 .w-100 {
   width: 100% !important;
 }
@@ -22,11 +25,11 @@
 
 .taikhoan i {
   font-size: 30px;
-  color: #000;
+  /* color: #000; */
 }
 .giohang i {
   font-size: 30px;
-  color: #000;
+  /* color: #000; */
 }
 
 .header-index {
@@ -447,11 +450,6 @@
 
 .goiysanpham {
   padding-top: 1rem;
-}
-
-.wrap-product_detail {
-  margin-bottom: 2rem;
-  padding-top: 1.5rem;
 }
 
 .cart-item {

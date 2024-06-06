@@ -1,6 +1,20 @@
 <?php
 $f = new func();
 $db = new Database();
+
+if (isset($_GET) && $_GET['module'] == 'cart')
+{
+    if ($_GET['action'] == 'remove')
+    {
+        if (file_exists(_PATH . '/module/cart/remove.php'))
+        {
+            require_once _PATH . '/module/cart/remove.php';
+        }
+    }
+    exit();
+}
+
+
 $url = $f->route();
 ob_start();
 switch ($url)
@@ -63,7 +77,11 @@ switch ($url)
         break;
     default:
         $slug = ltrim($url, '/');
-        $product_detail = $db->oneRaw("SELECT * FROM products WHERE slug = '$slug'");
+        $sql = "SELECT products.*, authors.author_name
+        FROM products
+        INNER JOIN authors ON products.author_id = authors.id
+        WHERE products.slug = '$slug'";
+        $product_detail = $db->oneRaw($sql);
         if (!empty($product_detail))
         {
             if (file_exists(_PATH . '/module/book/detail.php'))
@@ -83,6 +101,6 @@ switch ($url)
                 break;
             }
         }
-        $noidung = 'Đường dẫn rỗng';
+        $noidung = 'Đường dẫn rỗngg';
         break;
 }

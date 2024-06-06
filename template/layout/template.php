@@ -9,7 +9,7 @@
 
 </head>
 
-<body class="bg-light">
+<body class="bg-light-custom">
     <!-- header -->
     <?php require_once _PATH_TEMPLATE . '/layout/header.php'; ?>
     <!-- Nội dung -->
