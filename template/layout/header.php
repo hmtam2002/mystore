@@ -19,8 +19,8 @@
                     <a href="<?= _HOST . '/gio-hang' ?>" class="text-decoration-none">
                         <div class="giohang d-flex flex-column">
                             <div class="mt-2 text-secondary m-auto ">
-                                <span class="position-absolute"
-                                    style="color: white;border-radius: 50%;background-color: green;padding: 0 7px;transform: translate(24px, -6px)"><?= $c->numberOfCart() ?></span>
+                                <span class="position-absolute bg-success"
+                                    style="color: white;border-radius: 50%;padding: 0 7px;transform: translate(24px, -6px)"><?= $c->numberOfCart() ?></span>
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
                             <span class="text-secondary">Giỏ hàng</span>
@@ -48,7 +48,7 @@
                                         alt="<?= $item["title"]; ?>">
                                 </div>
                                 <div class="col d-flex flex-column justify-content-between">
-                                    <?= $item["title"]; ?>
+                                    <span class="text-muted"><?= $item["title"]; ?></span>
                                     <div class="price d-flex">
                                         <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
                                         <span class="text-muted ms-2 me-2">

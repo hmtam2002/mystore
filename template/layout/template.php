@@ -9,7 +9,8 @@
 
 </head>
 
-<body class="bg-light-custom">
+<body class="bg-light-custom" style="font-family: 'Nunito Sans', sans-serif;
+  font-optical-sizing: auto;">
     <!-- header -->
     <?php require_once _PATH_TEMPLATE . '/layout/header.php'; ?>
     <!-- Nội dung -->
