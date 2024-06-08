@@ -1,5 +1,5 @@
 <!-- header -->
-<div class="wrap-header" style="background-color: white;">
+<div class="wrap-header bg-white">
     <div class="banner">
         <a class="d-block" href="">
             <img class="w-100" src="<?= _HOST ?>/assets/images/banner/1717155129.jpeg" alt="Banner top" />
@@ -15,17 +15,63 @@
                 <input type="button" value="Gửi" placeholder="Gửi" />
             </div>
             <div class="d-flex">
-                <a href="<?= _HOST . '/gio-hang' ?>" class="text-decoration-none">
-                    <div class="giohang d-flex flex-column">
-                        <div class="mt-2 text-secondary m-auto">
-                            <span class="position-absolute"
-                                style="color: white;border-radius: 50%;background-color: green;padding: 0 7px;transform: translate(24px, -6px)"><?= $c->numberOfCart() ?></span>
-                            <i class="fas fa-shopping-cart"></i>
+                <div class="container-cart position-relative">
+                    <a href="<?= _HOST . '/gio-hang' ?>" class="text-decoration-none">
+                        <div class="giohang d-flex flex-column">
+                            <div class="mt-2 text-secondary m-auto ">
+                                <span class="position-absolute"
+                                    style="color: white;border-radius: 50%;background-color: green;padding: 0 7px;transform: translate(24px, -6px)"><?= $c->numberOfCart() ?></span>
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <span class="text-secondary">Giỏ hàng</span>
                         </div>
-                        <span class="text-secondary">Giỏ hàng</span>
 
+                    </a>
+                    <?php
+                    // // $c->removeCart();
+                    $orderListOffline = $c->getCart();
+                    // echo '<pre>';
+                    // print_r($orderListOffline);
+                    // echo '</pre>';
+                    ?>
+                    <div class="mini-cart position-absolute top-100 bg-white p-3 border rounded-3 z m-auto"
+                        style="z-index: 1000; width:400px; left:-200%;  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                        <i class="fas fa-shopping-cart text-secondary me-2"></i>
+                        <span><b>Giỏ hàng (<?= $c->numberOfCart() ?>)</b></span>
+                        <hr>
+                        <?php
+                        foreach ($orderListOffline as $item):
+                            ?>
+                            <div class="row ms-auto me-auto mb-2">
+                                <div class="image_cart_mini" style="width: 70px; height:70px">
+                                    <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>" class="img-fluid"
+                                        alt="<?= $item["title"]; ?>">
+                                </div>
+                                <div class="col d-flex flex-column justify-content-between">
+                                    <?= $item["title"]; ?>
+                                    <div class="price d-flex">
+                                        <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
+                                        <span class="text-muted ms-2 me-2">
+                                            <del><?= number_format($item["price"]); ?>đ</del>
+                                        </span>
+                                        <span> x<?= $item['quantity'] ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        endforeach ?>
+                        <div class="row ms-auto me-auto p-0 mt-4">
+                            <div class="col p-0 d-flex flex-column justify-content-center">
+                                <span>Tổng cộng: <b><?= number_format($c->totalCart()) ?>đ</b></span>
+                            </div>
+                            <div class="col p-0">
+                                <a href="<?= _HOST . '/gio-hang' ?>">
+                                    <button class="btn btn-danger w-100"><b>Xem giỏ hàng</b></button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </a>
+                </div>
                 <a href="<?= _HOST . '/tai-khoan' ?>" class="text-decoration-none">
                     <div class="taikhoan d-flex flex-column">
                         <div class="mt-2 text-secondary m-auto">

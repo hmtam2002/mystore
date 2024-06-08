@@ -6,6 +6,10 @@ if ($f->isPOST())
     $data = [
         'id' => $filterAll['id'],
         'quantity' => $filterAll['quantity'],
+        'title' => $filterAll['title'],
+        'image' => $filterAll['image'],
+        'price' => $filterAll['price'],
+        'discount' => $filterAll['discount'],
     ];
 
     $c->updateCart($data);
@@ -60,6 +64,10 @@ $smg_type = getFlashData('smg_type');
                     </div>
                 </div>
                 <input type="hidden" name="id" value="<?= $product_detail['id'] ?>">
+                <input type="hidden" name="title" value="<?= $product_detail['title'] ?>">
+                <input type="hidden" name="image" value="<?= $product_detail['image'] ?>">
+                <input type="hidden" name="price" value="<?= $product_detail['price'] ?>">
+                <input type="hidden" name="discount" value="<?= $product_detail['discount'] ?>">
                 <div class="cart-product_detail">
                     <div class="add_cart-product_detail">
                         <button type="submit" class="mb-0 btn btn-success"> Thêm vào giỏ hàng</>

@@ -54,8 +54,8 @@ if (empty($orderListOffline))
     <h1 class="mt-3 mb-3">Giỏ hàng</h1>
     <?= !empty($thongbao) ? $thongbao : '' ?>
     <form method="post">
-        <div class="row">
-            <div class="col-md-8 mb-5">
+        <div class="row mb-5">
+            <div class="col-md-8">
                 <!-- nút chọn tất cả -->
                 <div class="row ms-auto border mb-2 rounded-3">
                     <div class="p-4 pt-2 pb-2 bg-white rounded-3">
@@ -67,7 +67,7 @@ if (empty($orderListOffline))
                             </div>
                             <div class="col-6">Chọn tất cả</div>
                             <div class="col-2 ps-4">Số lượng</div>
-                            <div class="col-2">Thành tiền</div>
+                            <div class="col">Thành tiền</div>
                         </div>
                     </div>
                 </div>
@@ -77,50 +77,50 @@ if (empty($orderListOffline))
                 foreach ($orderListOffline as $product):
                     $total += $product["discount"];
                     ?>
-                    <div class="row ms-auto border mb-1 rounded-3">
-                        <div class="p-4 bg-white rounded-3">
-                            <div class="row">
-                                <div class="col-1 d-flex flex-column justify-content-center">
-                                    <div class="form-check ">
-                                        <input type="checkbox" class="form-check-input" name="checkAll">
-                                    </div>
+                <div class="row ms-auto border mb-1 rounded-3">
+                    <div class="p-4 bg-white rounded-3">
+                        <div class="row">
+                            <div class="col-1 d-flex flex-column justify-content-center">
+                                <div class="form-check ">
+                                    <input type="checkbox" class="form-check-input" name="checkAll">
                                 </div>
-                                <div class="col-2 col-md-2">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <img class="img-fluid" style="max-height: 100px;"
-                                            src="<?= _HOST_ASSETS . '/images/product/' . $product["image"]; ?>"
-                                            alt="<?= $product["title"]; ?>">
-                                    </div>
+                            </div>
+                            <div class="col-2 col-md-2">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <img class="img-fluid" style="max-height: 100px;"
+                                        src="<?= _HOST_ASSETS . '/images/product/' . $product["image"]; ?>"
+                                        alt="<?= $product["title"]; ?>">
                                 </div>
-                                <div class="col-3 ms-2 me-5 d-flex flex-column justify-content-between">
-                                    <div class="title"><?= $product["title"]; ?></div>
-                                    <div class="price d-flex">
-                                        <span class=""><?= number_format($product["discount"]); ?>đ</span>
-                                        <span class="text-muted ms-2">
-                                            <del><?= number_format($product["price"]); ?>đ</del>
-                                        </span>
-                                    </div>
+                            </div>
+                            <div class="col-3 ms-2 me-5 d-flex flex-column justify-content-between">
+                                <div class="title"><?= $product["title"]; ?></div>
+                                <div class="price d-flex">
+                                    <span class=""><?= number_format($product["discount"]); ?>đ</span>
+                                    <span class="text-muted ms-2">
+                                        <del><?= number_format($product["price"]); ?>đ</del>
+                                    </span>
                                 </div>
-                                <div class="col-2 ms-2 quantity-controls">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm btn-decrement">-</button>
-                                    <input type="number" class="form-control form-control-sm quantity-input" value="<?php foreach ($c->getCart() as $item)
+                            </div>
+                            <div class="col-2 ms-2 quantity-controls">
+                                <button type="button" class="btn btn-outline-secondary btn-sm btn-decrement">-</button>
+                                <input type="number" class="form-control form-control-sm quantity-input" value="<?php foreach ($c->getCart() as $item)
                                     {
                                         if ($item['id'] == $product['id'])
                                         {
                                             echo $item['quantity'];
                                         }
                                     } ?>">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm btn-increment">+</button>
-                                </div>
-                                <div class="col-2 d-flex align-items-center">Tổng cộng</div>
-                                <div class="col-1 d-flex align-items-center">
-                                    <a href="?module=cart&action=remove&id=<?= $item['id'] ?>" class="text-danger"><i
-                                            class="fas fa-trash-alt"></i></a>
-                                </div>
+                                <button type="button" class="btn btn-outline-secondary btn-sm btn-increment">+</button>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">Tổng cộng</div>
+                            <div class="col d-flex align-items-center">
+                                <a href="?module=cart&action=remove&id=<?= $item['id'] ?>" class="text-danger"><i
+                                        class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>
                     </div>
-                    <?php
+                </div>
+                <?php
                 endforeach ?>
             </div>
             <div class="col-md-4 ">

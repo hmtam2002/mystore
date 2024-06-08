@@ -495,3 +495,6 @@
   margin: 0;
   /* Safari and Chrome */
 }
+.mini-cart {
+  display: none;
+}

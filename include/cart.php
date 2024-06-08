@@ -1,14 +1,16 @@
 <?php
-if (!isset($_SESSION['cart']))
-{
-    setSession('cart', []);
-}
-// $cart = getSession('cart');
 class cart
 {
+    public function __construct()
+    {
+        if (!isset($_SESSION['cart']))
+        {
+            $_SESSION['cart'] = [];
+        }
+    }
     public function getCart()
     {
-        return getSession('cart');
+        return $_SESSION['cart'];
     }
     public function updateCart($data = [])
     {
@@ -47,5 +49,14 @@ class cart
         // Xóa dấu phẩy cuối cùng
         $productIds = rtrim($productIds, ",");
         return $productIds;
+    }
+    public function totalCart()
+    {
+        $total = 0;
+        foreach ($this->getCart() as $item)
+        {
+            $total += $item['discount'];
+        }
+        return $total;
     }
 }
