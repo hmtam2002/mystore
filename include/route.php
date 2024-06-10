@@ -75,6 +75,13 @@ switch ($url)
             $noidung = ob_get_clean();
         }
         break;
+    case '/thanh-toan':
+        if (file_exists(_PATH . '/module/checkout/checkout.php'))
+        {
+            require_once _PATH . '/module/checkout/checkout.php';
+            $noidung = ob_get_clean();
+        }
+        break;
     default:
         $slug = ltrim($url, '/');
         $sql = "SELECT products.*, authors.author_name

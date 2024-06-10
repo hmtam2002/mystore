@@ -55,7 +55,7 @@ class cart
         $total = 0;
         foreach ($this->getCart() as $item)
         {
-            $total += $item['discount'];
+            $total += $item['discount'] * $item['quantity'];
         }
         return $total;
     }

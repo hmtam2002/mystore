@@ -2,38 +2,15 @@
 // echo 'Giỏ hàng online';
 
 $orderList = $db->getRaw('SELECT * FROM cart');
-// echo '<pre>';
-// print_r($c->getCart());
-// echo '</pre>';
 
-// if (!empty($orderList))
+$orderListOffline = $c->getCart();
+// if ($f->isPOST())
 // {
-//     echo '<pre>';
-//     print_r($orderList);
-//     echo '</pre>';
-// } else
-// {
-//     echo 'không có';
+//     $filterAll = $f->filter();
+//     $_SESSION['checkout'] = $filterAll;
+//     $f->redirect(_HOST . '/thanh-toan');
 // }
 
-$product_id_list = $c->getIdProduct();
-
-$orderListOffline = $db->getRaw("SELECT id,image,title,price,discount FROM products WHERE id IN ($product_id_list)");
-
-// echo "SELECT * FROM products WHERE id IN ($product_id_list)";
-
-// if (!empty($orderListOffline))
-// {
-//     echo '<pre>';
-//     print_r($orderListOffline);
-//     echo '</pre>';
-// } else
-// {
-//     echo 'không';
-// }
-// echo '<pre>';
-// print_r($c->getIdProduct());
-// echo '</pre>';
 if (isset($_GET['action']))
 {
     $filterAll = $f->filter();
@@ -46,6 +23,52 @@ if (isset($_GET['action']))
 if (empty($orderListOffline))
 {
     $thongbao = '<div class="alert alert-danger">Giỏ hàng của bạn trống</div>';
+}
+// Xử lý submit form
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checkout']))
+{
+    $filterAll = $f->filter();
+    $_SESSION['filterAll'] = $filterAll;
+    $selectedProducts = [];
+    if (isset($_POST['product_check']))
+    {
+        foreach ($_SESSION['cart'] as $product)
+        {
+            if (in_array($product['id'], $_POST['product_check']))
+            {
+                $selectedProducts[] = $product;
+            }
+        }
+    }
+
+    // Xử lý các sản phẩm đã chọn
+    // Ví dụ, lưu vào session để xử lý thanh toán sau
+    $_SESSION['checkout'] = $selectedProducts;
+    $f->redirect(_HOST . '/thanh-toan');
+}
+// Xử lý yêu cầu AJAX để cập nhật số lượng sản phẩm
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['quantity']))
+{
+    $productId = intval($_POST['id']);
+    $quantity = intval($_POST['quantity']);
+
+    if ($quantity > 0)
+    {
+        foreach ($_SESSION['cart'] as &$product)
+        {
+            if ($product['id'] == $productId)
+            {
+                $product['quantity'] = $quantity;
+                echo json_encode(["status" => "success"]);
+                exit();
+            }
+        }
+        echo json_encode(["status" => "error", "message" => "Product not found in cart."]);
+    } else
+    {
+        echo json_encode(["status" => "error", "message" => "Quantity must be a positive integer."]);
+    }
+    exit();
 }
 ?>
 
@@ -81,8 +104,9 @@ if (empty($orderListOffline))
                     <div class="p-4 bg-white rounded-3">
                         <div class="row">
                             <div class="col-1 d-flex flex-column justify-content-center">
-                                <div class="form-check ">
-                                    <input type="checkbox" class="form-check-input" name="checkAll">
+                                <div class="form-check">
+                                    <input data-id="<?= $product['id'] ?>" value="<?= $product['id'] ?>" type="checkbox"
+                                        class="product_check form-check-input" name="product_check[]">
                                 </div>
                             </div>
                             <div class="col-2 col-md-2">
@@ -102,17 +126,17 @@ if (empty($orderListOffline))
                                 </div>
                             </div>
                             <div class="col-2 ms-2 quantity-controls">
-                                <button type="button" class="btn btn-outline-secondary btn-sm btn-decrement">-</button>
-                                <input type="number" class="form-control form-control-sm quantity-input" value="<?php foreach ($c->getCart() as $item)
-                                    {
-                                        if ($item['id'] == $product['id'])
-                                        {
-                                            echo $item['quantity'];
-                                        }
-                                    } ?>">
-                                <button type="button" class="btn btn-outline-secondary btn-sm btn-increment">+</button>
+                                <button type="button" data-id="<?= $product['id'] ?>"
+                                    class="btn btn-outline-secondary btn-sm decrease">-</button>
+                                <input type="number" id="quantity-<?= $product['id'] ?>" data-id="<?= $product['id'] ?>"
+                                    class="fw-bold form-control form-control-sm quantity-input"
+                                    value="<?= $product['quantity'] ?>" readonly>
+                                <button type="button" data-id="<?= $product['id'] ?>"
+                                    class="btn btn-outline-secondary btn-sm increase">+</button>
                             </div>
-                            <div class="col-2 d-flex align-items-center">Tổng cộng</div>
+                            <div class="col-2 d-flex align-items-center fw-bold text-danger">
+                                <?= number_format($product['discount'] * $product['quantity']) ?>đ
+                            </div>
                             <div class="col d-flex align-items-center">
                                 <a href="?module=cart&action=remove&id=<?= $item['id'] ?>" class="text-danger"><i
                                         class="fas fa-trash-alt"></i></a>
@@ -123,17 +147,19 @@ if (empty($orderListOffline))
                 <?php
                 endforeach ?>
             </div>
-            <div class="col-md-4 ">
+            <div class="col-md-4">
                 <div class="bg-white border rounded-3 p-3">
                     <div class="d-flex justify-content-between">
                         <span>Thành tiền</span>
-                        <span>900.000đ</span>
+                        <span><?= number_format($c->totalCart()) ?> đ</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        <span><b>Tổng Số Tiền (gồm VAT)</b></span>
-                        <span>900.000đ</span>
+                        <span class="col d-flex flex-column justify-content-center"><b>Tổng Số Tiền (gồm VAT)</b></span>
+                        <span class="text-danger fw-bold fs-5" id="total-amount"><?= number_format($c->totalCart()) ?>
+                            đ</span>
                     </div>
+                    <input type="hidden" name="checkout" value="1">
                     <button type="submit" class="mt-4 w-100 btn btn-danger">Thanh toán</button>
                 </div>
             </div>
@@ -141,3 +167,61 @@ if (empty($orderListOffline))
     </form>
 
 </div>
+<!-- <script>
+$(document).ready(function() {
+    $('input[type="number"]').on('input', function() {
+        var quantity = $(this).val();
+        var productId = $(this).data('id');
+        $.ajax({
+            url: '', // Gửi yêu cầu tới chính file hiện tại
+            method: 'POST',
+            data: {
+                id: productId,
+                quantity: quantity
+            },
+            success: function(response) {
+                console.log('Session updated successfully for product ' + productId);
+            },
+            error: function() {
+                console.log('Error updating session for product ' + productId);
+            }
+        });
+    });
+});
+</script> -->
+<script>
+$(document).ready(function() {
+    function updateQuantity(input) {
+        var quantity = input.val();
+        var productId = input.data('id');
+        $.ajax({
+            url: '', // Gửi yêu cầu tới chính file hiện tại
+            method: 'POST',
+            data: {
+                id: productId,
+                quantity: quantity
+            },
+            success: function(response) {
+                console.log('Session updated successfully for product ' + productId);
+            },
+            error: function() {
+                console.log('Error updating session for product ' + productId);
+            }
+        });
+    }
+
+    $('input[type="number"]').on('input', function() {
+        updateQuantity($(this));
+    });
+
+    $('.quantity-controls button').on('click', function() {
+        var input = $(this).siblings('input[type="number"]');
+        var currentVal = parseInt(input.val());
+        if ($(this).hasClass('increase')) {
+            input.val(currentVal + 1).trigger('input');
+        } else if ($(this).hasClass('decrease') && currentVal > 1) {
+            input.val(currentVal - 1).trigger('input');
+        }
+    });
+});
+</script>

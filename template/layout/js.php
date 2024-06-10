@@ -12,50 +12,50 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- Custom JavaScript -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const decrementButtons = document.querySelectorAll('.btn-decrement');
-        const incrementButtons = document.querySelectorAll('.btn-increment');
-        const quantityInputs = document.querySelectorAll('.quantity-input');
+<!-- <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const decrementButtons = document.querySelectorAll('.btn-decrement');
+    const incrementButtons = document.querySelectorAll('.btn-increment');
+    const quantityInputs = document.querySelectorAll('.quantity-input');
 
-        decrementButtons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const quantityInput = quantityInputs[index];
-                if (quantityInput.value > 1) {
-                    quantityInput.value = parseInt(quantityInput.value) - 1;
-                }
-            });
-        });
-
-        incrementButtons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const quantityInput = quantityInputs[index];
-                quantityInput.value = parseInt(quantityInput.value) + 1;
-            });
+    decrementButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const quantityInput = quantityInputs[index];
+            if (quantityInput.value > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
         });
     });
-</script>
 
-<script>
-    // Optionally, you can add some JavaScript if you want to add dynamic behavior or manage cart items more efficiently.
-    document.addEventListener('DOMContentLoaded', () => {
-        const cartIcon = document.querySelector('.container-cart');
-        const miniCart = document.querySelector('.mini-cart');
-
-        cartIcon.addEventListener('mouseenter', () => {
-            miniCart.style.display = 'block';
-        });
-
-        cartIcon.addEventListener('mouseleave', () => {
-            miniCart.style.display = 'none';
-        });
-
-        miniCart.addEventListener('mouseenter', () => {
-            miniCart.style.display = 'block';
-        });
-
-        miniCart.addEventListener('mouseleave', () => {
-            miniCart.style.display = 'none';
+    incrementButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const quantityInput = quantityInputs[index];
+            quantityInput.value = parseInt(quantityInput.value) + 1;
         });
     });
+});
+</script> -->
+
+<script>
+// Optionally, you can add some JavaScript if you want to add dynamic behavior or manage cart items more efficiently.
+document.addEventListener('DOMContentLoaded', () => {
+    const cartIcon = document.querySelector('.container-cart');
+    const miniCart = document.querySelector('.mini-cart');
+
+    cartIcon.addEventListener('mouseenter', () => {
+        miniCart.style.display = 'block';
+    });
+
+    cartIcon.addEventListener('mouseleave', () => {
+        miniCart.style.display = 'none';
+    });
+
+    miniCart.addEventListener('mouseenter', () => {
+        miniCart.style.display = 'block';
+    });
+
+    miniCart.addEventListener('mouseleave', () => {
+        miniCart.style.display = 'none';
+    });
+});
 </script>

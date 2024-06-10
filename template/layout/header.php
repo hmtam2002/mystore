@@ -28,11 +28,7 @@
 
                     </a>
                     <?php
-                    // // $c->removeCart();
                     $orderListOffline = $c->getCart();
-                    // echo '<pre>';
-                    // print_r($orderListOffline);
-                    // echo '</pre>';
                     ?>
                     <div class="mini-cart position-absolute top-100 bg-white p-3 border rounded-3 z m-auto"
                         style="z-index: 1000; width:400px; left:-200%;  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
@@ -42,29 +38,30 @@
                         <?php
                         foreach ($orderListOffline as $item):
                             ?>
-                            <div class="row ms-auto me-auto mb-2">
-                                <div class="image_cart_mini" style="width: 70px; height:70px">
-                                    <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>" class="img-fluid"
-                                        alt="<?= $item["title"]; ?>">
-                                </div>
-                                <div class="col d-flex flex-column justify-content-between">
-                                    <span class="text-muted"><?= $item["title"]; ?></span>
-                                    <div class="price d-flex">
-                                        <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
-                                        <span class="text-muted ms-2 me-2">
-                                            <del><?= number_format($item["price"]); ?>đ</del>
-                                        </span>
-                                        <span> x<?= $item['quantity'] ?></span>
-                                    </div>
+                        <div class="row ms-auto me-auto mb-2">
+                            <div class="image_cart_mini" style="width: 70px; height:70px">
+                                <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>" class="img-fluid"
+                                    alt="<?= $item["title"]; ?>">
+                            </div>
+                            <div class="col d-flex flex-column justify-content-between">
+                                <span class="text-muted"><?= $item["title"]; ?></span>
+                                <div class="price d-flex">
+                                    <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
+                                    <span class="text-muted ms-2 me-2">
+                                        <del><?= number_format($item["price"]); ?>đ</del>
+                                    </span>
+                                    <span> x<?= $item['quantity'] ?></span>
                                 </div>
                             </div>
-                            <?php
+                        </div>
+                        <?php
                         endforeach ?>
                         <div class="row ms-auto me-auto p-0 mt-4">
-                            <div class="col p-0 d-flex flex-column justify-content-center">
-                                <span>Tổng cộng: <b><?= number_format($c->totalCart()) ?>đ</b></span>
+                            <div class="col-4 p-0 d-flex flex-column">
+                                <span>Tổng cộng</span>
+                                <span class="text-danger fw-bold"><?= number_format($c->totalCart()) ?>đ</span>
                             </div>
-                            <div class="col p-0">
+                            <div class="col p-0 d-flex flex-column justify-content-center">
                                 <a href="<?= _HOST . '/gio-hang' ?>">
                                     <button class="btn btn-danger w-100"><b>Xem giỏ hàng</b></button>
                                 </a>

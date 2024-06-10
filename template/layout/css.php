@@ -14,4 +14,5 @@
 <link
     href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
     rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="<?= _HOST_TEMPLATE . '/css/style.css?ver=' . rand(1000, 9999) ?>" />
