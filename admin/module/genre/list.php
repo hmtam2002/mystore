@@ -31,6 +31,7 @@ $smg_type = getFlashData('smg_type');
         <thead>
             <th>STT</th>
             <th>Thể loại</th>
+            <th>Nổi bật</th>
             <th>Trạng thái</th>
             <th width="5%">Sửa</th>
             <th width="5%">Xoá</th>
@@ -49,6 +50,11 @@ $smg_type = getFlashData('smg_type');
                 <td>
                     <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
                         <?= $item['genre_name'] ?>
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=genre&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
+                        <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
                     </a>
                 </td>
                 <td>

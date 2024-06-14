@@ -23,6 +23,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/index/index.php'))
         {
             require_once _PATH . '/module/index/index.php';
+
             $noidung = ob_get_clean();
         }
         break;
@@ -108,6 +109,6 @@ switch ($url)
                 break;
             }
         }
-        $noidung = 'Đường dẫn rỗngg';
+        $noidung = 'Đường dẫn rỗng ' . $f->generateOrderId();
         break;
 }

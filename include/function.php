@@ -304,4 +304,19 @@ class func
         }
         return $url;
     }
+    public function generateOrderId($length = 6)
+    {
+        // Các ký tự có thể được sử dụng trong mã đơn hàng
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        // Tạo mã đơn hàng ngẫu nhiên
+        for ($i = 0; $i < $length; $i++)
+        {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
+    }
 }

@@ -78,7 +78,8 @@ if (isset($_SESSION['checkout']))
                     <label for="fullname">Thành phố, tỉnh</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" type="text" name="fullname" class="w-100">
+                    <input class="form-control" type="text" name="fullname" class="w-100"
+                        placeholder="Chọn tỉnh, thành phố">
                 </div>
             </div>
             <div class="row mb-2">
@@ -86,7 +87,8 @@ if (isset($_SESSION['checkout']))
                     <label for="fullname">Quận, huyện</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" type="text" name="fullname" class="w-100">
+                    <input class="form-control" type="text" name="fullname" class="w-100"
+                        placeholder="Chọn quận, huyện">
                 </div>
             </div>
             <div class="row mb-2">
@@ -94,7 +96,7 @@ if (isset($_SESSION['checkout']))
                     <label for="fullname">Phường, xã</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" type="text" name="fullname" class="w-100">
+                    <input class="form-control" type="text" name="fullname" class="w-100" placeholder="Chọn phường, xã">
                 </div>
             </div>
             <div class="row mb-2">

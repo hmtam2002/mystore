@@ -13,13 +13,9 @@ if ($f->isPOST())
     ];
 
     $c->updateCart($data);
-
-
+    setFlashData('smg', 'Thêm vào giỏ hàng thành công');
+    setFlashData('smg_type', 'success');
 }
-// $c->removeCart();
-// echo '<pre>';
-// print_r($c->getCart());
-// echo '</pre>';
 
 // lấy thông báo
 $smg = getFlashData('smg');
@@ -29,6 +25,10 @@ $smg_type = getFlashData('smg_type');
 
 <!-- Thông tin bên trái -->
 <div class="wrap-content p-5 bg-white rounded-3 mt-5">
+    <?php if (!empty($smg))
+    {
+        $f->getSmg($smg, $smg_type);
+    } ?>
     <div class="product_detail-left">
         <div class="pic-product_detail">
             <img class="img-thumbnail p-4" style="width: 330px;"
@@ -74,10 +74,7 @@ $smg_type = getFlashData('smg_type');
                     </div>
                 </div>
             </form>
-            <?php if (!empty($smg))
-            {
-                $f->getSmg($smg, $smg_type);
-            } ?>
+
             <div class="price_sale-product_detail">
                 <p> Gọi đặt hàng: <span>(028) 3820 7153 hoặc 0933 109 009</span></p>
             </div>

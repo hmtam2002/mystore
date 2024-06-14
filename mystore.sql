@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th6 08, 2024 lúc 04:22 PM
+-- Thời gian đã tạo: Th6 13, 2024 lúc 12:38 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -74,7 +74,9 @@ INSERT INTO `adminToken` (`id`, `admin_id`, `token`, `create_at`) VALUES
 (81, 1, 'db396bd2373e6e0ce11a616fbbd43fd4cab3360a', '2024-06-01 18:14:47'),
 (82, 1, 'da496fc8433d4afd5c339bcd119760222e89536d', '2024-06-04 08:41:24'),
 (83, 1, '32d71b6abacb2e6e46c1dbdec39a195d0084f5b4', '2024-06-04 20:29:27'),
-(84, 1, 'dfa4b94979087d60ca39be5c5fa0eccd85a8c617', '2024-06-06 08:02:15');
+(84, 1, 'dfa4b94979087d60ca39be5c5fa0eccd85a8c617', '2024-06-06 08:02:15'),
+(86, 1, 'a3121857cd381b3fcb249247afeb0cb1d6c5b3c8', '2024-06-09 09:10:54'),
+(87, 1, '844b5be3f68e2739ac38a829e92712caa95bdfa7', '2024-06-11 12:03:10');
 
 -- --------------------------------------------------------
 
@@ -605,7 +607,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `adminToken`
 --
 ALTER TABLE `adminToken`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT cho bảng `authors`

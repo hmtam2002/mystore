@@ -37,8 +37,7 @@ $smg_type = getFlashData('smg_type');
     {
         $f->getSmg($smg, $smg_type);
     } ?>
-    <table class="table table-hover caption-top">
-        <caption>Danh sách sản phẩm sách</caption>
+    <table class="table table-hover">
         <thead>
             <th width="4%">STT</th>
             <th>Hình ảnh</th>

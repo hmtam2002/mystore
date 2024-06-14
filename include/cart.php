@@ -1,6 +1,7 @@
 <?php
 class cart
 {
+    // Khởi tạo biến giỏ hàng
     public function __construct()
     {
         if (!isset($_SESSION['cart']))
@@ -8,10 +9,12 @@ class cart
             $_SESSION['cart'] = [];
         }
     }
+    // gọi giỏ hàng ra
     public function getCart()
     {
         return $_SESSION['cart'];
     }
+    // thêm sản phẩm vào giỏ hàng
     public function updateCart($data = [])
     {
         $cart = $this->getCart();
@@ -31,14 +34,17 @@ class cart
         }
         setSession('cart', $cart);
     }
+    //xoá hết sản phẩm trong giỏ hàng
     public function removeCart()
     {
         removeSession('cart');
     }
+    //đếm số lượng sản phẩm trong giỏ hàng
     public function numberOfCart()
     {
         return count($this->getCart());
     }
+    //trả về mảng danh sách các id trong giỏ hàng
     public function getIdProduct()
     {
         $productIds = '';
@@ -50,6 +56,7 @@ class cart
         $productIds = rtrim($productIds, ",");
         return $productIds;
     }
+    //tính tổng tiền có trong giỏ hàng bằng công thức tổng sl * đơn giá của từng sản phẩm
     public function totalCart()
     {
         $total = 0;

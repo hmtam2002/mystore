@@ -1,24 +1,6 @@
 <?php
-// echo 'Giỏ hàng online';
-
-$orderList = $db->getRaw('SELECT * FROM cart');
-
 $orderListOffline = $c->getCart();
-// if ($f->isPOST())
-// {
-//     $filterAll = $f->filter();
-//     $_SESSION['checkout'] = $filterAll;
-//     $f->redirect(_HOST . '/thanh-toan');
-// }
 
-if (isset($_GET['action']))
-{
-    $filterAll = $f->filter();
-    if ($filterAll['action'] == 'delete')
-    {
-        echo $filterAll['id'];
-    }
-}
 
 if (empty($orderListOffline))
 {
@@ -100,51 +82,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                 foreach ($orderListOffline as $product):
                     $total += $product["discount"];
                     ?>
-                <div class="row ms-auto border mb-1 rounded-3">
-                    <div class="p-4 bg-white rounded-3">
-                        <div class="row">
-                            <div class="col-1 d-flex flex-column justify-content-center">
-                                <div class="form-check">
-                                    <input data-id="<?= $product['id'] ?>" value="<?= $product['id'] ?>" type="checkbox"
-                                        class="product_check form-check-input" name="product_check[]">
+                    <div class="row ms-auto border mb-1 rounded-3">
+                        <div class="p-4 bg-white rounded-3">
+                            <div class="row">
+                                <div class="col-1 d-flex flex-column justify-content-center">
+                                    <div class="form-check">
+                                        <input data-id="<?= $product['id'] ?>" value="<?= $product['id'] ?>" type="checkbox"
+                                            class="product_check form-check-input" name="product_check[]">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-2 col-md-2">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <img class="img-fluid" style="max-height: 100px;"
-                                        src="<?= _HOST_ASSETS . '/images/product/' . $product["image"]; ?>"
-                                        alt="<?= $product["title"]; ?>">
+                                <div class="col-2 col-md-2">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <img class="img-fluid" style="max-height: 100px;"
+                                            src="<?= _HOST_ASSETS . '/images/product/' . $product["image"]; ?>"
+                                            alt="<?= $product["title"]; ?>">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3 ms-2 me-5 d-flex flex-column justify-content-between">
-                                <div class="title"><?= $product["title"]; ?></div>
-                                <div class="price d-flex">
-                                    <span class=""><?= number_format($product["discount"]); ?>đ</span>
-                                    <span class="text-muted ms-2">
-                                        <del><?= number_format($product["price"]); ?>đ</del>
-                                    </span>
+                                <div class="col-3 ms-2 me-5 d-flex flex-column justify-content-between">
+                                    <div class="title"><?= $product["title"]; ?></div>
+                                    <div class="price d-flex align-items-baseline">
+                                        <span class="fw-bold"><?= number_format($product["discount"]); ?>đ</span>
+                                        <span class="text-muted ms-2">
+                                            <del><?= number_format($product["price"]); ?>đ</del>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-2 ms-2 quantity-controls">
-                                <button type="button" data-id="<?= $product['id'] ?>"
-                                    class="btn btn-outline-secondary btn-sm decrease">-</button>
-                                <input type="number" id="quantity-<?= $product['id'] ?>" data-id="<?= $product['id'] ?>"
-                                    class="fw-bold form-control form-control-sm quantity-input"
-                                    value="<?= $product['quantity'] ?>" readonly>
-                                <button type="button" data-id="<?= $product['id'] ?>"
-                                    class="btn btn-outline-secondary btn-sm increase">+</button>
-                            </div>
-                            <div class="col-2 d-flex align-items-center fw-bold text-danger">
-                                <?= number_format($product['discount'] * $product['quantity']) ?>đ
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <a href="?module=cart&action=remove&id=<?= $item['id'] ?>" class="text-danger"><i
-                                        class="fas fa-trash-alt"></i></a>
+                                <div class="col-2 ms-2 quantity-controls">
+                                    <button type="button" data-id="<?= $product['id'] ?>"
+                                        class="btn btn-outline-secondary btn-sm decrease">-</button>
+                                    <input type="number" id="quantity-<?= $product['id'] ?>" data-id="<?= $product['id'] ?>"
+                                        class="fw-bold form-control form-control-sm quantity-input"
+                                        value="<?= $product['quantity'] ?>" readonly>
+                                    <button type="button" data-id="<?= $product['id'] ?>"
+                                        class="btn btn-outline-secondary btn-sm increase">+</button>
+                                </div>
+                                <div class="col-2 d-flex align-items-center fw-bold text-danger">
+                                    <?= number_format($product['discount'] * $product['quantity']) ?>đ
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <a href="?module=cart&action=remove&id=<?= $item['id'] ?>" class="text-danger"><i
+                                            class="fas fa-trash-alt"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <?php
+                    <?php
                 endforeach ?>
             </div>
             <div class="col-md-4">
@@ -190,38 +172,38 @@ $(document).ready(function() {
 });
 </script> -->
 <script>
-$(document).ready(function() {
-    function updateQuantity(input) {
-        var quantity = input.val();
-        var productId = input.data('id');
-        $.ajax({
-            url: '', // Gửi yêu cầu tới chính file hiện tại
-            method: 'POST',
-            data: {
-                id: productId,
-                quantity: quantity
-            },
-            success: function(response) {
-                console.log('Session updated successfully for product ' + productId);
-            },
-            error: function() {
-                console.log('Error updating session for product ' + productId);
+    $(document).ready(function () {
+        function updateQuantity(input) {
+            var quantity = input.val();
+            var productId = input.data('id');
+            $.ajax({
+                url: '', // Gửi yêu cầu tới chính file hiện tại
+                method: 'POST',
+                data: {
+                    id: productId,
+                    quantity: quantity
+                },
+                success: function (response) {
+                    console.log('Session updated successfully for product ' + productId);
+                },
+                error: function () {
+                    console.log('Error updating session for product ' + productId);
+                }
+            });
+        }
+
+        $('input[type="number"]').on('input', function () {
+            updateQuantity($(this));
+        });
+
+        $('.quantity-controls button').on('click', function () {
+            var input = $(this).siblings('input[type="number"]');
+            var currentVal = parseInt(input.val());
+            if ($(this).hasClass('increase')) {
+                input.val(currentVal + 1).trigger('input');
+            } else if ($(this).hasClass('decrease') && currentVal > 1) {
+                input.val(currentVal - 1).trigger('input');
             }
         });
-    }
-
-    $('input[type="number"]').on('input', function() {
-        updateQuantity($(this));
     });
-
-    $('.quantity-controls button').on('click', function() {
-        var input = $(this).siblings('input[type="number"]');
-        var currentVal = parseInt(input.val());
-        if ($(this).hasClass('increase')) {
-            input.val(currentVal + 1).trigger('input');
-        } else if ($(this).hasClass('decrease') && currentVal > 1) {
-            input.val(currentVal - 1).trigger('input');
-        }
-    });
-});
 </script>
