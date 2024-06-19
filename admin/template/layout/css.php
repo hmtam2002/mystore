@@ -15,5 +15,25 @@
 <link rel="shortcut icon" type="image/png" href="<?= _HOST ?>/assets/images/favicon.png" />
 
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- css -->
 <link rel="stylesheet" href="<?= _HOST . '/admin/template/css/style.css?ver=' . rand(100, 999) ?>">
+<style>
+.select2-container .select2-selection--single {
+    height: 38px;
+    line-height: 36px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding-left: 0.2rem;
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+    top: 1px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 36px;
+}
+</style>

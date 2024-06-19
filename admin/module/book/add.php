@@ -174,32 +174,34 @@ $old = getFlashData('old');
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="">Tác giả</label>
-                            <select name="author_id" class="form-control">
+                            <select id="author_id" name="author_id" class="form-control">
                                 <?php
                                 $authorList = $db->getRaw('SELECT * FROM authors');
                                 foreach ($authorList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                        <?= $item['author_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                    <?= $item['author_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="">Thể loại</label>
-                            <select name="genre_id" class="form-control">
+                            <select id="genre_id" name="genre_id" class="form-control">
                                 <?php
                                 $genreList = $db->getRaw('SELECT * FROM genres');
                                 foreach ($genreList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
-                                        <?= $item['genre_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $f->old('status', $old) == 1 ? "selected" : null ?>>
+                                    <?= $item['genre_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
@@ -231,3 +233,10 @@ $old = getFlashData('old');
         </div>
     </div>
 </main>
+
+<script>
+$(document).ready(function() {
+    $('#author_id').select2();
+    $('#genre_id').select2();
+});
+</script>

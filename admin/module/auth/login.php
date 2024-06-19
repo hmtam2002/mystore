@@ -46,6 +46,7 @@ if ($f->isPOST())
                     //lưu login token vào session
                     setSession('loginToken', $tokenLogin);
                     setSession('adminName', $fullname);
+                    setSession('admin_id', $admin_id);
                     $f->redirect('?cmd=home&act=dashboard');
                 } else
                 {

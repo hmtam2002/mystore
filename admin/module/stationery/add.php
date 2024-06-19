@@ -175,34 +175,36 @@ $old = getFlashData('old');
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="">Xuất xứ</label>
-                            <select name="origin_id" class="form-control">
+                            <select id="origin_id" name="origin_id" class="form-control">
                                 <?php
                                 $selectedOriginId = $f->old('origin_id', $old);
                                 $originList = $db->getRaw('SELECT * FROM origins');
                                 foreach ($originList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
-                                        <?= $item['country_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedOriginId ? 'selected' : null ?>>
+                                    <?= $item['country_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="">Thương hiệu</label>
-                            <select name="brand_id" class="form-control">
+                            <select id="brand_id" name="brand_id" class="form-control">
                                 <?php
                                 $selectedBrandId = $f->old('brand_id', $old);
                                 $brandList = $db->getRaw('SELECT * FROM brands');
                                 foreach ($brandList as $item)
                                 {
                                     ?>
-                                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
-                                        <?= $item['brand_name'] ?>
-                                    </option>
-                                    <?php
+                                <option value="<?= $item['id'] ?>"
+                                    <?= $item['id'] == $selectedBrandId ? 'selected' : null ?>>
+                                    <?= $item['brand_name'] ?>
+                                </option>
+                                <?php
                                 }
                                 ?>
                             </select>
@@ -234,3 +236,9 @@ $old = getFlashData('old');
         </div>
     </div>
 </main>
+<script>
+$(document).ready(function() {
+    $('#origin_id').select2();
+    $('#brand_id').select2();
+});
+</script>

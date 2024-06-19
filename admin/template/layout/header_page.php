@@ -13,17 +13,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" href="./assets/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATE . '/css/style.css?ver=' . rand(1000, 9999) ?>">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- <style>
+    <style>
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        background-color: #f8f9fa;
+        /* Light background for the body */
+    }
+
     .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-        padding: 90px 0 0;
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-        z-index: 99;
+        min-width: 250px;
+        max-width: 250px;
+        background-color: #ffffff;
+        /* Light background for the sidebar */
+        color: #333333;
+        /* Dark text color */
+        flex-shrink: 0;
+        padding: 15px;
+        border-right: 1px solid #dee2e6;
+        /* Light border color */
+    }
+
+    .sidebar a {
+        color: #333333;
+        /* Dark text color */
+        text-decoration: none;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: #f8f9fa;
+        /* Light hover background color */
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        background-color: #ffffff;
+        /* Light background for the main content */
+    }
+
+    .arrow {
+        transition: transform 0.3s;
+    }
+
+    .arrow.rotated {
+        transform: rotate(90deg);
     }
 
     @media (max-width: 767.98px) {
@@ -33,10 +71,6 @@
         }
     }
 
-    .navbar {
-        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .1);
-    }
-
     @media (min-width: 767.98px) {
         .navbar {
             top: 0;
@@ -44,77 +78,6 @@
             z-index: 999;
         }
     }
-
-    .sidebar .nav-link {
-        color: #333;
-    }
-
-    .sidebar .nav-link.active {
-        color: #0d6efd;
-    }
-    </style> -->
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-            background-color: #f8f9fa;
-            /* Light background for the body */
-        }
-
-        .sidebar {
-            min-width: 250px;
-            max-width: 250px;
-            background-color: #ffffff;
-            /* Light background for the sidebar */
-            color: #333333;
-            /* Dark text color */
-            flex-shrink: 0;
-            padding: 15px;
-            border-right: 1px solid #dee2e6;
-            /* Light border color */
-        }
-
-        .sidebar a {
-            color: #333333;
-            /* Dark text color */
-            text-decoration: none;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #f8f9fa;
-            /* Light hover background color */
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: #ffffff;
-            /* Light background for the main content */
-        }
-
-        .arrow {
-            transition: transform 0.3s;
-        }
-
-        .arrow.rotated {
-            transform: rotate(90deg);
-        }
-
-        @media (max-width: 767.98px) {
-            .sidebar {
-                top: 11.5rem;
-                padding: 0;
-            }
-        }
-
-        @media (min-width: 767.98px) {
-            .navbar {
-                top: 0;
-                position: sticky;
-                z-index: 999;
-            }
-        }
     </style>
 </head>
 
@@ -131,6 +94,9 @@
         </div>
         <div class="col-12 col-md-4 col-lg-2">
             <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="col col-md-5 col-lg-8">
+            <a href="">xem trang web</a>
         </div>
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">

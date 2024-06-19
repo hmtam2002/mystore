@@ -260,7 +260,7 @@ if (!empty($product_data))
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="">Tác giả</label>
-                            <select name="author_id" class="form-control">
+                            <select id="author_id" name="author_id" class="form-control">
                                 <?php
                                 $selectedAuthorId = $f->old('author_id', $old);
                                 $authorList = $db->getRaw('SELECT * FROM authors');
@@ -278,7 +278,7 @@ if (!empty($product_data))
                         </div>
                         <div class="form-group">
                             <label for="">Thể loại</label>
-                            <select name="genre_id" class="form-control">
+                            <select id="genre_id" name="genre_id" class="form-control">
                                 <?php
                                 $selectedGenreId = $f->old('genre_id', $old);
                                 $genreList = $db->getRaw('SELECT * FROM genres');
@@ -322,3 +322,9 @@ if (!empty($product_data))
         </div>
     </div>
 </main>
+<script>
+$(document).ready(function() {
+    $('#author_id').select2();
+    $('#genre_id').select2();
+});
+</script>
