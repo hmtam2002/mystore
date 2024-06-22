@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th6 13, 2024 lúc 12:38 PM
+-- Thời gian đã tạo: Th6 22, 2024 lúc 05:19 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -68,15 +68,11 @@ CREATE TABLE `adminToken` (
 --
 
 INSERT INTO `adminToken` (`id`, `admin_id`, `token`, `create_at`) VALUES
-(76, 1, '7b6397b5ed3d4debffa3d4d64c6a6d59c197815e', '2024-05-29 21:52:03'),
-(77, 1, '0193ab6df449f01d5f8e2c879c56f3f49286b133', '2024-05-29 21:52:34'),
-(78, 1, '861bafde66975353b1cefb14a1707448d89756d8', '2024-05-29 21:53:03'),
-(81, 1, 'db396bd2373e6e0ce11a616fbbd43fd4cab3360a', '2024-06-01 18:14:47'),
-(82, 1, 'da496fc8433d4afd5c339bcd119760222e89536d', '2024-06-04 08:41:24'),
-(83, 1, '32d71b6abacb2e6e46c1dbdec39a195d0084f5b4', '2024-06-04 20:29:27'),
-(84, 1, 'dfa4b94979087d60ca39be5c5fa0eccd85a8c617', '2024-06-06 08:02:15'),
-(86, 1, 'a3121857cd381b3fcb249247afeb0cb1d6c5b3c8', '2024-06-09 09:10:54'),
-(87, 1, '844b5be3f68e2739ac38a829e92712caa95bdfa7', '2024-06-11 12:03:10');
+(94, 1, '27ac7c251ad4826e8d62517839ec2f348897fb73', '2024-06-18 19:10:36'),
+(95, 1, 'c458f3e0d146e137004f1a2b5a82b36cb1ad4222', '2024-06-20 08:51:53'),
+(96, 1, '9a4dea0e989021275e3b8ca9625fe15c23fe8e78', '2024-06-21 11:22:54'),
+(97, 1, '2752e61f0685c1e900f08c2009267584b8b0d9a5', '2024-06-21 11:43:07'),
+(100, 1, 'afe8072c1ac234978dddbb0ec223227b2f8be946', '2024-06-22 22:17:28');
 
 -- --------------------------------------------------------
 
@@ -192,6 +188,7 @@ INSERT INTO `custommers` (`id`, `fullname`, `email`, `phone_number`, `password`,
 CREATE TABLE `genres` (
   `id` int(11) NOT NULL,
   `genre_name` varchar(50) NOT NULL,
+  `highlighted` int(11) DEFAULT 0,
   `status` int(11) DEFAULT 1,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL
@@ -201,18 +198,73 @@ CREATE TABLE `genres` (
 -- Đang đổ dữ liệu cho bảng `genres`
 --
 
-INSERT INTO `genres` (`id`, `genre_name`, `status`, `create_at`, `update_at`) VALUES
-(3, 'Sách thiếu nhi', 1, '2024-05-13 16:58:09', '2024-05-13 15:33:44'),
-(4, 'Sách tâm lý', 1, '2024-05-13 16:58:16', '2024-05-13 16:58:09'),
-(5, 'Sách tôn giáo', 1, '2024-05-13 16:58:21', '2024-05-13 16:58:09'),
-(6, 'Sách văn hoá, xã hội', 1, '2024-05-13 16:58:26', '2024-05-13 16:58:09'),
-(7, 'Sách tiểu sử', 1, '2024-05-13 16:58:28', '2024-05-13 16:58:09'),
-(8, 'Sách kinh dị', 1, '2024-05-13 16:58:29', '2024-05-13 16:58:09'),
-(9, 'Sách tiểu thuyết', 1, '2024-05-13 16:58:31', '2024-05-14 13:12:21'),
-(11, 'Truyện linh ta linh tinh', 1, '2024-05-14 06:12:44', '2024-05-14 12:11:20'),
-(13, 'Giáo trình công nghệ thông tin', 1, '2024-05-18 10:22:48', NULL),
-(14, 'Sách văn học', 1, '2024-05-18 11:28:01', '2024-05-18 15:06:33'),
-(15, 'Kinh tế', 1, '2024-05-18 11:28:10', NULL);
+INSERT INTO `genres` (`id`, `genre_name`, `highlighted`, `status`, `create_at`, `update_at`) VALUES
+(3, 'Sách thiếu nhi', 0, 1, '2024-05-13 16:58:09', '2024-05-13 15:33:44'),
+(4, 'Sách tâm lý', 0, 1, '2024-05-13 16:58:16', '2024-05-13 16:58:09'),
+(5, 'Sách tôn giáo', 0, 1, '2024-05-13 16:58:21', '2024-05-13 16:58:09'),
+(6, 'Sách văn hoá, xã hội', 0, 1, '2024-05-13 16:58:26', '2024-05-13 16:58:09'),
+(7, 'Sách tiểu sử', 0, 1, '2024-05-13 16:58:28', '2024-05-13 16:58:09'),
+(8, 'Sách kinh dị', 0, 1, '2024-05-13 16:58:29', '2024-05-13 16:58:09'),
+(9, 'Sách tiểu thuyết', 0, 1, '2024-05-13 16:58:31', '2024-05-14 13:12:21'),
+(11, 'Truyện linh ta linh tinh', 0, 1, '2024-05-14 06:12:44', '2024-05-14 12:11:20'),
+(13, 'Giáo trình công nghệ thông tin', 0, 1, '2024-05-18 10:22:48', NULL),
+(14, 'Sách văn học', 0, 1, '2024-05-18 11:28:01', '2024-05-18 15:06:33'),
+(15, 'Kinh tế', 0, 1, '2024-05-18 11:28:10', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `goods_receipts`
+--
+
+CREATE TABLE `goods_receipts` (
+  `id` int(11) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `total_quantity` double DEFAULT NULL,
+  `total_stock_quantity` double DEFAULT NULL,
+  `create_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `goods_receipts`
+--
+
+INSERT INTO `goods_receipts` (`id`, `code`, `admin_id`, `total_quantity`, `total_stock_quantity`, `create_date`) VALUES
+(51, 'Y9Cheb', 38, 208, 208, '2024-06-22 21:59:11');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `goods_receipt_details`
+--
+
+CREATE TABLE `goods_receipt_details` (
+  `goods_receipt_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` double NOT NULL,
+  `stock_quantity` double DEFAULT NULL,
+  `total_price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `goods_receipt_details`
+--
+
+INSERT INTO `goods_receipt_details` (`goods_receipt_id`, `product_id`, `quantity`, `stock_quantity`, `total_price`) VALUES
+(51, 3, 10, NULL, 90000),
+(51, 4, 11, NULL, 91000),
+(51, 5, 12, NULL, 92000),
+(51, 6, 13, NULL, 93000),
+(51, 7, 14, NULL, 94000),
+(51, 8, 15, NULL, 95000),
+(51, 9, 16, NULL, 96000),
+(51, 65, 17, NULL, 97000),
+(51, 66, 18, NULL, 98000),
+(51, 67, 19, NULL, 99000),
+(51, 68, 20, NULL, 100000),
+(51, 69, 21, NULL, 101000),
+(51, 81, 22, NULL, 102000);
 
 -- --------------------------------------------------------
 
@@ -237,32 +289,6 @@ INSERT INTO `images` (`id`, `imageURL`, `image`, `type`, `status`) VALUES
 (24, NULL, '1717154241.jpg', 'slider', 1),
 (25, NULL, '1717154255.jpg', 'slider', 1),
 (26, NULL, '1717155129.jpeg', 'banner', 0);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `inventory`
---
-
-CREATE TABLE `inventory` (
-  `product_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `inventory_log`
---
-
-CREATE TABLE `inventory_log` (
-  `id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `change_quantity` int(11) DEFAULT NULL,
-  `purchase_price` double DEFAULT NULL,
-  `create_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -309,9 +335,9 @@ INSERT INTO `news` (`id`, `slug`, `title`, `description`, `type`, `image`, `stat
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `order_date` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `total_price` double DEFAULT NULL
+  `fullname` varchar(100) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -321,11 +347,10 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_details` (
-  `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `subtotal` double NOT NULL
+  `total_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -335,10 +360,9 @@ CREATE TABLE `order_details` (
 --
 
 CREATE TABLE `order_step` (
-  `id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `admin_id` int(11) DEFAULT NULL,
-  `create_at` datetime DEFAULT NULL
+  `order_id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `step_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -393,19 +417,19 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `author_id`, `publisher_id`, `ISBN`, `product_name`, `origin_id`, `brand_id`, `description`, `image`, `price`, `discount`, `stock_quantity`, `status`, `create_at`, `update_at`) VALUES
-(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Tắt đèn</p>                                ', '1717217445.jpeg', 90000, 90000, NULL, 1, NULL, '2024-06-01 04:50:45'),
-(4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Lều Chõng</p>                                ', '1717217480.jpg', 90000, 90000, NULL, 1, NULL, '2024-06-01 04:51:20'),
-(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, '                                                                <p>Sống Mòn</p>                                                                ', '1717217513.png', 90000, 90000, NULL, 1, NULL, '2024-06-01 04:51:53'),
-(6, 'dat-rung-phuong-nam', 'Đất rừng phương nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217539.jpg', NULL, NULL, NULL, 1, NULL, '2024-06-01 04:52:19'),
-(7, 'so-do', 'Số đỏ', 1, 14, 7, NULL, NULL, NULL, NULL, NULL, '                                <p>Số đỏ</p>                                ', '1717155420.jpg', 10000, 10000, NULL, 1, NULL, '2024-05-31 11:37:00'),
-(8, 'vo-de', 'Vỡ Đê', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217580.jpg', NULL, NULL, NULL, 1, NULL, '2024-06-01 04:53:00'),
-(9, 'de-men-phieu-luu-ky', 'Dế mèn phiêu lưu ký', 1, 9, 12, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217616.jpg', NULL, NULL, NULL, 1, NULL, '2024-06-01 04:53:36'),
-(65, 'chi-pheo', 'Chí phèo', 1, 14, 3, NULL, NULL, NULL, NULL, NULL, '                                <p><strong>THÔNG TIN CHI TIẾT</strong></p><p>Nhà xuất bản: NXB Thanh Niên</p><p>Ngày xuất bản: 16/04/2024</p><p>Nhà phát hành: AZ Việt Nam</p><p>Kích thước: 12.0 x 19.0 x 1.0 cm</p><p>Số trang: 120 trang</p><p>Trọng lượng: 300 gram</p>                                ', '1717217631.jpg', 900000, 900000, NULL, 1, '2024-05-18 04:37:55', '2024-06-01 04:53:51'),
-(66, 'nha-gia-kim', 'Nhà giả kim', 1, 14, 24, NULL, NULL, NULL, NULL, NULL, '                                <p>Nhà giả kim</p>                                ', '1717217647.jpg', 90000, 80000, NULL, 1, '2024-05-18 06:37:16', '2024-06-01 04:54:07'),
-(67, 'hoang-tu-be', 'Hoàng tử bé', 1, 3, 25, NULL, NULL, NULL, NULL, NULL, '                                <p>Hoàng tử bé</p>                                ', '1717217656.jpeg', 900000, 900000, NULL, 1, '2024-05-18 08:01:22', '2024-06-01 04:54:16'),
-(68, 'so-dua', 'Sọ dừa', 1, 3, 26, NULL, NULL, NULL, NULL, NULL, '                                <p>Sọ dừa</p>                                ', '1717217673.jpeg', 80000, 80000, NULL, 1, '2024-05-18 08:04:25', '2024-06-01 04:54:33'),
-(69, 'nhung-giac-mo-xanh', 'Những giấc mơ xanh', 1, 3, 27, NULL, NULL, NULL, NULL, NULL, '                                <p>Những giấc mơ xanh</p>                                ', '1717217687.jpeg', 900000, 900000, NULL, 1, '2024-05-18 08:06:04', '2024-06-01 04:54:47'),
-(81, 'but-bi-do', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi đỏ', 1, 1, '<p>đỏ lè đỏ lét</p>', '1716627873.jpg', 50000, 50000, NULL, 1, '2024-05-24 14:34:05', '2024-05-25 09:04:33');
+(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Tắt đèn</p>                                ', '1717217445.jpeg', 90000, 90000, 10, 1, NULL, '2024-06-01 04:50:45'),
+(4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Lều Chõng</p>                                ', '1717217480.jpg', 90000, 90000, 11, 1, NULL, '2024-06-01 04:51:20'),
+(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, '                                                                <p>Sống Mòn</p>                                                                ', '1717217513.png', 90000, 90000, 12, 1, NULL, '2024-06-01 04:51:53'),
+(6, 'dat-rung-phuong-nam', 'Đất rừng phương nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217539.jpg', NULL, NULL, 13, 1, NULL, '2024-06-01 04:52:19'),
+(7, 'so-do', 'Số đỏ', 1, 14, 7, NULL, NULL, NULL, NULL, NULL, '                                <p>Số đỏ</p>                                ', '1717155420.jpg', 10000, 10000, 14, 1, NULL, '2024-05-31 11:37:00'),
+(8, 'vo-de', 'Vỡ Đê', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217580.jpg', NULL, NULL, 15, 1, NULL, '2024-06-01 04:53:00'),
+(9, 'de-men-phieu-luu-ky', 'Dế mèn phiêu lưu ký', 1, 9, 12, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217616.jpg', NULL, NULL, 16, 1, NULL, '2024-06-01 04:53:36'),
+(65, 'chi-pheo', 'Chí phèo', 1, 14, 3, NULL, NULL, NULL, NULL, NULL, '                                <p><strong>THÔNG TIN CHI TIẾT</strong></p><p>Nhà xuất bản: NXB Thanh Niên</p><p>Ngày xuất bản: 16/04/2024</p><p>Nhà phát hành: AZ Việt Nam</p><p>Kích thước: 12.0 x 19.0 x 1.0 cm</p><p>Số trang: 120 trang</p><p>Trọng lượng: 300 gram</p>                                ', '1717217631.jpg', 900000, 900000, 17, 1, '2024-05-18 04:37:55', '2024-06-01 04:53:51'),
+(66, 'nha-gia-kim', 'Nhà giả kim', 1, 14, 24, NULL, NULL, NULL, NULL, NULL, '                                <p>Nhà giả kim</p>                                ', '1717217647.jpg', 90000, 80000, 18, 1, '2024-05-18 06:37:16', '2024-06-01 04:54:07'),
+(67, 'hoang-tu-be', 'Hoàng tử bé', 1, 3, 25, NULL, NULL, NULL, NULL, NULL, '                                <p>Hoàng tử bé</p>                                ', '1717217656.jpeg', 900000, 900000, 19, 1, '2024-05-18 08:01:22', '2024-06-01 04:54:16'),
+(68, 'so-dua', 'Sọ dừa', 1, 3, 26, NULL, NULL, NULL, NULL, NULL, '                                <p>Sọ dừa</p>                                ', '1717217673.jpeg', 80000, 80000, 20, 1, '2024-05-18 08:04:25', '2024-06-01 04:54:33'),
+(69, 'nhung-giac-mo-xanh', 'Những giấc mơ xanh', 1, 3, 27, NULL, NULL, NULL, NULL, NULL, '                                <p>Những giấc mơ xanh</p>                                ', '1717217687.jpeg', 900000, 900000, 21, 1, '2024-05-18 08:06:04', '2024-06-01 04:54:47'),
+(81, 'but-bi-do', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi đỏ', 1, 1, '                                <p>đỏ lè đỏ lét</p>                                ', '1718459765.jpg', 50000, 50000, 22, 1, '2024-05-24 14:34:05', '2024-06-15 13:56:05');
 
 -- --------------------------------------------------------
 
@@ -444,22 +468,6 @@ CREATE TABLE `publishers` (
 INSERT INTO `publishers` (`id`, `publisher_name`) VALUES
 (1, 'Vũ sáng tác'),
 (2, 'Hoàng Dũng sáng tác');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `shipping_addresses`
---
-
-CREATE TABLE `shipping_addresses` (
-  `address_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `address` int(11) NOT NULL,
-  `city` int(11) NOT NULL,
-  `province` int(11) NOT NULL,
-  `country` int(11) NOT NULL,
-  `zip_code` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -511,23 +519,24 @@ ALTER TABLE `genres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `goods_receipts`
+--
+ALTER TABLE `goods_receipts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_id` (`admin_id`);
+
+--
+-- Chỉ mục cho bảng `goods_receipt_details`
+--
+ALTER TABLE `goods_receipt_details`
+  ADD KEY `goods_receipt_id` (`goods_receipt_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Chỉ mục cho bảng `images`
 --
 ALTER TABLE `images`
   ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `inventory`
---
-ALTER TABLE `inventory`
-  ADD KEY `product_id` (`product_id`);
-
---
--- Chỉ mục cho bảng `inventory_log`
---
-ALTER TABLE `inventory_log`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
 
 --
 -- Chỉ mục cho bảng `news`
@@ -539,14 +548,12 @@ ALTER TABLE `news`
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `order_details`
 --
 ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `product_id` (`product_id`);
 
@@ -554,7 +561,6 @@ ALTER TABLE `order_details`
 -- Chỉ mục cho bảng `order_step`
 --
 ALTER TABLE `order_step`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `admin_id` (`admin_id`),
   ADD KEY `order_id` (`order_id`);
 
@@ -588,12 +594,6 @@ ALTER TABLE `publishers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `shipping_addresses`
---
-ALTER TABLE `shipping_addresses`
-  ADD PRIMARY KEY (`address_id`);
-
---
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
 
@@ -607,7 +607,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `adminToken`
 --
 ALTER TABLE `adminToken`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT cho bảng `authors`
@@ -640,16 +640,16 @@ ALTER TABLE `genres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT cho bảng `goods_receipts`
+--
+ALTER TABLE `goods_receipts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
 -- AUTO_INCREMENT cho bảng `images`
 --
 ALTER TABLE `images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT cho bảng `inventory_log`
---
-ALTER TABLE `inventory_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `news`
@@ -661,12 +661,6 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `order_step`
---
-ALTER TABLE `order_step`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -711,22 +705,17 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Các ràng buộc cho bảng `inventory`
+-- Các ràng buộc cho bảng `goods_receipts`
 --
-ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+ALTER TABLE `goods_receipts`
+  ADD CONSTRAINT `goods_receipts_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`);
 
 --
--- Các ràng buộc cho bảng `inventory_log`
+-- Các ràng buộc cho bảng `goods_receipt_details`
 --
-ALTER TABLE `inventory_log`
-  ADD CONSTRAINT `inventory_log_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
---
--- Các ràng buộc cho bảng `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `custommers` (`id`);
+ALTER TABLE `goods_receipt_details`
+  ADD CONSTRAINT `goods_receipt_details_ibfk_1` FOREIGN KEY (`goods_receipt_id`) REFERENCES `goods_receipts` (`id`),
+  ADD CONSTRAINT `goods_receipt_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Các ràng buộc cho bảng `order_details`
