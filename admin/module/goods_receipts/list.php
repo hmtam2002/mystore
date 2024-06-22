@@ -1,5 +1,8 @@
 <?php
-$goods_receipt_list = $db->getRaw('SELECT goods_receipts.*,admin.fullname FROM goods_receipts JOIN admin ON goods_receipts.admin_id = admin.id;');
+$goods_receipt_list = $db->getRaw('SELECT goods_receipts.*, admin.fullname 
+FROM goods_receipts 
+JOIN admin ON goods_receipts.admin_id = admin.id 
+ORDER BY goods_receipts.create_date DESC');
 if (empty($goods_receipt_list))
 {
     setFlashData('smg', 'Không có dữ liệu');
@@ -50,24 +53,37 @@ $smg_type = getFlashData('smg_type');
             {
                 $dem += 1;
                 ?>
-                <tr>
-                    <td class="text-center">
-                        <?= $dem ?>
-                    </td>
-                    <td>
+            <tr>
+                <td class="text-center">
+                    <?= $dem ?>
+                </td>
+                <td>
+                    <a class="text-decoration-none" href="?cmd=goods_receipts&act=detail&id=<?= $item['id'] ?>">
                         <?= $item['code'] ?>
-                    </td>
-
-                    <td>
-                        <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                            <?= $item['create_date'] ?>
-                        </a>
-                    </td>
-                    <td>
-                        <?= $item['fullname'] ?>
-                    </td>
-                </tr>
-                <?php
+                    </a>
+                </td>
+                <td>
+                    <a href="?cmd=goods_receipts&act=detail&id=<?= $item['id'] ?>"
+                        class="text-decoration-none text-dark">
+                        <?= date('H:i:s - d/m/Y', strtotime($item['create_date'])) ?>
+                    </a>
+                </td>
+                <td>
+                    <?= $item['fullname'] ?>
+                </td>
+                <td>
+                    <?= number_format($item['total_quantity']) ?>
+                </td>
+                <td>
+                    <?= number_format($item['total_stock_quantity']) ?>
+                </td>
+                <td>
+                    <a href="?cmd=goods_receipts&act=detail&id=<?= $item['id'] ?>">
+                        <button class="btn btn-warning btn-sm w-50"><i class="fa-regular fa-eye"></i></button>
+                    </a>
+                </td>
+            </tr>
+            <?php
             }
             ?>
         </tbody>

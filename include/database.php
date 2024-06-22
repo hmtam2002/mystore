@@ -9,6 +9,11 @@ class Database
         $this->conn = $dbConnection->getConnection();
     }
 
+    public function query($sql)
+    {
+        return $this->conn->query($sql);
+    }
+
     //hàm insert
     public function insert($table, $data)
     {

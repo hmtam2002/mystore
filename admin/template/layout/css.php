@@ -28,6 +28,10 @@
     padding-left: 0.2rem;
 }
 
+.select2-search__field {
+    padding-left: 0.2rem;
+}
+
 .select2-container .select2-selection--single .select2-selection__arrow {
     height: 36px;
     top: 1px;

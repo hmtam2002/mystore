@@ -50,7 +50,7 @@ $smg_type = getFlashData('smg_type');
                     <span><?= number_format($product_detail['price'] - $product_detail['discount']) ?>đ</span>
                 </p>
                 <p>Giá thị trường: <span><?= number_format($product_detail['price']) ?>đ</span></p>
-                <p>Tồn kho: <span>20</span></p>
+                <p>Tồn kho: <span><?= $product_detail['stock_quantity'] ?></span></p>
             </div>
             <form method="post">
                 <div class="d-flex flex-wrap align-items-center mt-3 mb-3">
@@ -58,7 +58,8 @@ $smg_type = getFlashData('smg_type');
                     <div class="attr-content-pro-detail d-flex flex-wrap align-items-center justify-content-between">
                         <div class="quantity-pro-detail">
                             <span class="quantity-minus-pro-detail">-</span>
-                            <input name="quantity" type="number" class="qty-pro" min="1" value="1" />
+                            <input name="quantity" type="number" class="qty-pro" min="1"
+                                max="<?= $product_detail['stock_quantity'] ?>" value="1" />
                             <span class="quantity-plus-pro-detail">+</span>
                         </div>
                     </div>

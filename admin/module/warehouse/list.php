@@ -33,7 +33,7 @@
         <tbody>
             <?php
             $dem = 0;
-            $sql = 'SELECT * FROM products';
+            $sql = 'SELECT * FROM products ORDER BY stock_quantity ASC';
             $listProduct = $db->getRaw($sql);
             foreach ($listProduct as $item)
             {
@@ -57,7 +57,7 @@
                     </a>
                 </td>
                 <td>
-                    <?= $item['stock_quantity'] ?>
+                    <?= number_format($item['stock_quantity']) ?>
                 </td>
             </tr>
             <?php

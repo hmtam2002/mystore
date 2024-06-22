@@ -39,7 +39,7 @@ $author = $db->oneRaw("SELECT author_name FROM authors WHERE id = '$author_id'")
                             <p> Tiết kiệm: <span><?= $product_detail['price'] - $product_detail['discount'] ?></span>
                             </p>
                             <p>Giá thị trường: <span><?= $product_detail['price'] ?></span></p>
-                            <p>Tồn kho: <span>20</span></p>
+                            <p>Tồn kho: <span>1</span></p>
                         </div>
                         <div class="d-flex flex-wrap align-items-center mt-3 mb-3">
                             <label class="attr-label-pro-detail d-block mr-2 mb-0">Số lượng:</label>

@@ -12,6 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $quantities = $_POST['quantity'];
     $total_prices = $_POST['total_price'];
 
+    // Tính tổng số lượng nhập
+    $total_quantity = 0;
+    foreach ($quantities as $item)
+    {
+        $total_quantity += $item;
+    }
+
+
+
     // Xử lý dữ liệu sản phẩm
 
     // Thêm dữ liệu vào bảng goods_receipts
@@ -19,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $goods_receipts_insert = [
         'code' => $code,
         'admin_id' => getSession('admin_id'),
-        'create_date' => date('Y-m-d H:i:s')
+        'create_date' => date('Y-m-d H:i:s'),
+        'total_quantity' => $total_quantity,
+        'total_stock_quantity' => $total_quantity
     ];
     if (!$db->insert('goods_receipts', $goods_receipts_insert))
     {
@@ -37,6 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 'quantity' => $quantities[$i],
                 'total_price' => $total_prices[$i],
             ];
+            $dataUpdate = [
+                'stock_quantity' => $quantities[$i]
+            ];
+            if (
+                !$db->query("UPDATE products
+                            SET stock_quantity = stock_quantity + " . $quantities[$i] . "
+                            WHERE id = " . $product_id[$i])
+            )
+            {
+                $status = false;
+                $smg .= 'lỗi bảng products';
+            }
             if (!$db->insert('goods_receipt_details', $products[$i]))
             {
                 $status = false;
@@ -72,14 +95,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <p>Tài khoản đăng nhập: <span class="fw-bold"><?= getSession('adminName') ?></span></p>
             <p>Ngày giờ hiện tại: <span class="fw-bold"><?= date('H:i') ?></span></p>
         </div>
-        <div class="col">
-            <p>Tổng số lượng nhập: <span id="total_quantity" class="fw-bold text-danger fs-5">0</span></p>
-            <p>Tổng giá tiền nhập: <span id="total_price" class="fw-bold text-success fs-5">0</span><span
-                    class="fw-bold text-danger">
+        <div class="col-4">
+
+            <p>Tổng số lượng nhập: <span id="total_quantity" class="fw-bold text-danger fs-5">0</span><span
+                    class="fw-bold text-success"> (quyển, cái)</span></p>
+            <p>Tổng giá tiền nhập: <span id="total_price" class="fw-bold text-danger fs-5">0</span><span
+                    class="fw-bold text-success">
                     đ</span></p>
         </div>
     </div>
-
 
     <form method="post" id="nhaphangForm">
         <div id="noidungnhaphang">
@@ -88,16 +112,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     <label class="form-label">Tiêu đề</label>
                 </div>
                 <div class="col">
-                    <label for="quantity" class="form-label">Số lượng</label>
+                    <label for="total_price" class="form-label">Giá nhập</label>
                 </div>
                 <div class="col">
-                    <label for="total_price" class="form-label">Giá nhập</label>
+                    <label for="quantity" class="form-label">Số lượng</label>
                 </div>
                 <div class="col-2"></div>
             </div>
-            <div class="row align-items-center py-0">
+            <div class="row align-items-center mb-2 py-0 product-detail">
                 <div class="col-4">
-                    <select id="product_name" name="product_id[]" class="form-control" required>
+                    <select name="product_id[]" class="form-control select2 product" required>
                         <option value selected>Chọn sản phẩm</option>
                         <?php
                         foreach ($productList as $item)
@@ -108,84 +132,122 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     </select>
                 </div>
                 <div class="col">
+                    <input placeholder="Giá 1 sản phẩm" min="1000" step="1000" type="number" name="total_price[]"
+                        class="form-control price" required>
+                </div>
+                <div class="col">
                     <input placeholder="Số lượng nhập" type="number" name="quantity[]" class="form-control quantity"
                         min="1" required>
                 </div>
-                <div class="col">
-                    <input placeholder="Nhập số tiền" min="1000" type="number" name="total_price[]"
-                        class="form-control price" required>
-                </div>
                 <div class="col-2">
-                    <!-- <a class="text-decoration-none" href="#">- Xoá dòng</a> -->
+                    <a href="#" class="text-decoration-none remove-row" style="display: none;">- Xoá dòng</a>
                 </div>
             </div>
         </div>
         <p class="mt-2"><a href="#" id="themsanpham" class="text-decoration-none">+ Thêm sản phẩm</a></p>
         <button type="submit" id="hoantatnhap" class="mt-4 btn btn-success">Hoàn tất nhập</button>
     </form>
-
 </main>
 <script>
 $(document).ready(function() {
-    $('#product_name').select2();
-});
-$(document).ready(function() {
-    var dropdownCounter = 1; // Biến đếm để đảm bảo id duy nhất cho mỗi dropdown
+    // Hàm khởi tạo Select2 cho tất cả các thẻ select có class .select2
+    function initializeSelect2() {
+        $('.select2').select2({
+            width: '100%' // Đảm bảo thẻ select sử dụng hết chiều rộng của container
+        });
+    }
 
-    // Xử lý sự kiện khi nhấn nút "Thêm sản phẩm"
-    $('#themsanpham').click(function(event) {
-        event.preventDefault();
+    // Khởi tạo Select2 cho các thẻ select ban đầu
+    initializeSelect2();
 
-        // Xây dựng chuỗi HTML cho các tùy chọn sản phẩm
-        var optionsHtml = '<option value="" selected>Chọn sản phẩm</option>';
-        <?php foreach ($productList as $item): ?>
-        var title = '<?php echo addslashes($item['title']); ?>';
-        var productName = '<?php echo addslashes($item['product_name']); ?>';
-        var optionValue = '<?php echo addslashes($item['id']); ?>';
-        var productTypeId = '<?php echo addslashes($item['product_type_id']); ?>';
 
-        var optionText = productTypeId == 1 ? title : productName;
-        optionsHtml += '<option value="' + optionValue + '">' + optionText + '</option>';
-        <?php endforeach; ?>
+    // Định dạng số với dấu chấm phần nghìn
+    function formatNumber(num) {
+        return num.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
 
-        // Tạo id duy nhất cho dropdown mới
-        var dropdownId = 'product_name_' + dropdownCounter;
+    // Thêm sản phẩm mới
+    $('#themsanpham').click(function(e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
-        // Thêm các tùy chọn vào dropdown và sử dụng Select2
-        $('#noidungnhaphang').append(
-            '<div class="row mt-2 align-items-center">' +
-            '<div class="col-4">' +
-            '<select id="' + dropdownId +
-            '" name="product_id[]" class="form-control select2" required>' +
-            optionsHtml +
-            '</select>' +
-            '</div>' +
-            '<div class="col">' +
-            '<input placeholder="Số lượng nhập" type="number" name="quantity[]" class="form-control quantity" min="1" required>' +
-            '</div>' +
-            '<div class="col">' +
-            '<input placeholder="Nhập số tiền" type="number" min="1000" name="total_price[]" class="form-control price" required>' +
-            '</div>' +
-            '<div class="col-2 d-flex align-items-center"><a class="text-decoration-none delete-row" href="#">- Xoá dòng</a></div>' +
-            '</div>'
-        );
+        // Sao chép dòng sản phẩm đầu tiên
+        let newProductDetail = $('.product-detail:first').clone();
 
-        // Khởi tạo Select2 cho dropdown mới thêm vào
-        $('#' + dropdownId).select2();
+        // Xóa các giá trị và khởi tạo lại Select2
+        newProductDetail.find('select').val('').removeAttr('data-select2-id').removeClass(
+            'select2-hidden-accessible').next('.select2-container').remove();
+        newProductDetail.find('select').select2({
+            width: '100%' // Đảm bảo thẻ select sử dụng hết chiều rộng của container
+        });
 
-        // Tăng biến đếm để chuẩn bị cho dropdown tiếp theo
-        dropdownCounter++;
+        // Xóa giá trị các trường input
+        newProductDetail.find('input').val('');
+
+        // Hiển thị nút xóa cho dòng mới
+        newProductDetail.find('.remove-row').show();
+
+        // Thêm dòng mới vào form
+        $('#noidungnhaphang').append(newProductDetail);
+
+        // Cập nhật tùy chọn cho tất cả các thẻ select
+        updateOptions();
     });
 
-    // Xử lý sự kiện khi nhấn nút "Xoá dòng"
-    $('#noidungnhaphang').on('click', '.delete-row', function(event) {
-        event.preventDefault();
+    // Cập nhật danh sách các tùy chọn trong thẻ select
+    function updateOptions() {
+        let selectedValues = [];
+        $('.product').each(function() {
+            let val = $(this).val();
+            if (val) {
+                selectedValues.push(val);
+            }
+        });
 
-        // Xoá dòng chứa liên kết được nhấn
-        $(this).closest('.row').remove();
+        $('.product').each(function() {
+            let currentSelect = $(this);
+            let currentValue = currentSelect.val();
+            currentSelect.find('option').each(function() {
+                if (selectedValues.includes($(this).val()) && $(this).val() != currentValue) {
+                    $(this).prop('disabled', true);
+                } else {
+                    $(this).prop('disabled', false);
+                }
+            });
+        });
+
+        // Refresh Select2 to reflect disabled options
+        $('.product').select2({
+            width: '100%'
+        });
+    }
+
+    // Bắt sự kiện change trên tất cả các thẻ select
+    $('#nhaphangForm').on('change', '.product', function() {
+        updateOptions();
     });
-});
 
+    // Cập nhật danh sách tùy chọn ban đầu
+    updateOptions();
+    // Xóa dòng sản phẩm
+    $('#nhaphangForm').on('click', '.remove-row', function(e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+        // Xóa dòng sản phẩm
+        $(this).closest('.product-detail').remove();
+
+        // Cập nhật tùy chọn sau khi xóa dòng
+        updateOptions();
+    });
+
+    // Định dạng số lượng và giá nhập
+    // $('#nhaphangForm').on('input', '.quantity, .price', function() {
+    //     let formattedValue = formatNumber($(this).val());
+    //     $(this).val(formattedValue);
+    // });
+});
+</script>
+<script>
+// Sau khi nhập hàng thành công
 $("#nhaphangForm").submit(function(event) {
     event.preventDefault(); // Chặn sự kiện submit mặc định của form
     var formData = $(this).serialize();
@@ -204,8 +266,11 @@ $("#nhaphangForm").submit(function(event) {
         },
 
     });
+
 });
 
+
+// Tính tổng và định dạng thập phân
 $(document).ready(function() {
     function calculateTotal(name) {
         let total = 0;
@@ -218,12 +283,21 @@ $(document).ready(function() {
         return total;
     }
 
+    function formatNumber(amount) {
+        // Chuyển số thành chuỗi và chia thành mảng các phần tử phía sau dấu thập phân và dấu phân cách
+        let parts = amount.toString().split(".");
+        // Thêm dấu chấm làm phân cách hàng nghìn cho phần nguyên
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        // Trả về chuỗi đã định dạng
+        return parts.join(".");
+    }
+
     // Bắt sự kiện change cho các thẻ input có class 'quantity'
-    $('.quantity').on('change', function() {
-        $('#total_quantity').text(calculateTotal('.quantity'));
+    $('#nhaphangForm').on('change', '.quantity', function() {
+        $('#total_quantity').text(formatNumber(calculateTotal('.quantity')));
     });
-    $('.price').on('change', function() {
-        $('#total_price').text(calculateTotal('.price'));
+    $('#nhaphangForm').on('change', '.price', function() {
+        $('#total_price').text(formatNumber(calculateTotal('.price')));
     });
 
     // Tính tổng khi trang được tải lần đầu tiên (nếu có giá trị sẵn)
