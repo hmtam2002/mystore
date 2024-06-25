@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     </select>
                 </div>
                 <div class="col">
-                    <input placeholder="Giá 1 sản phẩm" min="1000" step="1000" type="number" name="total_price[]"
+                    <input placeholder="Giá 1 sản phẩm" min="1000" type="number" name="total_price[]"
                         class="form-control price" required>
                 </div>
                 <div class="col">
@@ -284,23 +284,30 @@ $(document).ready(function() {
     }
 
     function formatNumber(amount) {
-        // Chuyển số thành chuỗi và chia thành mảng các phần tử phía sau dấu thập phân và dấu phân cách
         let parts = amount.toString().split(".");
-        // Thêm dấu chấm làm phân cách hàng nghìn cho phần nguyên
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        // Trả về chuỗi đã định dạng
         return parts.join(".");
     }
 
-    // Bắt sự kiện change cho các thẻ input có class 'quantity'
-    $('#nhaphangForm').on('change', '.quantity', function() {
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+        $('.product-detail').each(function() {
+            let quantity = parseFloat($(this).find('.quantity').val());
+            let price = parseFloat($(this).find('.price').val());
+            if (!isNaN(quantity) && !isNaN(price)) {
+                totalPrice += quantity * price;
+            }
+        });
+        return totalPrice;
+    }
+
+    $('#nhaphangForm').on('change', '.quantity, .price', function() {
         $('#total_quantity').text(formatNumber(calculateTotal('.quantity')));
-    });
-    $('#nhaphangForm').on('change', '.price', function() {
-        $('#total_price').text(formatNumber(calculateTotal('.price')));
+        $('#total_price').text(formatNumber(calculateTotalPrice()));
     });
 
-    // Tính tổng khi trang được tải lần đầu tiên (nếu có giá trị sẵn)
-    calculateTotal();
+    // Calculate total on initial page load (if values are present)
+    $('#total_quantity').text(formatNumber(calculateTotal('.quantity')));
+    $('#total_price').text(formatNumber(calculateTotalPrice()));
 });
 </script>
