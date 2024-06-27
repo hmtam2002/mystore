@@ -202,23 +202,6 @@
 /* footer */
 .wrap-footer {
   background: #0580547d;
-  padding: 60px 0;
-}
-
-.footer-news:nth-child(1) {
-  width: 22%;
-}
-
-.footer-index {
-  display: flex;
-  justify-content: space-between;
-}
-.footer-news:nth-child(2) {
-  width: 22%;
-}
-
-.footer-news:nth-child(3) {
-  width: 25%;
 }
 
 .logo.logo-footer {

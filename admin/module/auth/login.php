@@ -80,13 +80,13 @@ $old = getFlashData('old');
 
 <div class="container">
     <div class="row justify-content-center" style="margin-top: 50px;">
-        <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="col-lg-5 col-md-9 col">
             <h2 class="text-center text-uppercase">Đăng nhập quản trị</h2>
             <?php if (!empty($smg))
             {
                 $f->getSmg($smg, $smg_type);
             } ?>
-            <form action="" method="post">
+            <form method="post">
                 <div class="form-group mg-form">
                     <label for="email">Email</label>
                     <input name="email" type="email" class="form-control" placeholder="Địa chỉ email"

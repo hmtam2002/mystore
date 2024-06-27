@@ -76,7 +76,7 @@ $smg_type = getFlashData('smg_type');
 
 <div class="container">
     <div class="row justify-content-center" style="margin-top: 50px;">
-        <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="col-lg-5 col-md-9 col">
             <h2 class="text-center text-uppercase">Quên mật khẩu</h2>
             <?php if (!empty($smg))
             {

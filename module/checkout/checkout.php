@@ -1,34 +1,18 @@
 <?php
 
-// if (isset($_POST['name']))
-// {
-//     $filterAll['name'] = $_POST['name'];
-// }
-// if (!empty($filterAll))
+// if (isset($_SESSION['checkout']))
 // {
 //     echo '<pre>';
-//     print_r($filterAll);
+//     print_r($_SESSION['checkout']);
 //     echo '</pre>';
 // } else
 // {
-//     echo 'không có';
+//     echo 'Không có';
 // }
-if (isset($_SESSION['checkout']))
-{
-    echo '<pre>';
-    print_r($_SESSION['checkout']);
-    echo '</pre>';
-    echo '<pre>';
-    print_r($_SESSION['filterAll']);
-    echo '</pre>';
-} else
-{
-    echo 'Không có';
-}
 
 ?>
-
 <div class="wrap-content mt-3 mb-3">
+    <!-- Bạn là thành viên -->
     <div class="row ms-auto me-auto ">
         <div class="col-1 text-white bg-warning  d-flex justify-content-center align-items-center" style="width: 67px;">
             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512">
@@ -43,10 +27,11 @@ if (isset($_SESSION['checkout']))
                 ngay</a>
         </div>
     </div>
-    <div class="p-4 bg-white mt-3">
-        <span class="fw-bold">ĐỊA CHỈ GIAO HÀNG</span>
-        <hr>
-        <form method="post">
+    <!-- Form thông tin giao hàng -->
+    <form method="post">
+        <div class="p-4 bg-white mt-3">
+            <span class="fw-bold">ĐỊA CHỈ GIAO HÀNG</span>
+            <hr>
             <div class="row mb-2">
                 <div class="col-3 d-flex flex-column justify-content-center">
                     <label for="fullname">Họ và tên người nhận</label>
@@ -108,40 +93,39 @@ if (isset($_SESSION['checkout']))
                         placeholder="Nhập địa chỉ nhận hàng">
                 </div>
             </div>
-
-            <div class="p-4 position-fixed start-0 end-0 bottom-0 bg-danger">Xác nhận thanh toán</div>
-        </form>
-    </div>
-    <div class="p-4 bg-white mt-3">
-        <span class="fw-bold">PHƯƠNG THỨC VẬN CHUYỂN</span>
-        <hr>
-        <span>Giao hàng tiêu chuẩn...</span>
-    </div>
-    <div class="p-4 bg-white mt-3">
-        <span class="fw-bold">PHƯƠNG THỨC THANH TOÁN</span>
-        <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-                Thanh toán khi nhận hàng
-            </label>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label" for="flexRadioDefault2">
-                Ví VNPAY
-            </label>
+        <div class="p-4 bg-white mt-3">
+            <span class="fw-bold">PHƯƠNG THỨC VẬN CHUYỂN</span>
+            <hr>
+            <span>Giao hàng tiêu chuẩn...</span>
         </div>
+        <div class="p-4 bg-white mt-3">
+            <span class="fw-bold">PHƯƠNG THỨC THANH TOÁN</span>
+            <hr>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Thanh toán khi nhận hàng
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Ví VNPAY
+                </label>
+            </div>
 
-    </div>
-    <div class="p-4 bg-white mt-3">
-        <span class="fw-bold">THÔNG TIN KHÁC</span>
-        <hr>
-        <p>Ghi chú</p>
-        <p>Xuất hoá đơn GTGT</p>
-    </div>
-    <div class="p-4 bg-white mt-3" style="margin-bottom: 100px;">
-        <span class="fw-bold">KIỂM TRA LẠI ĐƠN HÀNG</span>
-        <hr>
-    </div>
+        </div>
+        <div class="p-4 bg-white mt-3">
+            <span class="fw-bold">THÔNG TIN KHÁC</span>
+            <hr>
+            <p>Ghi chú</p>
+            <p>Xuất hoá đơn GTGT</p>
+        </div>
+        <div class="p-4 bg-white mt-3" style="margin-bottom: 100px;">
+            <span class="fw-bold">KIỂM TRA LẠI ĐƠN HÀNG</span>
+            <hr>
+        </div>
+        <div class="p-4 position-fixed start-0 end-0 bottom-0 bg-danger">Xác nhận thanh toán</div>
+    </form>
 </div>

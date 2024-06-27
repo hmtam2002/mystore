@@ -77,37 +77,37 @@ if (!empty($token))
         $errors = getFlashData('errors');
         ?>
 
-<!-- Bảng đặt lại mật khẩu -->
-<div class="container">
-    <div class="row justify-content-center" style="margin-top: 50px;">
-        <div class="col-lg-4 col-md-6 col-sm-8">
-            <h2 class="text-center text-uppercase">Đặt lại mật khẩu</h2>
-            <?php if (!empty($smg))
+        <!-- Bảng đặt lại mật khẩu -->
+        <div class="container">
+            <div class="row justify-content-center" style="margin-top: 50px;">
+                <div class="col-lg-5 col-md-9 col">
+                    <h2 class="text-center text-uppercase">Đặt lại mật khẩu</h2>
+                    <?php if (!empty($smg))
                     {
                         $f->getSmg($smg, $smg_type);
                     } ?>
-            <form action="" method="post">
-                <div class="form-group mg-form">
-                    <label for="password">Mật khẩu</label>
-                    <input name="password" type="password" class="form-control" placeholder="Mật khẩu" required>
-                    <?php echo $f->formError('password', '<span class="error">', '</span>', $errors); ?>
+                    <form action="" method="post">
+                        <div class="form-group mg-form">
+                            <label for="password">Mật khẩu</label>
+                            <input name="password" type="password" class="form-control" placeholder="Mật khẩu" required>
+                            <?php echo $f->formError('password', '<span class="error">', '</span>', $errors); ?>
+                        </div>
+                        <div class="form-group mg-form">
+                            <label for="password_confirm">Nhập lại mật khẩu</label>
+                            <input name="password_confirm" type="password" class="form-control" placeholder="Nhập lại mật khẩu"
+                                required>
+                            <?php echo $f->formError('password_confirm', '<span class="error">', '</span>', $errors); ?>
+                        </div>
+                        <input type="hidden" name="token" value="<?php echo $token; ?>">
+                        <button type="submit" class="btn btn-primary btn-block mg-btn">Gửi</button>
+                        <hr />
+                        <p class="text-center"><a href="?module=auth&action=login">Đăng nhập</a></p>
+                    </form>
                 </div>
-                <div class="form-group mg-form">
-                    <label for="password_confirm">Nhập lại mật khẩu</label>
-                    <input name="password_confirm" type="password" class="form-control" placeholder="Nhập lại mật khẩu"
-                        required>
-                    <?php echo $f->formError('password_confirm', '<span class="error">', '</span>', $errors); ?>
-                </div>
-                <input type="hidden" name="token" value="<?php echo $token; ?>">
-                <button type="submit" class="btn btn-primary btn-block mg-btn">Gửi</button>
-                <hr />
-                <p class="text-center"><a href="?module=auth&action=login">Đăng nhập</a></p>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
 
-<?php
+        <?php
 
     } else
     {
