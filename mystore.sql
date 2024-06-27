@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th6 22, 2024 lúc 05:19 PM
+-- Thời gian đã tạo: Th6 27, 2024 lúc 06:19 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -72,7 +72,8 @@ INSERT INTO `adminToken` (`id`, `admin_id`, `token`, `create_at`) VALUES
 (95, 1, 'c458f3e0d146e137004f1a2b5a82b36cb1ad4222', '2024-06-20 08:51:53'),
 (96, 1, '9a4dea0e989021275e3b8ca9625fe15c23fe8e78', '2024-06-21 11:22:54'),
 (97, 1, '2752e61f0685c1e900f08c2009267584b8b0d9a5', '2024-06-21 11:43:07'),
-(100, 1, 'afe8072c1ac234978dddbb0ec223227b2f8be946', '2024-06-22 22:17:28');
+(100, 1, 'afe8072c1ac234978dddbb0ec223227b2f8be946', '2024-06-22 22:17:28'),
+(101, 1, '39abab48857a908c3771ce2878ab164eede3f880', '2024-06-27 19:03:36');
 
 -- --------------------------------------------------------
 
@@ -231,7 +232,10 @@ CREATE TABLE `goods_receipts` (
 --
 
 INSERT INTO `goods_receipts` (`id`, `code`, `admin_id`, `total_quantity`, `total_stock_quantity`, `create_date`) VALUES
-(51, 'Y9Cheb', 38, 208, 208, '2024-06-22 21:59:11');
+(51, 'Y9Cheb', 38, 208, 208, '2024-06-22 21:59:11'),
+(52, 'hW0hRs', 1, 22, 22, '2024-06-22 22:21:30'),
+(53, 'ggZ0gu', 1, 30, 30, '2024-06-23 08:47:53'),
+(54, '6I4IFZ', 1, 1, 1, '2024-06-23 09:40:07');
 
 -- --------------------------------------------------------
 
@@ -264,7 +268,12 @@ INSERT INTO `goods_receipt_details` (`goods_receipt_id`, `product_id`, `quantity
 (51, 67, 19, NULL, 99000),
 (51, 68, 20, NULL, 100000),
 (51, 69, 21, NULL, 101000),
-(51, 81, 22, NULL, 102000);
+(51, 81, 22, NULL, 102000),
+(52, 3, 10, NULL, 10000),
+(52, 5, 12, NULL, 20000),
+(53, 3, 10, NULL, 10000),
+(53, 81, 20, NULL, 4000),
+(54, 3, 1, NULL, 2000);
 
 -- --------------------------------------------------------
 
@@ -417,10 +426,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `author_id`, `publisher_id`, `ISBN`, `product_name`, `origin_id`, `brand_id`, `description`, `image`, `price`, `discount`, `stock_quantity`, `status`, `create_at`, `update_at`) VALUES
-(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Tắt đèn</p>                                ', '1717217445.jpeg', 90000, 90000, 10, 1, NULL, '2024-06-01 04:50:45'),
+(3, 'tat-den', 'Tắt đèn', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Tắt đèn</p>                                ', '1717217445.jpeg', 90000, 90000, 31, 1, NULL, '2024-06-25 14:04:19'),
 (4, 'leu-chong', 'Lều Chõng', 1, 9, 6, NULL, NULL, NULL, NULL, NULL, '                                <p>Lều Chõng</p>                                ', '1717217480.jpg', 90000, 90000, 11, 1, NULL, '2024-06-01 04:51:20'),
-(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, '                                                                <p>Sống Mòn</p>                                                                ', '1717217513.png', 90000, 90000, 12, 1, NULL, '2024-06-01 04:51:53'),
-(6, 'dat-rung-phuong-nam', 'Đất rừng phương nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217539.jpg', NULL, NULL, 13, 1, NULL, '2024-06-01 04:52:19'),
+(5, 'song-mon', 'Sống Mòn', 1, 9, 3, NULL, NULL, NULL, NULL, NULL, '                                                                <p>Sống Mòn</p>                                                                ', '1717217513.png', 90000, 90000, 24, 1, NULL, '2024-06-01 04:51:53'),
+(6, 'dat-rung-phuong-nam', 'Đất rừng Phương Nam', 1, 9, 10, NULL, NULL, NULL, NULL, NULL, '                                                                                                                                ', '1717217539.jpg', NULL, NULL, 13, 1, NULL, '2024-06-23 01:53:12'),
 (7, 'so-do', 'Số đỏ', 1, 14, 7, NULL, NULL, NULL, NULL, NULL, '                                <p>Số đỏ</p>                                ', '1717155420.jpg', 10000, 10000, 14, 1, NULL, '2024-05-31 11:37:00'),
 (8, 'vo-de', 'Vỡ Đê', 1, 9, 7, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217580.jpg', NULL, NULL, 15, 1, NULL, '2024-06-01 04:53:00'),
 (9, 'de-men-phieu-luu-ky', 'Dế mèn phiêu lưu ký', 1, 9, 12, NULL, NULL, NULL, NULL, NULL, '                                                                ', '1717217616.jpg', NULL, NULL, 16, 1, NULL, '2024-06-01 04:53:36'),
@@ -429,7 +438,7 @@ INSERT INTO `products` (`id`, `slug`, `title`, `product_type_id`, `genre_id`, `a
 (67, 'hoang-tu-be', 'Hoàng tử bé', 1, 3, 25, NULL, NULL, NULL, NULL, NULL, '                                <p>Hoàng tử bé</p>                                ', '1717217656.jpeg', 900000, 900000, 19, 1, '2024-05-18 08:01:22', '2024-06-01 04:54:16'),
 (68, 'so-dua', 'Sọ dừa', 1, 3, 26, NULL, NULL, NULL, NULL, NULL, '                                <p>Sọ dừa</p>                                ', '1717217673.jpeg', 80000, 80000, 20, 1, '2024-05-18 08:04:25', '2024-06-01 04:54:33'),
 (69, 'nhung-giac-mo-xanh', 'Những giấc mơ xanh', 1, 3, 27, NULL, NULL, NULL, NULL, NULL, '                                <p>Những giấc mơ xanh</p>                                ', '1717217687.jpeg', 900000, 900000, 21, 1, '2024-05-18 08:06:04', '2024-06-01 04:54:47'),
-(81, 'but-bi-do', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi đỏ', 1, 1, '                                <p>đỏ lè đỏ lét</p>                                ', '1718459765.jpg', 50000, 50000, 22, 1, '2024-05-24 14:34:05', '2024-06-15 13:56:05');
+(81, 'but-bi-do', NULL, 2, NULL, NULL, NULL, NULL, 'Bút bi đỏ', 1, 1, '                                <p>đỏ lè đỏ lét</p>                                ', '1718459765.jpg', 50000, 50000, 42, 1, '2024-05-24 14:34:05', '2024-06-15 13:56:05');
 
 -- --------------------------------------------------------
 
@@ -607,7 +616,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `adminToken`
 --
 ALTER TABLE `adminToken`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT cho bảng `authors`
@@ -643,7 +652,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT cho bảng `goods_receipts`
 --
 ALTER TABLE `goods_receipts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT cho bảng `images`
