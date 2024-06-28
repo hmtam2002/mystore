@@ -1,3 +1,7 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+}
 .bg-light-custom {
   background-color: #f0f0f0;
 }
@@ -65,11 +69,6 @@
 
 .giohang {
   padding-right: 10px;
-}
-
-/* slide */
-.slideshow {
-  overflow: hidden;
 }
 
 /* san pham */
@@ -192,11 +191,6 @@
 }
 .wrap-bangxephang {
   margin-bottom: 60px;
-}
-/* doi tac */
-.partner-box img {
-  width: 165px;
-  margin: auto;
 }
 
 /* footer */

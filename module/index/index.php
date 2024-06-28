@@ -19,7 +19,7 @@
 <?php require_once 'component/doitac.php'; ?>
 
 <!-- js tổng quát -->
-<?php require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
+<?php //require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
 
 
 <script>

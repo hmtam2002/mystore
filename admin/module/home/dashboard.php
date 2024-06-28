@@ -24,11 +24,16 @@ $data = [
             <button class="btn btn-outline-success fw-bold ">Tuần này</button>
             <button class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
+        <div class="btn-group btn-sm ms-md-5">
+            <button class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-right fa-rotate-180"></i></button>
+            <button class="btn btn-outline-danger fw-bold ">Tháng này</button>
+            <button class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
     </div>
 
     <p class="fw-bold fs-5 mt-3">Biểu đồ đơn hàng</p>
     <canvas id="myChart_donhang"></canvas>
-    <p>Biểu đồ doanh thu</p>
+    <p class="fw-bold fs-5 mt-3">Biểu đồ doanh thu</p>
     <canvas id="myChart_doanhthu"></canvas>
 
 
