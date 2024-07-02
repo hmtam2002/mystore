@@ -2,28 +2,33 @@
 <html lang="<?= _LANGUAGE ?>">
 
 <head>
-  <?php require_once _PATH_TEMPLATE . '/layout/head.php'; ?>
-  <?php require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/head.php'; ?>
+    <?php require_once _PATH_TEMPLATE . '/layout/css.php'; ?>
 </head>
+
+<!-- body -->
 
 <body class="bg-light-custom">
 
-  <!-- header -->
-  <?php require_once _PATH_TEMPLATE . '/layout/header.php'; ?>
+    <!-- header -->
+    <?php require_once _PATH_TEMPLATE . '/layout/header.php'; ?>
 
-  <!-- Nội dung -->
-  <?= $noidung ?>
-  <!-- end nội dung -->
+    <!-- Nội dung -->
 
-  <!-- footer -->
-  <?php
-  if ($url != '/thanh-toan')// sẽ ẩn đi nếu ở trang thanh toán
-  {
-    require_once _PATH_TEMPLATE . '/layout/footer.php';
-  }
-  ?>
+    <?= $noidung ?>
 
-  <?php require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
+    <!-- hết nội dung -->
+
+    <!-- footer -->
+    <?php
+    if ($url != '/thanh-toan')// sẽ ẩn đi nếu ở trang thanh toán
+    {
+        require_once _PATH_TEMPLATE . '/layout/footer.php';
+    }
+    ?>
+
+    <!-- js.php -->
+    <?php require_once _PATH_TEMPLATE . '/layout/js.php'; ?>
 
 </body>
 

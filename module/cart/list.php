@@ -85,7 +85,7 @@ if ($f->isPOST() && isset($_POST['action']) && $_POST['action'] == 'delete' && i
                     </div>
                     <div class="col-md-5 col-5">Chọn tất cả</div>
                     <div class="col-md-3 col-3 text-center">Số lượng</div>
-                    <div class="col-md-2 col text-md-center">Thành tiền</div>
+                    <div class="col-md-3 col-lg-2 col text-lg-center">Thành tiền</div>
                 </div>
                 <!-- các thành phần của giỏ hàng -->
                 <?php
@@ -107,9 +107,9 @@ if ($f->isPOST() && isset($_POST['action']) && $_POST['action'] == 'delete' && i
                         </div>
                         <div class="col-3 d-flex flex-column justify-content-between">
                             <div class="title"><?= $product["title"]; ?></div>
-                            <div class="price d-flex flex-column flex-md-row align-items-md-baseline align-items-start">
+                            <div class="price d-flex flex-column flex-lg-row align-items-lg-baseline align-items-start">
                                 <span class="fw-bold"><?= number_format($product["discount"]); ?>đ</span>
-                                <span class="text-muted ms-md-2">
+                                <span class="text-muted ms-lg-2">
                                     <del><?= number_format($product["price"]); ?>đ</del>
                                 </span>
                             </div>
@@ -160,116 +160,3 @@ if ($f->isPOST() && isset($_POST['action']) && $_POST['action'] == 'delete' && i
     </form>
 
 </div>
-<script>
-    $(document).ready(function () {
-        // Update product quantity in the session via AJAX
-        function updateQuantity(input) {
-            var quantity = input.val();
-            var productId = input.data('id');
-            $.ajax({
-                url: '', // Send request to the current file
-                method: 'POST',
-                data: {
-                    id: productId,
-                    quantity: quantity
-                },
-                success: function (response) {
-                    console.log('Session updated successfully for product ' + productId);
-                },
-                error: function () {
-                    console.log('Error updating session for product ' + productId);
-                }
-            });
-        }
-
-        // Calculate and format number with thousands separator
-        function formatNumber(amount) {
-            let parts = amount.toString().split(".");
-            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            return parts.join(".");
-        }
-
-        // Calculate total price of selected products
-        function calculateTotal() {
-            let total = 0;
-            $('.product_check:checked').each(function () {
-                let productRow = $(this).closest('.row');
-                let quantity = parseInt(productRow.find('.quantity-input').val());
-                let price = parseFloat(productRow.find('.price span.fw-bold').text().replace(/\D/g, ''));
-                total += quantity * price;
-            });
-            $('#total-amount').text(formatNumber(total) + ' đ');
-            $('#total-amount-before').text(formatNumber(total) + ' đ');
-        }
-
-        // Update product total price based on quantity
-        function updateProductTotal(productRow) {
-            let quantity = parseInt(productRow.find('.quantity-input').val());
-            let price = parseFloat(productRow.find('.price span.fw-bold').text().replace(/\D/g, ''));
-            let totalPrice = quantity * price;
-            productRow.find('.fw-bold.text-danger').text(formatNumber(totalPrice) + ' đ');
-        }
-
-        // Check trạng thái của các checkbox và cập nhật nút "Thanh toán"
-        function updateCheckoutButton() {
-            if ($('.product_check:checked').length > 0) {
-                $('#checkout-btn').prop('disabled', false);
-            } else {
-                $('#checkout-btn').prop('disabled', true);
-            }
-        }
-
-        // Checkbox event handler
-        $('input[name="checkAll"]').change(function () {
-            $('.product_check').prop('checked', $(this).prop('checked'));
-            calculateTotal();
-            updateCheckoutButton();
-        });
-
-        $('.product_check').change(function () {
-            calculateTotal();
-            updateCheckoutButton();
-        });
-
-        // Quantity input event handler
-        $('input[type="number"]').on('input', function () {
-            let productRow = $(this).closest('.row');
-            updateQuantity($(this));
-            updateProductTotal(productRow);
-            calculateTotal();
-            updateCheckoutButton();
-        });
-
-        // Increase and decrease buttons event handler
-        $('.quantity-controls button').on('click', function () {
-            let input = $(this).siblings('input[type="number"]');
-            let currentVal = parseInt(input.val());
-            if ($(this).hasClass('increase')) {
-                input.val(currentVal + 1).trigger('input');
-            } else if ($(this).hasClass('decrease') && currentVal > 1) {
-                input.val(currentVal - 1).trigger('input');
-            }
-        });
-
-        // Xoá sản phẩm khỏi giỏ hàng
-        $('.btn-delete').click(function () {
-            let productId = $(this).data('id');
-            $.post('', {
-                action: 'delete',
-                id: productId
-            }, function (response) {
-                let result = JSON.parse(response);
-                if (result.status === 'success') {
-                    location.reload();
-                } else {
-                    alert(result.message);
-                }
-            });
-        });
-
-        // Initialize total amount to 0
-        $('#total-amount').text('0 đ');
-        $('#total-amount-before').text('0 đ');
-        updateCheckoutButton();
-    });
-</script>

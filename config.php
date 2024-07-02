@@ -41,3 +41,15 @@ class DatabaseConfig
         return new mysqli($this->servername, $this->username, $this->password, $this->database);
     }
 }
+
+// config vnpay
+$vnp_TmnCode = "RYHGW29P"; //Mã định danh merchant kết nối (Terminal Id)
+$vnp_HashSecret = "KEP0UI9CLDGEZ4UFUEB81QBOZY3M12G9"; //Secret key
+$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+$vnp_Returnurl = _HOST . '/thanh-toan/';
+$vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
+$apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+//Config input format
+//Expire
+$startTime = date("YmdHis");
+$expire = date('YmdHis', strtotime('+5 minutes', strtotime($startTime)));

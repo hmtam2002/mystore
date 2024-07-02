@@ -1,4 +1,3 @@
-<!-- sản phẩm tab -->
 <div class="wrap-bangxephang">
     <div class="wrap-content bg-white mt-4 p-4 pb-5 rounded-3">
         <div class="title-bangxephang">

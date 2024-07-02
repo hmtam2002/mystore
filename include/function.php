@@ -295,7 +295,7 @@ class func
     public function route()
     {
         $url = isset($_SERVER['REQUEST_URI']) ? rtrim($_SERVER['REQUEST_URI'], '/') : '/';
-        ;
+
         $base_path = '/' . _PROJECT_NAME;
 
         if (strpos($url, $base_path) === 0)

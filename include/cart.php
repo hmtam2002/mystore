@@ -66,4 +66,13 @@ class cart
         }
         return $total;
     }
+    public function totalCheckout($checkout = [])
+    {
+        $total = 0;
+        foreach ($checkout as $item)
+        {
+            $total += $item['discount'] * $item['quantity'];
+        }
+        return $total;
+    }
 }
