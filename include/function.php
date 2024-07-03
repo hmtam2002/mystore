@@ -292,6 +292,7 @@ class func
             return $defaultImage;
         }
     }
+    // Hàm lấy đường dẫn
     public function route()
     {
         $url = isset($_SERVER['REQUEST_URI']) ? rtrim($_SERVER['REQUEST_URI'], '/') : '/';

@@ -34,6 +34,7 @@ if ($f->isPOST() && isset($_POST['xacnhanthanhtoan']))
         echo '</pre>';
         echo 'Tổng giá trị đơn hàng: ' . $tongdon;
         echo '<br>Tiền ship: ' . $tienship;
+        $f->redirect(_HOST . '/thanh-toan/?redirect=success');
     } else
     {
         $vnp_TxnRef = rand(1, 10000); //Mã giao dịch thanh toán tham chiếu của merchant
@@ -87,7 +88,7 @@ if ($f->isPOST() && isset($_POST['maqh']))
         </div>
     </div>
     <!-- Form thông tin giao hàng -->
-    <form method="post">
+    <form method="post" id="form-thanhtoan">
         <div class="p-4 bg-white mt-3">
             <span class="fw-bold">ĐỊA CHỈ GIAO HÀNG</span>
             <hr>
@@ -175,7 +176,7 @@ if ($f->isPOST() && isset($_POST['maqh']))
             <hr>
             <div class="form-check">
                 <input value="vnpay" class="form-check-input" type="radio" name="flexRadioDefault"
-                    id="flexRadioDefault2" checked>
+                    id="flexRadioDefault2">
                 <label class="form-check-label" for="flexRadioDefault2">
                     Ví VNPAY
                 </label>
@@ -186,6 +187,9 @@ if ($f->isPOST() && isset($_POST['maqh']))
                     Thanh toán bằng tiền mặt khi nhận hàng
                 </label>
             </div>
+            <span id="show-loithanhtoan" class="text-danger fw-bold d-none ms-2 fst-italic">*Vui lòng chọn 1 phương thức
+                thanh
+                toán</span>
         </div>
         <div class="p-4 bg-white mt-3">
             <span class="fw-bold">THÔNG TIN KHÁC</span>
@@ -236,7 +240,7 @@ if ($f->isPOST() && isset($_POST['maqh']))
                 </div>
             </div>
         </div>
-        <div class="p-4 bg-white mt-3" style="margin-bottom: 300px;">
+        <div class="p-4 bg-white mt-3" style="margin-bottom: 200px;">
             <span class="fw-bold">KIỂM TRA LẠI ĐƠN HÀNG</span>
             <hr>
             <?php
@@ -252,18 +256,18 @@ if ($f->isPOST() && isset($_POST['maqh']))
                         <?= $product["title"]; ?>
                     </div>
                     <div class="col">
-                        <span class="fw-bold"><?= number_format($product["price"]) ?> đ</span><br>
-                        <span class="text-secondary"><del><?= number_format($product["discount"]) ?> đ</del></span>
+                        <span class="fw-bold"><?= number_format($product["discount"]) ?> đ</span><br>
+                        <span class="text-secondary"><del><?= number_format($product["price"]) ?> đ</del></span>
                     </div>
                     <div class="col-1">1</div>
                     <div class="col text-danger fw-bold">
-                        <p><?= number_format($product["discount"]) ?> đ</p>
+                        <p><?= number_format($product["discount"] * $product["quantity"]) ?> đ</p>
                     </div>
                 </div>
                 <?php
             endforeach ?>
         </div>
-        <div class="shadow-lg position-fixed start-0 end-0 bottom-0 bg-white">
+        <div style="box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.5);" class="position-fixed start-0 end-0 bottom-0 bg-white">
             <div class="wrap-content py-3 row align-items-center">
                 <div id="tinhtien" class="row mb-3 d-none">
                     <div class="col d-flex flex-column align-items-end">
@@ -274,7 +278,7 @@ if ($f->isPOST() && isset($_POST['maqh']))
                     <div class="col-4 col-md-3 col-lg-2 d-flex flex-column align-items-end">
                         <span><?= number_format($c->totalCheckout($_SESSION['checkout'])) ?> đ</span>
                         <span id="shipfooter">a</span>
-                        <span id="tongsotien" class="fw-bold fs-5"></span>
+                        <span id="tongsotien" class="fw-bold fs-5 text-danger"></span>
                     </div>
                 </div>
                 <hr>
@@ -357,6 +361,25 @@ if ($f->isPOST() && isset($_POST['maqh']))
             $('#tienship').html(htmlContent);
 
             $('#tinhtien').removeClass('d-none');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#form-thanhtoan').on('submit', function (event) {
+            var isChecked = $('input[name="flexRadioDefault"]:checked').length > 0;
+
+            if (!isChecked) {
+                $('#show-loithanhtoan').removeClass('d-none');
+                event.preventDefault();
+                $('#show-loithanhtoan')[0].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                event.preventDefault();
+            } else {
+                $('#show-loithanhtoan').addClass('d-none');
+            }
         });
     });
 </script>
