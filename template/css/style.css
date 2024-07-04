@@ -501,3 +501,9 @@ body {
   .select2-selection__rendered {
   line-height: 36px;
 }
+.nav-item a:hover {
+  background-color: #e0e0e0;
+}
+.nav-link.active {
+  background-color: #e0e0e0;
+}

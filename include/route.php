@@ -92,9 +92,9 @@ if (isset($_GET['vnp_ResponseCode']))
                 }
                 break;
             case '/tai-khoan':
-                if (file_exists(_PATH . '/module/custommer/detail.php'))
+                if (file_exists(_PATH . '/module/custommer/custommer.php'))
                 {
-                    require_once _PATH . '/module/custommer/detail.php';
+                    require_once _PATH . '/module/custommer/custommer.php';
                     $noidung = ob_get_clean();
                 }
                 break;
@@ -102,6 +102,13 @@ if (isset($_GET['vnp_ResponseCode']))
                 if (file_exists(_PATH . '/module/checkout/checkout.php'))
                 {
                     require_once _PATH . '/module/checkout/checkout.php';
+                    $noidung = ob_get_clean();
+                }
+                break;
+            case '/tra-cuu-don-hang':
+                if (file_exists(_PATH . '/module/tracuudonhang/tracuudonhang.php'))
+                {
+                    require_once _PATH . '/module/tracuudonhang/tracuudonhang.php';
                     $noidung = ob_get_clean();
                 }
                 break;

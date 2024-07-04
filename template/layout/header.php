@@ -13,7 +13,7 @@
                 <input type="search" name="" id="" placeholder="Tìm kiếm..." />
                 <input type="button" value="Gửi" placeholder="Gửi" />
             </div>
-            <div class="col-6 col-md-3 d-flex align-items-center justify-content-between">
+            <div class="col-9 col-md-6 col-lg-4 d-flex align-items-center justify-content-between">
                 <div class="d-flex flex-row">
                     <div class="container-cart position-relative">
                         <a href="<?= _HOST . '/gio-hang' ?>" class="text-decoration-none">
@@ -56,7 +56,7 @@
                                 </div>
                                 <?php
                             endforeach ?>
-                            <div class="row ms-auto me-auto p-0 mt-4">
+                            <div class="row mx-auto p-0 mt-4">
                                 <div class="col-4 p-0 d-flex flex-column">
                                     <span>Tổng cộng</span>
                                     <span class="text-danger fw-bold"><?= number_format($c->totalCart()) ?>đ</span>
@@ -69,12 +69,20 @@
                             </div>
                         </div>
                     </div>
-                    <a href="<?= _HOST . '/tai-khoan' ?>" class="text-decoration-none">
+                    <a href="<?= _HOST . '/tai-khoan' ?>" class="me-2 text-decoration-none">
                         <div class="taikhoan d-flex flex-column">
                             <div class="mt-2 text-secondary m-auto">
                                 <i class="fas fa-user"></i>
                             </div>
                             <span class="text-secondary">Tài khoản</span>
+                        </div>
+                    </a>
+                    <a href="<?= _HOST . '/tra-cuu-don-hang' ?>" class="text-decoration-none">
+                        <div class="taikhoan d-flex flex-column">
+                            <div class="mt-2 text-secondary m-auto">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <span class="text-secondary text-center">Tra cứu đơn hàng</span>
                         </div>
                     </a>
                 </div>
