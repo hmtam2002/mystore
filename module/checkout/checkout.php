@@ -1,14 +1,14 @@
 <?php
 
-// if (isset($_SESSION['checkout']))
-// {
-//     echo '<pre>';
-//     print_r($_SESSION['checkout']);
-//     echo '</pre>';
-// } else
-// {
-//     echo 'Không có';
-// }
+if (isset($_SESSION['checkout']))
+{
+    echo '<pre>';
+    print_r($_SESSION['checkout']);
+    echo '</pre>';
+} else
+{
+    echo 'Không có';
+}
 if (empty($_SESSION['checkout']))
 {
     $f->redirect(_HOST);
@@ -34,9 +34,82 @@ if ($f->isPOST() && isset($_POST['xacnhanthanhtoan']))
         echo '</pre>';
         echo 'Tổng giá trị đơn hàng: ' . $tongdon;
         echo '<br>Tiền ship: ' . $tienship;
-        $f->redirect(_HOST . '/thanh-toan/?redirect=success');
+        $loi = false;
+        $code = $f->generateOrderId();
+        $orderInsert = [
+            'code' => $code,
+            'order_date' => date('Y-m-d H:i:s'),
+            'total_price' => $tongdon,
+            'fullname' => $fillterAll['fullname'],
+            'email' => $fillterAll['email'],
+            'phone_number' => $fillterAll['phone_number'],
+            'tinh' => $fillterAll['tinh'],
+            'huyen' => $fillterAll['huyen'],
+            'xa' => $fillterAll['xa'],
+            'address' => $fillterAll['address'],
+            'payments' => $fillterAll['flexRadioDefault'],
+            'note' => $fillterAll['ghichu'],
+            'gtgt-fullname' => $fillterAll['gtgt_fullname'],
+            'gtgt-company_name' => $fillterAll['gtgt_company-name'],
+            'gtgt-address' => $fillterAll['gtgt_company-address'],
+            'gtgt-mst' => $fillterAll['gtgt_company-mst']
+        ];
+        if ($db->insert('orders', $orderInsert))
+        {
+            $orderId = $db->oneRaw("SELECT id FROM orders WHERE code = '$code'")['id'];
+            echo 'id là: ' . $orderId;
+            foreach ($_SESSION['checkout'] as $item)
+            {
+                $orderDetailInsert = [
+                    'order_id' => $orderId,
+                    'product_id' => $item['id'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                    'discount' => $item['discount'],
+                ];
+                echo '<pre>';
+                print_r($orderDetailInsert);
+                echo '</pre>';
+                if (!$db->insert('order_details', $orderDetailInsert))
+                {
+                    $loi = true;
+                }
+            }
+        }
+        if ($loi)
+        {
+            echo 'Có lỗi';
+        } else
+        {
+            $result = [];
+
+            foreach ($_SESSION['cart'] as $item1)
+            {
+                $found = false;
+                foreach ($_SESSION['checkout'] as $item2)
+                {
+                    if ($item1['id'] == $item2['id'])
+                    {
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found)
+                {
+                    $result[] = $item1;
+                }
+            }
+            $_SESSION['cart'] = $result;
+
+            unset($_SESSION['checkout']);
+            // $f->redirect(_HOST . '/thanh-toan/?redirect=success');
+        }
     } else
     {
+        $code = $f->generateOrderId();
+        $fillterAll['code'] = $code;
+        $fillterAll['tongdon'] = $tongdon;
+        setFlashData('order', $fillterAll);
         $vnp_TxnRef = rand(1, 10000); //Mã giao dịch thanh toán tham chiếu của merchant
         $vnp_Amount = $tongdon + $tienship; // Số tiền thanh toán
         $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán

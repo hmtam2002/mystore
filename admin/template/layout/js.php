@@ -7,7 +7,7 @@ if ($data['action'] == 'add' || $data['action'] == 'edit')
 { ?>
 
     <script src="<?= _WEB_HOST_TEMPLATE ?>/ckeditor/ckeditor.js"></script>
-    <script src="<?= _HOST . '/admin/template/js/custom.js?ver=' . rand(100, 999) ?>"></script>
+    <!-- <script src="<?= _HOST . '/admin/template/js/custom.js?ver=' . rand(100, 999) ?>"></script> -->
 
     <?php
 } ?>

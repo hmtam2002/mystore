@@ -19,90 +19,42 @@
             <th>Mã đơn</th>
             <th>Họ tên</th>
             <th>Ngày đặt</th>
-            <th>Hình thức thanh toán</th>
-            <th>Tổng giá</th>
-            <th>Tình trạng</th>
+            <th class="text-center">Hình thức</th>
+            <th class="text-end">Tổng giá</th>
+            <th class="text-center">Tình trạng</th>
             <!-- <th width="5%">Chép</th>-->
             <th width="5%">Sửa</th>
-            <th width="5%">Xoá</th>
         </thead>
         <tbody>
+            <?php
+            $order_list = $db->getRaw('SELECT * FROM orders');
+            foreach ($order_list as $order):
+                ?>
             <tr>
-                <td>we424ei</td>
-                <td>Huỳnh Minh Tâm</td>
-                <td><?= date('h:i:s A - Y/m/d') ?></td>
-                <td>Ship Cod</td>
-                <td>90.000đ</td>
-                <td>Đang giao</td>
+                <td>
+                    <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>"
+                        class="text-decoration-none text-danger"><?= $order['code'] ?></a>
+                </td>
+                <td>
+                    <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>"
+                        class="text-decoration-none "><?= $order['fullname'] ?></a>
+                </td>
+                <td>
+                    <?= $order['order_date'] ?>
+                </td>
+                <td class="text-uppercase text-center">
+                    <?= $order['payments'] ?>
+                </td>
+                <td class="text-end fw-bold"><?= number_format($order['total_price']) ?> đ</td>
+                <td class="text-center"><?= $order['status'] ?></td>
                 <!-- nút sửa -->
                 <td>
-                    <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
+                    <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                 </td>
-                <!-- nút xoá -->
-                <td>
-                    <a href="?cmd=book&act=delete&id=<?= $item['id'] ?>"
-                        onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
-
             </tr>
-            <?php
-            $dem = 0;
-            foreach ($listProduct as $item)
-            {
-                $dem += 1;
-                ?>
-                <tr>
-                    <td>
-                        <?= $dem ?>
-                    </td>
-                    <td>
-                        <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>">
-                            <img style="max-width: 90px;" src="<?= $f->image_exists($item['image']) ?>" alt="Ảnh xem trước">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>" class="text-decoration-none text-dark">
-                            <?= $item['title'] ?>
-                        </a>
-                    </td>
-                    <td>
-                        <?= $item['genre_name'] ?>
-                    </td>
-                    <td>
-                        <?= $item['author_name'] ?>
-                    </td>
-                    <td>
-                        <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>&status=<?= $item['status'] ?>">
-                            <?= $item['status'] == 1 ? '<button class="btn btn-success btn-sm">Mở</button>' : '<button class="btn btn-danger btn-sm">Đóng</button>' ?>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="?cmd=book&act=copy&id=<?= $item['id'] ?>" class="btn btn-success btn-sm">
-                            <i class="fa-regular fa-copy"></i>
-                        </a>
-                    </td>
-                    <!-- nút sửa -->
-                    <td>
-                        <a href="?cmd=book&act=edit&id=<?= $item['id'] ?>" class="btn btn-primary btn-sm">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </td>
-                    <!-- nút xoá -->
-                    <td>
-                        <a href="?cmd=book&act=delete&id=<?= $item['id'] ?>"
-                            onclick="return confirm('Bạn có chắc chắc muốn xoá không')" class="btn btn-danger btn-sm">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-
-                </tr>
-                <?php
-            }
-            ?>
+            <?php endforeach ?>
         </tbody>
     </table>
 </main>
