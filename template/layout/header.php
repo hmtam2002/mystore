@@ -38,23 +38,23 @@
                             <?php
                             foreach ($orderListOffline as $item):
                                 ?>
-                                <div class="row ms-auto me-auto mb-2">
-                                    <div class="image_cart_mini" style="width: 70px; height:70px">
-                                        <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>"
-                                            class="img-fluid" alt="<?= $item["title"]; ?>">
-                                    </div>
-                                    <div class="col d-flex flex-column justify-content-between">
-                                        <span class="text-muted"><?= $item["title"]; ?></span>
-                                        <div class="price d-flex">
-                                            <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
-                                            <span class="text-muted ms-2 me-2">
-                                                <del><?= number_format($item["price"]); ?>đ</del>
-                                            </span>
-                                            <span> x<?= $item['quantity'] ?></span>
-                                        </div>
+                            <div class="row ms-auto me-auto mb-2">
+                                <div class="image_cart_mini" style="width: 70px; height:70px">
+                                    <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>"
+                                        class="img-fluid" alt="<?= $item["title"]; ?>">
+                                </div>
+                                <div class="col d-flex flex-column justify-content-between">
+                                    <span class="text-muted"><?= $item["title"]; ?></span>
+                                    <div class="price d-flex">
+                                        <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
+                                        <span class="text-muted ms-2 me-2">
+                                            <del><?= number_format($item["price"]); ?>đ</del>
+                                        </span>
+                                        <span> x<?= $item['quantity'] ?></span>
                                     </div>
                                 </div>
-                                <?php
+                            </div>
+                            <?php
                             endforeach ?>
                             <div class="row mx-auto p-0 mt-4">
                                 <div class="col-4 p-0 d-flex flex-column">
@@ -69,14 +69,15 @@
                             </div>
                         </div>
                     </div>
-                    <a href="<?= _HOST . '/tai-khoan' ?>" class="me-2 text-decoration-none">
-                        <div class="taikhoan d-flex flex-column">
-                            <div class="mt-2 text-secondary m-auto">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <span class="text-secondary">Tài khoản</span>
+                    <?php
+                    /*<a href="<?= _HOST . '/tai-khoan' ?>" class="me-2 text-decoration-none">
+                    <div class="taikhoan d-flex flex-column">
+                        <div class="mt-2 text-secondary m-auto">
+                            <i class="fas fa-user"></i>
                         </div>
-                    </a>
+                        <span class="text-secondary">Tài khoản</span>
+                    </div>
+                    </a>*/ ?>
                     <a href="<?= _HOST . '/tra-cuu-don-hang' ?>" class="text-decoration-none">
                         <div class="taikhoan d-flex flex-column">
                             <div class="mt-2 text-secondary m-auto">
@@ -101,10 +102,10 @@
                         <div class="offcanvas-body">
                             <div class="menu-ul">
                                 <li>
-                                    <a href="">Trang chủ</a>
+                                    <a href="<?= _HOST ?>">Trang chủ</a>
                                 </li>
                                 <li>
-                                    <a href="">Khuyến mãi</a>
+                                    <a href="<?= _HOST ?>/khuyen-mai">Khuyến mãi</a>
                                 </li>
                                 <li>
                                     <a href="">Sách Văn Học</a>
@@ -121,9 +122,7 @@
                                 <li>
                                     <a href="<?= _HOST ?>/van-phong-pham">Văn phòng phẩm</a>
                                 </li>
-                                <li>
-                                    <a href="<?= _HOST ?>/bai-viet">Bài viết</a>
-                                </li>
+
                             </div>
                         </div>
                     </div>

@@ -27,7 +27,7 @@
         </thead>
         <tbody>
             <?php
-            $order_list = $db->getRaw('SELECT * FROM orders');
+            $order_list = $db->getRaw('SELECT * FROM orders ORDER BY order_date DESC');
             foreach ($order_list as $order):
                 ?>
             <tr>

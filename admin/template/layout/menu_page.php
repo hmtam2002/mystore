@@ -149,6 +149,12 @@
                     <i class="bi bi-person me-2"></i> Quản lý tài khoản
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center <?= ($data['module'] == 'setting') ? 'active' : ''; ?>"
+                    href="?cmd=setting&act=list">
+                    <i class="bi bi-gear me-2"></i> Cài đặt
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

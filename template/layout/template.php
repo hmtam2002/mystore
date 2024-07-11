@@ -21,7 +21,8 @@
 
     <!-- footer -->
     <?php
-    if ($url != '/thanh-toan')// sẽ ẩn đi nếu ở trang thanh toán
+
+    if ($url != '/thanh-toan' || !empty(parse_url($_SERVER['REQUEST_URI'])['query']))// sẽ ẩn đi nếu ở trang thanh toán
     {
         require_once _PATH_TEMPLATE . '/layout/footer.php';
     }
