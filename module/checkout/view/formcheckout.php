@@ -167,25 +167,25 @@
             <?php
             foreach ($_SESSION['checkout'] as $product):
                 ?>
-                <div class="row mb-3">
-                    <div class="col-2 d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" style="max-height: 100px;"
-                            src="<?= _HOST_ASSETS . '/images/product/' . $product["image"]; ?>"
-                            alt="<?= $product["title"]; ?>">
-                    </div>
-                    <div class="col-md-6 col-3">
-                        <?= $product["title"]; ?>
-                    </div>
-                    <div class="col">
-                        <span class="fw-bold"><?= number_format($product["discount"]) ?> đ</span><br>
-                        <span class="text-secondary"><del><?= number_format($product["price"]) ?> đ</del></span>
-                    </div>
-                    <div class="col-1"><?= $product['quantity'] ?></div>
-                    <div class="col text-danger fw-bold">
-                        <p><?= number_format($product["discount"] * $product["quantity"]) ?> đ</p>
-                    </div>
+            <div class="row mb-3">
+                <div class="col-2 d-flex align-items-center justify-content-center">
+                    <img class="img-fluid" style="max-height: 100px;"
+                        src="<?= _HOST_ASSETS . '/images/product/' . $product["image"]; ?>"
+                        alt="<?= $product["title"]; ?>">
                 </div>
-                <?php
+                <div class="col-md-6 col-3">
+                    <?= $product["title"]; ?>
+                </div>
+                <div class="col">
+                    <span class="fw-bold"><?= number_format($product["discount"]) ?> đ</span><br>
+                    <span class="text-secondary"><del><?= number_format($product["price"]) ?> đ</del></span>
+                </div>
+                <div class="col-1"><?= $product['quantity'] ?></div>
+                <div class="col text-danger fw-bold">
+                    <p><?= number_format($product["discount"] * $product["quantity"]) ?> đ</p>
+                </div>
+            </div>
+            <?php
             endforeach ?>
         </div>
         <div style="box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.5);" class="position-fixed start-0 end-0 bottom-0 bg-white">
@@ -239,13 +239,14 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
 $(document).ready(function() {
     function formatNumber(amount) {
         let parts = amount.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         return parts.join(".");
     }
+
     $('#form-thanhtoan').submit(function(event) {
         var selectedValue = $('input[name="flexRadioDefault"]:checked').val();
 
@@ -276,11 +277,10 @@ $(document).ready(function() {
                         "&accountName=HUYNH MINH TAM";
                     $('#img-pay').attr('src', QR); // Đổi thuộc tính src của thẻ img
                     setTimeout(() => {
-                        setInterval(() => {
+                        intervalId = setInterval(() => {
                             checkpaid(code, tiendon);
                         }, 1000);
                     }, 20000);
-                    // checkpaid(code, tiendon);
                     // Hiển thị popup
                     $('#checkout-popup').removeClass('d-none').css('display', 'flex');
                 },
@@ -288,7 +288,10 @@ $(document).ready(function() {
                     console.error('An error occurred while processing the request.');
                 }
             });
-            isSuccess = false;
+
+            var isSuccess = false;
+            var intervalId;
+
             async function checkpaid(content, price) {
                 if (isSuccess) {
                     return;
@@ -299,11 +302,19 @@ $(document).ready(function() {
                         );
                         const data = await response.json();
                         const lastPaid = data.data[data.data.length - 1];
-                        lastPrice = lastPaid["Giá trị"];
-                        lastContent = lastPaid["Mô tả"];
+                        const lastPrice = lastPaid["Giá trị"];
+                        const lastContent = lastPaid["Mô tả"];
                         if (lastPrice >= price && lastContent.includes(content)) {
-                            alert("Thành công");
+                            // alert("Thành công");
                             isSuccess = true;
+                            clearInterval(intervalId);
+                            // Thêm input ẩn vào form để gửi giá trị xác định cho nút submit
+                            $('<input>').attr({
+                                type: 'hidden',
+                                name: 'xacnhanthanhtoan',
+                                value: 'true'
+                            }).appendTo('#form-thanhtoan');
+                            $('#form-thanhtoan').off('submit').submit();
                         } else {
                             console.log('không thành công');
                         }
@@ -312,187 +323,94 @@ $(document).ready(function() {
                     }
                 }
             }
+
+            $('#closePopup').click(function() {
+                // Ẩn popup và dừng việc gọi API
+                $('#checkout-popup').addClass('d-none');
+                clearInterval(intervalId);
+            });
         }
     });
-    $('#closePopup').click(function() {
-        // Ẩn popup
-        $('#checkout-popup').addClass('d-none');
-    });
 });
-</script> -->
+</script>
 
 <script>
-    $(document).ready(function () {
+$(document).ready(function() {
+    $('#tinh').change(function() {
+        var matp = $(this).val();
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: {
+                matp: matp
+            },
+            success: function(response) {
+                $('#huyen').html(response);
+            }
+        });
+    });
+    $('#huyen').change(function() {
+        var maqh = $(this).val();
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: {
+                maqh: maqh
+            },
+            success: function(response) {
+                $('#xa').html(response);
+            }
+        });
+    });
+    $('#xa').change(function() {
         function formatNumber(amount) {
             let parts = amount.toString().split(".");
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return parts.join(".");
         }
+        var matp = $("#tinh").val();
+        // Khởi tạo biến nội dung HTML chung
+        var htmlContent =
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ff0000" d="M448 256A192 192 0 1 0 64 256a192 192 0 1 0 384 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 80a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zM224 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" /></svg>';
 
-        $('#form-thanhtoan').submit(function (event) {
-            var selectedValue = $('input[name="flexRadioDefault"]:checked').val();
+        var tiendon = <?= $c->totalCheckout($_SESSION['checkout']) ?>;
+        // Cập nhật phí vận chuyển dựa trên mã tỉnh/thành phố
+        if (matp == '01' || matp == '79') {
+            htmlContent += '<span class="fw-bold"> Giao hàng tiêu chuẩn: 20.000 đ</span>';
+            $('#shipfooter').text('20.000 đ');
+            tiendon += 20000;
+        } else {
+            htmlContent += '<span class="fw-bold"> Giao hàng tiêu chuẩn: 32.000 đ</span>';
+            $('#shipfooter').text('32.000 đ');
+            tiendon += 32000;
+        }
 
-            if (selectedValue === 'vietqr') {
-                event.preventDefault(); // Ngăn chặn submit form
 
-                // Gửi yêu cầu AJAX đến tệp PHP
-                $.ajax({
-                    url: '',
-                    type: 'POST',
-                    data: {
-                        action: "getcode"
-                    },
-                    success: function (response) {
-                        var code = response;
-                        var tiendon = <?= $c->totalCheckout($_SESSION['checkout']) ?>;
-                        var matp = $("#tinh").val();
-                        if (matp == '01' || matp == '79') {
-                            tiendon += 20000;
-                        } else {
-                            tiendon += 32000;
-                        }
-                        $("#code").text(code);
-                        $("#tiendon").text(formatNumber(tiendon));
-                        var QR =
-                            "https://img.vietqr.io/image/Vietinbank-103875525256-compact2.png?amount=" +
-                            tiendon + "&addInfo=MUASACH.VN THANHTOANDONHANG " + code +
-                            "&accountName=HUYNH MINH TAM";
-                        $('#img-pay').attr('src', QR); // Đổi thuộc tính src của thẻ img
-                        setTimeout(() => {
-                            intervalId = setInterval(() => {
-                                checkpaid(code, tiendon);
-                            }, 1000);
-                        }, 20000);
-                        // Hiển thị popup
-                        $('#checkout-popup').removeClass('d-none').css('display', 'flex');
-                    },
-                    error: function () {
-                        console.error('An error occurred while processing the request.');
-                    }
-                });
+        $("#tongsotien").text(formatNumber(tiendon) + ' đ');
 
-                var isSuccess = false;
-                var intervalId;
+        // Đặt nội dung vào phần tử #tienship
+        $('#tienship').html(htmlContent);
 
-                async function checkpaid(content, price) {
-                    if (isSuccess) {
-                        return;
-                    } else {
-                        try {
-                            const response = await fetch(
-                                "https://script.google.com/macros/s/AKfycbzOZqcyCYqnJSfao-td0YWU1lQ6f_XuTYul7qvNySDXchmR0hi-wj8FkkEUKDknyC1QBg/exec"
-                            );
-                            const data = await response.json();
-                            const lastPaid = data.data[data.data.length - 1];
-                            const lastPrice = lastPaid["Giá trị"];
-                            const lastContent = lastPaid["Mô tả"];
-                            if (lastPrice >= price && lastContent.includes(content)) {
-                                // alert("Thành công");
-                                isSuccess = true;
-                                clearInterval(intervalId);
-                                // Thêm input ẩn vào form để gửi giá trị xác định cho nút submit
-                                $('<input>').attr({
-                                    type: 'hidden',
-                                    name: 'xacnhanthanhtoan',
-                                    value: 'true'
-                                }).appendTo('#form-thanhtoan');
-                                $('#form-thanhtoan').off('submit').submit();
-                            } else {
-                                console.log('không thành công');
-                            }
-                        } catch {
-                            console.error('Lỗi');
-                        }
-                    }
-                }
-
-                $('#closePopup').click(function () {
-                    // Ẩn popup và dừng việc gọi API
-                    $('#checkout-popup').addClass('d-none');
-                    clearInterval(intervalId);
-                });
-            }
-        });
+        $('#tinhtien').removeClass('d-none');
     });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#tinh').change(function () {
-            var matp = $(this).val();
-            $.ajax({
-                url: '',
-                type: 'post',
-                data: {
-                    matp: matp
-                },
-                success: function (response) {
-                    $('#huyen').html(response);
-                }
-            });
-        });
-        $('#huyen').change(function () {
-            var maqh = $(this).val();
-            $.ajax({
-                url: '',
-                type: 'post',
-                data: {
-                    maqh: maqh
-                },
-                success: function (response) {
-                    $('#xa').html(response);
-                }
-            });
-        });
-        $('#xa').change(function () {
-            function formatNumber(amount) {
-                let parts = amount.toString().split(".");
-                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                return parts.join(".");
-            }
-            var matp = $("#tinh").val();
-            // Khởi tạo biến nội dung HTML chung
-            var htmlContent =
-                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ff0000" d="M448 256A192 192 0 1 0 64 256a192 192 0 1 0 384 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 80a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zM224 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" /></svg>';
-
-            var tiendon = <?= $c->totalCheckout($_SESSION['checkout']) ?>;
-            // Cập nhật phí vận chuyển dựa trên mã tỉnh/thành phố
-            if (matp == '01' || matp == '79') {
-                htmlContent += '<span class="fw-bold"> Giao hàng tiêu chuẩn: 20.000 đ</span>';
-                $('#shipfooter').text('20.000 đ');
-                tiendon += 20000;
-            } else {
-                htmlContent += '<span class="fw-bold"> Giao hàng tiêu chuẩn: 32.000 đ</span>';
-                $('#shipfooter').text('32.000 đ');
-                tiendon += 32000;
-            }
-
-
-            $("#tongsotien").text(formatNumber(tiendon) + ' đ');
-
-            // Đặt nội dung vào phần tử #tienship
-            $('#tienship').html(htmlContent);
-
-            $('#tinhtien').removeClass('d-none');
-        });
-    });
+});
 </script>
 <script>
-    $(document).ready(function () {
-        $('#form-thanhtoan').on('submit', function (event) {
-            var isChecked = $('input[name="flexRadioDefault"]:checked').length > 0;
+$(document).ready(function() {
+    $('#form-thanhtoan').on('submit', function(event) {
+        var isChecked = $('input[name="flexRadioDefault"]:checked').length > 0;
 
-            if (!isChecked) {
-                $('#show-loithanhtoan').removeClass('d-none');
-                event.preventDefault();
-                $('#show-loithanhtoan')[0].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-                event.preventDefault();
-            } else {
-                $('#show-loithanhtoan').addClass('d-none');
-            }
-        });
+        if (!isChecked) {
+            $('#show-loithanhtoan').removeClass('d-none');
+            event.preventDefault();
+            $('#show-loithanhtoan')[0].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            event.preventDefault();
+        } else {
+            $('#show-loithanhtoan').addClass('d-none');
+        }
     });
+});
 </script>

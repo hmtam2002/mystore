@@ -1,3 +1,10 @@
+<?php
+
+$web_info = $db->getRaw("SELECT *FROM setting");
+
+
+?>
+
 <!-- footer -->
 <div class="wrap-footer py-5">
     <div class="wrap-content d-flex flex-column flex-md-row justify-content-md-between">
@@ -6,8 +13,8 @@
                 <img src="<?= _HOST_ASSETS ?>/images/logo.png" alt="" />
             </div>
             <div class="footer-info">
-                <p> Hotline: 1900 6656</p>
-                <p> Email: hotro@nhasachphuongnam.com</p>
+                <p> Hotline: <?= $web_info[0]['seting_value'] ?></p>
+                <p> Email: <?= $web_info[1]['seting_value'] ?></p>
             </div>
         </div>
         <div class="footer-news mb-3 mb-md-0">
@@ -20,10 +27,10 @@
                 foreach ($new_list as $items)
                 {
                     ?>
-                <li>
-                    <a href="<?= _HOST . '/' . $items['slug'] ?>"><?= $items['title'] ?></a>
-                </li>
-                <?php
+                    <li>
+                        <a href="<?= _HOST . '/' . $items['slug'] ?>"><?= $items['title'] ?></a>
+                    </li>
+                    <?php
                 }
                 ?>
             </div>
@@ -33,11 +40,11 @@
                 liên hệ với chúng tôi
             </div>
             <div class="footer-info">
-                <p> THE GRACE SPA</p>
-                <p> Hotline:039 581 7753 - 0906823326</p>
-                <p> Email: thegracespahado@gmail.com</p>
-                <p> Website: Spathegrace.com</p>
-                <p> Adress: Số 4, đường số 5, Ha Do Centrosa Garden, Quận 10, TP.HCM</p>
+                <p> MUASACH.VN</p>
+                <p> Hotline:<?= $web_info[0]['seting_value'] ?></p>
+                <p> Email: <?= $web_info[1]['seting_value'] ?></p>
+                <p> Website: Muasach.vn</p>
+                <p> Địa chỉ: <?= $web_info[2]['seting_value'] ?></p>
             </div>
         </div>
     </div>

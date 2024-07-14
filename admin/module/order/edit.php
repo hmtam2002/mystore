@@ -1,4 +1,13 @@
 <?php
+if ($f->isPOST() && isset($_POST['capnhat']) || isset($_POST['huydon']))
+{
+    $fillterAll = $f->filter();
+    echo '<pre>';
+    print_r($fillterAll);
+    echo '</pre>';
+    exit();
+}
+
 $id = $_GET['id'];
 $order_detail = $db->oneRaw("SELECT * FROM orders WHERE id = '$id'");
 // Lấy thông tin xã
@@ -68,24 +77,57 @@ if (empty($order_detail['gtgt-fullname']))
             </thead>
             <tbody>
                 <tr>
-                    <td>Đã tiếp nhận</td>
-                    <td>Huỳnh Minh Tâm</td>
-                    <td>23/2/2212 - 20:12:21</td>
+                    <td>
+                        Đã tiếp nhận
+                    </td>
+                    <td>
+                        Khách hàng
+                    </td>
+                    <td>
+                        <?= $order_detail['order_date'] ?>
+                    </td>
                 </tr>
+                <?php
+                $order_step = $db->getRaw(" SELECT order_step.*, admin.fullname
+                                            FROM order_step
+                                            JOIN admin ON order_step.admin_id = admin.id
+                                            WHERE order_step.order_id = $id ");
+                echo '<pre>';
+                print_r($order_step);
+                echo '</pre>';
+                foreach ($order_step as $item):
+                    ?>
+                <tr>
+                    <td><?= $item['step_name'] ?></td>
+                    <td class="fw-bold"><?= $item['fullname'] ?></td>
+                    <td><?= $item['update_at'] ?></td>
+                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
         <form method="post">
-            <div class="mb-3">
-                <label for="datiepnhan">Đã tiếp nhận</label>
-                <input type="checkbox" class="form-check-input" id="datiepnhan" disabled checked>
+            <div class="mb-1">
+                <input type="checkbox" class="form-check-input" id="datiepnhan">
+                <label for="datiepnhan" class="ms-2 form-label">Đã tiếp nhận</label>
             </div>
-
-            <button class="btn btn-warning">Cập nhật đơn hàng</button>
+            <div class="form-floating mb-3 d-none" id="capnhatinput">
+                <textarea class="form-control" placeholder="Ghi chú" name="ghichu" id="note"></textarea>
+                <label for="note">Ghi chú</label>
+            </div>
+            <div class="">
+                <input type="checkbox" class="form-check-input" id="huydon">
+                <label for="huydon" class="ms-2 form-label">Huỷ đơn</label>
+            </div>
+            <div class="form-floating mb-3 d-none" id="huydoninput">
+                <textarea class="form-control" placeholder="" name="lydo" id="lydo"></textarea>
+                <label for="lydo">Lý do</label>
+            </div>
+            <button type="submit" name="capnhat" id="btn-update" class="btn btn-success" disabled>Cập nhật đơn
+                hàng</button>
+            <button type="submit" name="huydon" id="btn-cancel" class="btn btn-danger" disabled>Huỷ đơn</button>
         </form>
     </div>
-
-
-    <p class=" text-center fw-bold fs-4">Thông tin chính</p>
+    <p class="text-center fw-bold fs-4">Thông tin chính</p>
     <div class="row shadow col-md-9 col bg-light m-auto border border-dark p-md-4 pb-md-1 px-2 py-4 pb-1 mb-5">
         <div class="col-md">
             <p>Họ và tên: <span class="fw-bold"><?= $order_detail['fullname'] ?></span></p>
@@ -136,23 +178,23 @@ if (empty($order_detail['gtgt-fullname']))
                     $product_id = $item['product_id'];
                     $product_info = $db->oneRaw("SELECT * FROM products WHERE id  = '$product_id'");
                     ?>
-                    <tr>
-                        <th scope="row">
-                            <?= $dem++ ?>
-                        </th>
-                        <td>
-                            <?= $product_info['product_type_id'] == "1" ? $product_info['title'] : $product_info['product_name'] ?>
-                        </td>
-                        <td class="text-end">
-                            <?= number_format($item['discount']) . ' đ' ?>
-                        </td>
-                        <td class="text-end">
-                            <?= number_format($item['quantity']) ?>
-                        </td>
-                        <td class="text-end">
-                            <?= number_format($item['quantity'] * $item['discount']) . ' đ' ?>
-                        </td>
-                    </tr>
+                <tr>
+                    <th scope="row">
+                        <?= $dem++ ?>
+                    </th>
+                    <td>
+                        <?= $product_info['product_type_id'] == "1" ? $product_info['title'] : $product_info['product_name'] ?>
+                    </td>
+                    <td class="text-end">
+                        <?= number_format($item['discount']) . ' đ' ?>
+                    </td>
+                    <td class="text-end">
+                        <?= number_format($item['quantity']) ?>
+                    </td>
+                    <td class="text-end">
+                        <?= number_format($item['quantity'] * $item['discount']) . ' đ' ?>
+                    </td>
+                </tr>
                 <?php endforeach ?>
             <tfoot>
                 <tr>
@@ -173,13 +215,67 @@ if (empty($order_detail['gtgt-fullname']))
     </div>
 </main>
 <script>
-    function printContent() {
-        var content = $("#contentToPrint").html(); // Sử dụng jQuery để lấy nội dung của phần tử có id là contentToPrint
-        var originalBody = $("body").html(); // Lưu lại nội dung ban đầu của thẻ body
+function printContent() {
+    var content = $("#contentToPrint").html(); // Sử dụng jQuery để lấy nội dung của phần tử có id là contentToPrint
+    var originalBody = $("body").html(); // Lưu lại nội dung ban đầu của thẻ body
 
-        $("body").html(content); // Thay thế nội dung của thẻ body bằng nội dung cần in
-        window.print(); // Gọi hàm in của trình duyệt
+    $("body").html(content); // Thay thế nội dung của thẻ body bằng nội dung cần in
+    window.print(); // Gọi hàm in của trình duyệt
 
-        $("body").html(originalBody); // Khôi phục lại nội dung ban đầu của thẻ body
-    }
+    $("body").html(originalBody); // Khôi phục lại nội dung ban đầu của thẻ body
+}
+</script>
+<script>
+$(document).ready(function() {
+    $('#datiepnhan').change(function() {
+        if ($(this).is(':checked')) {
+            // Mở input ghi chú và required thẻ input
+            $('#note').attr('required', 'required');
+            $('#capnhatinput').removeClass('d-none');
+
+            // Hiển thị nút cập nhật đơn
+            $('#btn-update').prop('disabled', false);
+
+            // bỏ check huỷ đơn và disable nút huỷ đơn
+            $('#huydon').prop('checked', false);
+            $('#btn-cancel').prop('disabled', true);
+
+            // Bỏ required lý do và ẩn thẻ input lý do
+            $('#huydoninput').addClass('d-none');
+            $('#lydo').removeAttr('required');
+        } else {
+            // ẩn nút cập nhật đơn hàng
+            $('#btn-update').prop('disabled', true);
+
+            // Ẩn thẻ input của ghi chú
+            $('#capnhatinput').addClass('d-none');
+        }
+    });
+
+    $('#huydon').change(function() {
+        if ($(this).is(':checked')) {
+            // hiện lý do và required
+            $('#huydoninput').removeClass('d-none');
+            $('#lydo').attr('required', 'required');
+
+            // Hiển thị nút huỷ đơn
+            $('#btn-cancel').prop('disabled', false);
+
+            // Bỏ check cập nhật và disable nút cập nhật
+            $('#btn-update').prop('disabled', true);
+            $('#datiepnhan').prop('checked', false);
+
+
+            // bỏ required và ẩn thẻ input ghi chú
+            $('#capnhatinput').addClass('d-none');
+            $('#note').removeAttr('required');
+        } else {
+            // Ẩn nút huỷ đơn hàng
+            $('#btn-cancel').prop('disabled', true);
+
+            // Ẩn các thẻ input của huỷ đơn
+            $('#text-huydon').addClass('d-none');
+        }
+    });
+});
 </script>

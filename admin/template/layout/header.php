@@ -7,14 +7,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    <div class="col-12 col-md-4 col-lg-2">
+    <!-- <div class="col-12 col-md-4 col-lg-2">
         <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
-    </div>
+    </div> -->
     <div
         class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0 justify-content-between">
         <a class="text-decoration-none me-5 text-body" target="_blank" href="<?= _HOST ?>">Xem trang web <i
                 class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        <div class="dropdown">
+        <a class="text-decoration-none me-5 text-body" href="?cmd=auth&act=logout">Đăng xuất <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <!-- <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Hello, <?= getSession('adminName') ?>
@@ -24,6 +26,6 @@
                 <li><a class="dropdown-item" href="#">Messages</a></li>
                 <li><a class="dropdown-item" href="?cmd=auth&act=logout">Sign out</a></li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </nav>
