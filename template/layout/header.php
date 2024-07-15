@@ -1,9 +1,5 @@
 <div class="wrap-header bg-white">
-    <div class="banner">
-        <a class="d-block" href="">
-            <img class="w-100" src="<?= _HOST ?>/assets/images/banner/1717155129.jpeg" alt="Banner top" />
-        </a>
-    </div>
+    <?php require_once 'banner.php' ?>
     <div class="wrap-content">
         <div class="header-index d-flex flex-md-row flex-column justify-content-between align-items-center">
             <div class="logo mb-4 my-md-0">
@@ -38,23 +34,23 @@
                             <?php
                             foreach ($orderListOffline as $item):
                                 ?>
-                            <div class="row ms-auto me-auto mb-2">
-                                <div class="image_cart_mini" style="width: 70px; height:70px">
-                                    <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>"
-                                        class="img-fluid" alt="<?= $item["title"]; ?>">
-                                </div>
-                                <div class="col d-flex flex-column justify-content-between">
-                                    <span class="text-muted"><?= $item["title"]; ?></span>
-                                    <div class="price d-flex">
-                                        <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
-                                        <span class="text-muted ms-2 me-2">
-                                            <del><?= number_format($item["price"]); ?>đ</del>
-                                        </span>
-                                        <span> x<?= $item['quantity'] ?></span>
+                                <div class="row ms-auto me-auto mb-2">
+                                    <div class="image_cart_mini" style="width: 70px; height:70px">
+                                        <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>"
+                                            class="img-fluid" alt="<?= $item["title"]; ?>">
+                                    </div>
+                                    <div class="col d-flex flex-column justify-content-between">
+                                        <span class="text-muted"><?= $item["title"]; ?></span>
+                                        <div class="price d-flex">
+                                            <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
+                                            <span class="text-muted ms-2 me-2">
+                                                <del><?= number_format($item["price"]); ?>đ</del>
+                                            </span>
+                                            <span> x<?= $item['quantity'] ?></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <?php
+                                <?php
                             endforeach ?>
                             <div class="row mx-auto p-0 mt-4">
                                 <div class="col-4 p-0 d-flex flex-column">

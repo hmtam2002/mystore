@@ -5,10 +5,11 @@
             <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
         </ol>
     </nav>
-    <div class="btn-group mb-3">
+    <!-- <div class="btn-group mb-3">
         <a href="?cmd=order&act=list" class="btn btn-secondary">Quản lý</a>
         <a href="?cmd=order&act=add" class="btn btn-success">Thêm mới</a>
-    </div>
+    </div> -->
+    <p class="text-center fw-bold fs-4">Danh sách đơn đặt</p>
     <?php if (!empty($smg))
     {
         $f->getSmg($smg, $smg_type);
@@ -30,30 +31,32 @@
             $order_list = $db->getRaw('SELECT * FROM orders ORDER BY order_date DESC');
             foreach ($order_list as $order):
                 ?>
-            <tr>
-                <td>
-                    <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>"
-                        class="text-decoration-none text-danger"><?= $order['code'] ?></a>
-                </td>
-                <td>
-                    <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>"
-                        class="text-decoration-none "><?= $order['fullname'] ?></a>
-                </td>
-                <td>
-                    <?= $order['order_date'] ?>
-                </td>
-                <td class="text-uppercase text-center">
-                    <?= $order['payments'] ?>
-                </td>
-                <td class="text-end fw-bold"><?= number_format($order['total_price']) ?> đ</td>
-                <td class="text-center"><?= $order['status'] ?></td>
-                <!-- nút sửa -->
-                <td>
-                    <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>"
+                            class="text-decoration-none text-danger"><?= $order['code'] ?></a>
+                    </td>
+                    <td>
+                        <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>"
+                            class="text-decoration-none "><?= $order['fullname'] ?></a>
+                    </td>
+                    <td>
+                        <?= $order['order_date'] ?>
+                    </td>
+                    <td class="text-uppercase text-center">
+                        <?= $order['payments'] ?>
+                    </td>
+                    <td class="text-end fw-bold"><?= number_format($order['total_price']) ?> đ</td>
+                    <td class="text-center <?= $order['status'] == 1 ? 'fw-bold text-danger' : '' ?>">
+                        <?= $f->trangthai($order['status']) ?>
+                    </td>
+                    <!-- nút sửa -->
+                    <td>
+                        <a href="?cmd=order&act=edit&id=<?= $order['id'] ?>" class="btn btn-primary btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                </tr>
             <?php endforeach ?>
         </tbody>
     </table>

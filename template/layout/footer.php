@@ -49,7 +49,15 @@ $web_info = $db->getRaw("SELECT *FROM setting");
         </div>
     </div>
 </div>
-<iframe class="w-100"
-    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d25469.59628927951!2d106.69980124290596!3d10.765783169349037!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40a3b49e59%3A0xa1bd14e483a602db!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEvhu7kgdGh14bqtdCBDYW8gVGjhuq9uZw!5e0!3m2!1svi!2s!4v1720058815367!5m2!1svi!2s"
-    width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<?= $web_info[4]['seting_value'] ?>
+
+
+<div class="d-none d-md-flex flex-column position-fixed top-50 end-0 me-3 mt-5">
+    <a class="my-1" href="https://<?= $web_info[5]['seting_value'] ?>" target="_blank"><img width="60px"
+            src="<?= _HOST_ASSETS ?>/images/icons8-messenger-96.png" alt="Ảnh messenger"></a>
+    <a class="my-1" href="https://zalo.me/<?= $web_info[3]['seting_value'] ?>" target="_blank"><img width="60px"
+            src="<?= _HOST_ASSETS ?>/images/icons8-zalo-96.png" alt="Ảnh zalo"></a>
+    <!-- <a class="my-1" href="https://zalo.me/0878100084" target="_blank"><img width="60px"
+                    src="<?= _HOST_ASSETS ?>/images/icons8-tel-58.png" alt="Ảnh zalo"></a> -->
+</div>

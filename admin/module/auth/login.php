@@ -21,41 +21,51 @@ if ($f->isPOST())
         $email = $filterAll['email'];
         $password = $filterAll['password'];
         //truy vấn lấy thông tin theo email
-        $userQuery = $db->oneRaw("SELECT password,id,fullname FROM admin WHERE email = '$email'");
+        $userQuery = $db->oneRaw("SELECT password,id,fullname,status FROM admin WHERE email = '$email'");
 
 
         if (!empty($userQuery))
         {
-            $passwordHash = $userQuery['password'];
-            $admin_id = $userQuery['id'];
-            $fullname = $userQuery['fullname'];
-            if (password_verify($password, $passwordHash))
+            if ($userQuery['status'])
             {
-                //tạo token login
-                $tokenLogin = sha1(uniqid() . time());
-                //insert vào bảng loginToken
-                $dataInsert = [
-                    'admin_id' => $admin_id,
-                    'token' => $tokenLogin,
-                    'create_at' => date('Y-m-d H:i:s')
-                ];
-                $insertStatus = $db->insert('adminToken', $dataInsert);
-                if ($insertStatus)
+
+                $passwordHash = $userQuery['password'];
+                $admin_id = $userQuery['id'];
+                $fullname = $userQuery['fullname'];
+                if (password_verify($password, $passwordHash))
                 {
-                    //insert thành công
-                    //lưu login token vào session
-                    setSession('loginToken', $tokenLogin);
-                    setSession('adminName', $fullname);
-                    setSession('admin_id', $admin_id);
-                    $f->redirect('?cmd=home&act=dashboard');
+                    //tạo token login
+                    $tokenLogin = sha1(uniqid() . time());
+                    //insert vào bảng loginToken
+                    $dataInsert = [
+                        'admin_id' => $admin_id,
+                        'token' => $tokenLogin,
+                        'create_at' => date('Y-m-d H:i:s')
+                    ];
+                    $insertStatus = $db->insert('adminToken', $dataInsert);
+                    if ($insertStatus)
+                    {
+                        //insert thành công
+                        //lưu login token vào session
+                        setSession('loginToken', $tokenLogin);
+                        setSession('adminName', $fullname);
+                        setSession('admin_id', $admin_id);
+                        $f->redirect('?cmd=home&act=dashboard');
+                    } else
+                    {
+                        setFlashData('smg', 'Không thể đăng nhập, vui lòng thử lại sau');
+                        setFlashData('smg_type', 'danger');
+                        setFlashData('old', $filterAll);
+                    }
                 } else
                 {
-                    setFlashData('smg', 'Không thể đăng nhập, vui lòng thử lại sau');
+                    setFlashData('smg', 'Mật khẩu sai');
                     setFlashData('smg_type', 'danger');
+                    setFlashData('old', $filterAll);
                 }
             } else
             {
-                setFlashData('smg', 'Mật khẩu sai');
+                setFlashData('smg', 'Tài khoản đã bị vô hiệu hoá');
                 setFlashData('smg_type', 'danger');
                 setFlashData('old', $filterAll);
             }
@@ -63,6 +73,7 @@ if ($f->isPOST())
         {
             setFlashData('smg', 'Email không tồn tại');
             setFlashData('smg_type', 'danger');
+            setFlashData('old', $filterAll);
         }
     } else
     {

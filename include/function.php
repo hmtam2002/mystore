@@ -113,8 +113,10 @@ class func
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth = true;                                   //Enable SMTP authentication
-            $mail->Username = 'thevyshop.contact@gmail.com';                     //SMTP username
-            $mail->Password = 'tlan nljd syxr nkrg';                               //SMTP password
+            $mail->Username = _username;                     //SMTP username
+            // $mail->Username = 'thevyshop.contact@gmail.com';                     //SMTP username
+            $mail->Password = _password;                               //SMTP password
+            // $mail->Password = 'tlan nljd syxr nkrg';                               //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
             $mail->Port = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -202,7 +204,7 @@ class func
         $target_file = $target_dir . basename($_FILES[$filenameupload]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $new_filename = time() . '.' . $imageFileType;
-        $allow_file_upload = array("jpg", "jpeg", "png", "gif", "jfif");
+        $allow_file_upload = ["jpg", "jpeg", "png", "gif", "jfif", "webp"];
 
         // Kiểm tra nếu không có file được chọn
         if (!isset($_FILES[$filenameupload]) || $_FILES[$filenameupload]['error'] == UPLOAD_ERR_NO_FILE)
@@ -319,5 +321,21 @@ class func
         }
 
         return $randomString;
+    }
+    public function trangthai($trangthai)
+    {
+        switch ($trangthai)
+        {
+            case 1:
+                return 'Mới đặt';
+            case 2:
+                return 'Đã xác nhận';
+            case 3:
+                return 'Bàn giao vận chuyển';
+            case 4:
+                return 'Đã giao hàng';
+            case 5:
+                return 'Đã huỷ';
+        }
     }
 }
