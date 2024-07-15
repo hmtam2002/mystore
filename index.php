@@ -15,3 +15,4 @@ require_once './include/route.php';
 
 
 require_once './template/layout/template.php';
+echo '';
