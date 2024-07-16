@@ -75,5 +75,15 @@ if ($loi)
 
     unset($_SESSION['checkout']);
 }
+$code = $filterAll['code'];
+$subject = 'Đặt hàng thành công - MUASACH.VN';
+$content = 'Chào khách hàng ' . $fillterAll['fullname'] . '<br>';
+$content .= 'Anh /chị đã đặt hàng thành công với mã đơn hàng là ' . $code . '<br>';
+$content .= 'Để kiểm tra thông tin đơn anh chị vui lòng truy cập MUASACH.VN mục tra cứu đơn hàng<br>';
+$content .= 'Trân Trọng';
+
+$email = $filterAll['email'];
+
+$f->sendMail($email, $subject, $content);
 // require_once 'view/VNPAY/thanhtoanthanhcong.php';
 $f->redirect(_HOST . '/thanh-toan/?payonline=success');

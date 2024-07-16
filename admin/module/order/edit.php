@@ -23,10 +23,11 @@ if ($f->isPOST() && isset($_POST['capnhat']) || isset($_POST['huydon']))
         } else
             echo 'thất bại';
     }
-    // echo '<pre>';
-    // print_r($fillterAll);
-    // echo '</pre>';
-    // exit();
+    if (isset($_POST['huydon']))
+    {
+        // Nhập lại số lượng đã mua vào kho
+
+    }
 }
 
 $id = $_GET['id'];

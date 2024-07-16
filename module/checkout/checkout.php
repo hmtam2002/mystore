@@ -38,7 +38,7 @@ if ($_GET['payonline'] == 'success')
             }
         } else
         {
-            // Mặc định nếu không có GET url
+            // Mặc định nếu không có gì trong session checkout
             if (empty($_SESSION['checkout']))
             {
                 $f->redirect(_HOST);
