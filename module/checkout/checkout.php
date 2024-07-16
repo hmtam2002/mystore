@@ -12,7 +12,6 @@ if ($_GET['payonline'] == 'success')
 } else
 {
 
-
     // Kiểm tra luồng xử lý đặt hàng thanh toán tiền mặt
     if (isset($_GET['redirect']))
     {

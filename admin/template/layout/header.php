@@ -22,8 +22,8 @@
                 Hello, <?= getSession('adminName') ?>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="?cmd=setting&act=list">Cài đặt</a></li>
                 <li><a class="dropdown-item" target="_blank" href="<?= _HOST ?>">Xem website</a></li>
+                <li><a class="dropdown-item" href="?cmd=setting&act=list">Cài đặt</a></li>
                 <li><a class="dropdown-item" href="?cmd=auth&act=logout">Đăng xuất</a></li>
             </ul>
         </div>

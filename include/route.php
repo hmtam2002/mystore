@@ -96,6 +96,13 @@ switch ($url)
             $noidung = ob_get_clean();
         }
         break;
+    case '/tim-kiem':
+        if (file_exists(_PATH . '/module/search/search.php'))
+        {
+            require_once _PATH . '/module/search/search.php';
+            $noidung = ob_get_clean();
+        }
+        break;
     default:
         $slug = ltrim($url, '/');
         $sql = "SELECT products.*, authors.author_name

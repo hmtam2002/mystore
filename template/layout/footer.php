@@ -10,11 +10,16 @@ $web_info = $db->getRaw("SELECT *FROM setting");
     <div class="wrap-content d-flex flex-column flex-md-row justify-content-md-between">
         <div class="footer-news mb-3 mb-md-0">
             <div class="logo logo-footer">
-                <img src="<?= _HOST_ASSETS ?>/images/logo.png" alt="" />
+                <a href="<?= _HOST ?>">
+                    <img src="<?= _HOST_ASSETS ?>/images/MuaSach.png?ver=2" alt="" />
+                </a>
             </div>
             <div class="footer-info">
-                <p> Hotline: <?= $web_info[0]['seting_value'] ?></p>
+                <p class="fw-bold text-center">LIÊN HỆ VỚI CHÚNG TÔI </p>
+                <p> MUASACH.VN</p>
+                <p> Hotline:<?= $web_info[0]['seting_value'] ?></p>
                 <p> Email: <?= $web_info[1]['seting_value'] ?></p>
+                <p> Địa chỉ: <?= $web_info[2]['seting_value'] ?></p>
             </div>
         </div>
         <div class="footer-news mb-3 mb-md-0">
@@ -37,14 +42,20 @@ $web_info = $db->getRaw("SELECT *FROM setting");
         </div>
         <div class="footer-news mb-3 mb-md-0">
             <div class="title-footer text-uppercase" style="font-weight: bold;">
-                liên hệ với chúng tôi
+                Hỗ trợ
             </div>
-            <div class="footer-info">
-                <p> MUASACH.VN</p>
-                <p> Hotline:<?= $web_info[0]['seting_value'] ?></p>
-                <p> Email: <?= $web_info[1]['seting_value'] ?></p>
-                <p> Website: Muasach.vn</p>
-                <p> Địa chỉ: <?= $web_info[2]['seting_value'] ?></p>
+            <div class="footer-ul p-0">
+                <?php
+                $new_list = $db->getRaw('SELECT * FROM news WHERE type = "policy"');
+                foreach ($new_list as $items)
+                {
+                    ?>
+                    <li>
+                        <a href="<?= _HOST . '/' . $items['slug'] ?>"><?= $items['title'] ?></a>
+                    </li>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>

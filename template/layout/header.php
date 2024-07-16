@@ -5,10 +5,14 @@
             <div class="logo mb-4 my-md-0">
                 <a href="<?= _HOST ?>"><img src="<?= _HOST ?>/assets/images/MuaSach.png" alt="" /></a>
             </div>
-            <div class="search-header px-4 px-md-0">
+            <!-- <div class="search-header px-4 px-md-0">
                 <input type="search" name="" id="" placeholder="Tìm kiếm..." />
                 <input type="button" value="Gửi" placeholder="Gửi" />
-            </div>
+            </div> -->
+            <form method="get" action="<?= _HOST . '/' ?>" class="d-flex col-md-4 col">
+                <input type="text" required name="search" class="form-control me-2">
+                <button class="btn btn-success">Tìm</button>
+            </form>
             <div class="col-9 col-md-6 col-lg-4 d-flex align-items-center justify-content-between">
                 <div class="d-flex flex-row">
                     <div class="container-cart position-relative">
