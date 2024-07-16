@@ -119,6 +119,22 @@ switch ($url)
                 break;
             }
         }
+        $sql = "SELECT products.*, origins.country_name, brands.brand_name
+                FROM products
+                INNER JOIN origins ON products.origin_id = origins.id
+                INNER JOIN brands ON products.brand_id = brands.id
+                WHERE products.slug = '$slug'";
+        $sanpham_detail = $db->oneRaw($sql);
+
+        if (!empty($sanpham_detail))
+        {
+            if (file_exists(_PATH . '/module/stationery/detail.php'))
+            {
+                require_once _PATH . '/module/stationery/detail.php';
+                $noidung = ob_get_clean();
+                break;
+            }
+        }
         $new_detail = $db->oneRaw("SELECT * FROM news WHERE slug = '$slug'");
         if (!empty($new_detail))
         {

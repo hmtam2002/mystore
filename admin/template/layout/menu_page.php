@@ -107,7 +107,7 @@
                         <li class="nav-item">
                             <a class="nav-link d-flex align-items-center <?= ($data['module'] == 'policy') ? 'active' : ''; ?>"
                                 href="?cmd=policy&act=list">
-                                <i class="bi bi-file-earmark-text me-2"></i> Chính sách
+                                <i class="bi bi-file-earmark-text me-2"></i> Hỗ trợ
                             </a>
                         </li>
                         <li class="nav-item">
