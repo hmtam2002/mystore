@@ -37,6 +37,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/book/list.php'))
         {
             require_once _PATH . '/module/book/list.php';
+            $title_page = 'Tất cả sách';
             $noidung = ob_get_clean();
         }
         break;
@@ -44,6 +45,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/stationery/list.php'))
         {
             require_once _PATH . '/module/stationery/list.php';
+            $title_page = 'Văn phòng phẩm';
             $noidung = ob_get_clean();
         }
         break;
@@ -51,6 +53,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/new/list.php'))
         {
             require_once _PATH . '/module/new/list.php';
+            $title_page = 'Tin khuyến mãi';
             $noidung = ob_get_clean();
         }
         break;
@@ -58,6 +61,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/new/list.php'))
         {
             require_once _PATH . '/module/cart/list.php';
+            $title_page = 'Giỏ hàng';
             $noidung = ob_get_clean();
         }
         break;
@@ -86,6 +90,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/checkout/checkout.php'))
         {
             require_once _PATH . '/module/checkout/checkout.php';
+            $title_page = 'Thanh toán đơn hàng';
             $noidung = ob_get_clean();
         }
         break;
@@ -93,6 +98,7 @@ switch ($url)
         if (file_exists(_PATH . '/module/tracuudonhang/tracuudonhang.php'))
         {
             require_once _PATH . '/module/tracuudonhang/tracuudonhang.php';
+            $title_page = 'Tra cứu đơn hàng';
             $noidung = ob_get_clean();
         }
         break;
@@ -122,6 +128,7 @@ switch ($url)
             if (file_exists(_PATH . '/module/book/detail.php'))
             {
                 require_once _PATH . '/module/book/detail.php';
+                $title_page = $product_detail['title'];
                 $noidung = ob_get_clean();
                 break;
             }
@@ -138,6 +145,7 @@ switch ($url)
             if (file_exists(_PATH . '/module/stationery/detail.php'))
             {
                 require_once _PATH . '/module/stationery/detail.php';
+                $title_page = $sanpham_detail['product_name'];
                 $noidung = ob_get_clean();
                 break;
             }
@@ -148,6 +156,7 @@ switch ($url)
             if (file_exists(_PATH . '/module/new/detail.php'))
             {
                 require_once _PATH . '/module/new/detail.php';
+                $title_page = $new_detail['title'];
                 $noidung = ob_get_clean();
                 break;
             }
