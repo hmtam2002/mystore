@@ -17,67 +17,67 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-            background-color: #f8f9fa;
-            /* Light background for the body */
-        }
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        background-color: #f8f9fa;
+        /* Light background for the body */
+    }
 
+    .sidebar {
+        min-width: 250px;
+        max-width: 250px;
+        background-color: #ffffff;
+        /* Light background for the sidebar */
+        color: #333333;
+        /* Dark text color */
+        flex-shrink: 0;
+        padding: 15px;
+        border-right: 1px solid #dee2e6;
+        /* Light border color */
+    }
+
+    .sidebar a {
+        color: #333333;
+        /* Dark text color */
+        text-decoration: none;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: #f8f9fa;
+        /* Light hover background color */
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        background-color: #ffffff;
+        /* Light background for the main content */
+    }
+
+    .arrow {
+        transition: transform 0.3s;
+    }
+
+    .arrow.rotated {
+        transform: rotate(90deg);
+    }
+
+    @media (max-width: 767.98px) {
         .sidebar {
-            min-width: 250px;
-            max-width: 250px;
-            background-color: #ffffff;
-            /* Light background for the sidebar */
-            color: #333333;
-            /* Dark text color */
-            flex-shrink: 0;
-            padding: 15px;
-            border-right: 1px solid #dee2e6;
-            /* Light border color */
+            top: 11.5rem;
+            padding: 0;
         }
+    }
 
-        .sidebar a {
-            color: #333333;
-            /* Dark text color */
-            text-decoration: none;
+    @media (min-width: 767.98px) {
+        .navbar {
+            top: 0;
+            position: sticky;
+            z-index: 999;
         }
-
-        .sidebar .nav-link:hover {
-            background-color: #f8f9fa;
-            /* Light hover background color */
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: #ffffff;
-            /* Light background for the main content */
-        }
-
-        .arrow {
-            transition: transform 0.3s;
-        }
-
-        .arrow.rotated {
-            transform: rotate(90deg);
-        }
-
-        @media (max-width: 767.98px) {
-            .sidebar {
-                top: 11.5rem;
-                padding: 0;
-            }
-        }
-
-        @media (min-width: 767.98px) {
-            .navbar {
-                top: 0;
-                position: sticky;
-                z-index: 999;
-            }
-        }
+    }
     </style>
 </head>
 
@@ -102,7 +102,7 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                    Hello, <?php echo getSession('adminName') ?>
+                    Quản trị, <?php echo getSession('adminName') ?>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="#">Settings</a></li>

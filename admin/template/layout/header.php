@@ -19,7 +19,7 @@
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                Hello, <?= getSession('adminName') ?>
+                Xin chào, <?= getSession('adminName') ?>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" target="_blank" href="<?= _HOST ?>">Xem website</a></li>
