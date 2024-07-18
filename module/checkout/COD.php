@@ -36,11 +36,22 @@ if ($db->insert('orders', $orderInsert))
         {
             $loi = true;
         }
+        $quantity = $item['quantity'];
+        $id = $item['id'];
+        if (
+            !$db->query("UPDATE products 
+                         SET stock_quantity = stock_quantity - $quantity 
+                         WHERE id = '$id'")
+        )
+        {
+            $loi = true;
+        }
     }
 }
 if ($loi)
 {
     echo 'Có lỗi';
+    exit();
 } else
 {
     $result = [];

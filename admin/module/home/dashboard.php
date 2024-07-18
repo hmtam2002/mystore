@@ -87,11 +87,11 @@ if (isset($_GET['week']))
 
 
 <main id="content" class="col-md-9 ms-auto col-lg-10 px-md-4 py-4 overflow-auto">
-    <nav aria-label="breadcrumb">
+    <!-- <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-3 rounded-3">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
         </ol>
-    </nav>
+    </nav> -->
 
     <div class="d-flex flex-column flex-md-row">
         <span class="fs-2 fw-bold">Thống kê hoạt động</span>

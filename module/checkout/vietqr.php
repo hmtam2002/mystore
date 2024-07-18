@@ -37,6 +37,16 @@ if ($db->insert('orders', $orderInsert))
         {
             $loi = true;
         }
+        $id = $item['id'];
+        $quantity = $item['quantity'];
+        if (
+            !$db->query("UPDATE products 
+                         SET stock_quantity = stock_quantity - $quantity 
+                         WHERE id = '$id'")
+        )
+        {
+            $loi = true;
+        }
     }
 }
 if ($loi)
@@ -66,15 +76,15 @@ if ($loi)
 
     unset($_SESSION['checkout']);
 
-    $subject = 'Đặt hàng thành công - MUASACH.VN';
-    $content = 'Chào khách hàng ' . $fillterAll['fullname'] . '<br>';
-    $content .= 'Anh /chị đã đặt hàng thành công với mã đơn hàng là ' . $code . '<br>';
-    $content .= 'Để kiểm tra thông tin đơn anh chị vui lòng truy cập MUASACH.VN mục tra cứu đơn hàng<br>';
-    $content .= 'Trân Trọng';
+    // $subject = 'Đặt hàng thành công - MUASACH.VN';
+    // $content = 'Chào khách hàng ' . $fillterAll['fullname'] . '<br>';
+    // $content .= 'Anh /chị đã đặt hàng thành công với mã đơn hàng là ' . $code . '<br>';
+    // $content .= 'Để kiểm tra thông tin đơn anh chị vui lòng truy cập MUASACH.VN mục tra cứu đơn hàng<br>';
+    // $content .= 'Trân Trọng';
 
-    $email = $fillterAll['email'];
+    // $email = $fillterAll['email'];
 
-    $f->sendMail($email, $subject, $content);
+    // $f->sendMail($email, $subject, $content);
 
     $f->redirect(_HOST . '/thanh-toan/?payonline=success');
 }

@@ -38,23 +38,23 @@
                             <?php
                             foreach ($orderListOffline as $item):
                                 ?>
-                                <div class="row ms-auto me-auto mb-2">
-                                    <div class="image_cart_mini" style="width: 70px; height:70px">
-                                        <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>"
-                                            class="img-fluid" alt="<?= $item["title"]; ?>">
-                                    </div>
-                                    <div class="col d-flex flex-column justify-content-between">
-                                        <span class="text-muted"><?= $item["title"]; ?></span>
-                                        <div class="price d-flex">
-                                            <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
-                                            <span class="text-muted ms-2 me-2">
-                                                <del><?= number_format($item["price"]); ?>đ</del>
-                                            </span>
-                                            <span> x<?= $item['quantity'] ?></span>
-                                        </div>
+                            <div class="row ms-auto me-auto mb-2">
+                                <div class="image_cart_mini" style="width: 70px; height:70px">
+                                    <img src="<?= _HOST_ASSETS . '/images/product/' . $item["image"]; ?>"
+                                        class="img-fluid" alt="<?= $item["title"]; ?>">
+                                </div>
+                                <div class="col d-flex flex-column justify-content-between">
+                                    <span class="text-muted"><?= $item["title"]; ?></span>
+                                    <div class="price d-flex">
+                                        <span class=""><b><?= number_format($item["discount"]); ?>đ</b></span>
+                                        <span class="text-muted ms-2 me-2">
+                                            <del><?= number_format($item["price"]); ?>đ</del>
+                                        </span>
+                                        <span> x<?= $item['quantity'] ?></span>
                                     </div>
                                 </div>
-                                <?php
+                            </div>
+                            <?php
                             endforeach ?>
                             <div class="row mx-auto p-0 mt-4">
                                 <div class="col-4 p-0 d-flex flex-column">
@@ -107,15 +107,15 @@
                                 <li>
                                     <a href="<?= _HOST ?>/khuyen-mai">Khuyến mãi</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="">Sách Văn Học</a>
                                 </li>
                                 <li>
                                     <a href="">Sách Kinh Tế</a>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="">Hành trang đến trường</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a href="<?= _HOST ?>/sach">Sách</a>
                                 </li>

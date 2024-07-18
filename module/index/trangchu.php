@@ -2,7 +2,7 @@
 <?php include _PATH_TEMPLATE . '/layout/slider.php' ?>
 
 <!-- danh mục sản phẩm -->
-<?php require_once 'component/danhmucsanpham.php'; ?>
+<?php //require_once 'component/danhmucsanpham.php'; ?>
 
 <!-- Bảng xếp hạng -->
 <?php require_once 'component/bangxephang.php'; ?>

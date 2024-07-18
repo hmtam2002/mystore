@@ -36,7 +36,7 @@ $smg_type = getFlashData('smg_type');
         </div>
         <div class="product_detail-right">
             <div class="name-profuct_detail">
-                <?= $sanpham_detail['title'] ?>
+                <?= $sanpham_detail['product_name'] ?>
             </div>
             <div class="tacgia-product_detail">
                 Thương hiệu: <span><?= $sanpham_detail['brand_name'] ?></span>
@@ -79,7 +79,7 @@ $smg_type = getFlashData('smg_type');
                 </div>
             </form>
 
-            <div class="price_sale-product_detail">
+            <!-- <div class="price_sale-product_detail">
                 <p> Gọi đặt hàng: <span>(028) 3820 7153 hoặc 0933 109 009</span></p>
             </div>
 
@@ -93,7 +93,7 @@ $smg_type = getFlashData('smg_type');
                     <p> Freeship nội thành Sài Gòn từ 150.000đ*. <a href="">Chi tiết tại đây</a></p>
                     <p> Freeship toàn quốc từ 250.000đ</p>
                 </div>
-            </div>
+            </div> -->
 
 
         </div>
@@ -112,7 +112,7 @@ $smg_type = getFlashData('smg_type');
         <?= $sanpham_detail['description'] ?>
     </div>
 </div>
-<!-- giới thiệu sản phẩm -->
+<!-- giới thiệu sản phẩm
 <div class="wrap-content p-5 mt-5 bg-white rounded-3">
     <div class="gioithieu-product_detail">
         <div class="name_info-pro_detail text-center">
@@ -136,7 +136,7 @@ $smg_type = getFlashData('smg_type');
                 rẫy nguy hiểm và kích thích thuộc về anh.</p>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Gợi ý sản phẩm -->
 <div class="wrap-content p-5 mt-5 bg-white rounded-3 mb-5">
     <div class="title-main">
